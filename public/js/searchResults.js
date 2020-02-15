@@ -1,3 +1,6 @@
+AirportInput("cityFromInput");
+AirportInput("cityToInput");
+
 // clicking search button
 $("#searchCity").click(function(){
     event.preventDefault();
