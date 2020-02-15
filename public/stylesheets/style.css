@@ -7,11 +7,22 @@
 .btn-primary{
     background-color: rgb(25, 133, 164);
     border-color: rgb(25, 133, 164);
+    width: 100px;
 }
 .btn-primary:hover {
     border-color: rgb(75, 93, 99);
     background-color: rgb(25, 133, 164);
+    width: 100px;
 }
 .searchTitle {
     font-weight: normal;
+}
+#fromTitle {
+    padding-right: 10px;
+}
+#toTitle {
+    padding-right: 29px;
+}
+#centerBtn {
+    text-align: center;
 }

@@ -19,14 +19,18 @@
         <div class = "row">
         <div class="card col-md-4">
             <div class="card-body">
-                <h5 class="card-title searchTitle">Search for a City:</h5>
+                <h5 class="card-title searchTitle">Search for Cities by Airport:</h5>
                 <form class="form-inline">
                     <div class="form-group mx-sm-3 mb-2">
-                        <input type="text" class="form-control" id="cityFromInput">
-                        <input type="text" class="form-control" id="cityToInput">
+                        <p id="fromTitle">From:   </p><input type="text" class="form-control" id="cityFromInput">
                     </div>
-                    <button type="submit" class="btn btn-primary mb-2" id="searchCity"><span class="searchBtn"><i class="fas fa-search"></i></span></button>
+                    <div class="form-group mx-sm-3 mb-2">
+                        <p id="toTitle">To:     </p><input type="text" class="form-control" id="cityToInput">
+                    </div>
                 </form>
+                <div id="centerBtn">
+                    <button type="submit" class="btn btn-primary mb-2" id="searchCity"><span class="searchBtn"><i class="fas fa-search"></i></span></button>
+                </div>
                 <!--Show previous itineraries based on user-->
                 <div id = "previousSearch"></div>
             </div>
