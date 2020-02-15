@@ -2,7 +2,7 @@
 <html lang="en-us">
 <head>
   <meta charset="UTF-8">
-  <title>Search Results</title>
+  <title>Travel Search</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"/>
   <link rel="stylesheet" type="text/css" href="./stylesheets/style.css">
@@ -22,7 +22,8 @@
                 <h5 class="card-title searchTitle">Search for a City:</h5>
                 <form class="form-inline">
                     <div class="form-group mx-sm-3 mb-2">
-                        <input type="text" class="form-control" id="cityInput">
+                        <input type="text" class="form-control" id="cityFromInput">
+                        <input type="text" class="form-control" id="cityToInput">
                     </div>
                     <button type="submit" class="btn btn-primary mb-2" id="searchCity"><span class="searchBtn"><i class="fas fa-search"></i></span></button>
                 </form>
@@ -48,12 +49,13 @@
                     <!--Restaurants-->
                     <div class = "foodSearchResults"></div>
                 </div>
-              </div>
+            </div>
         </div>
         </div>
     </div>
       <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
       <script src="https://kit.fontawesome.com/5a59e9708f.js" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/airport-autocomplete-js@latest/dist/index.browser.min.js"></script>
       <script src="js/searchResults.js"></script>
       <!--insert other js links here-->
 </body>
