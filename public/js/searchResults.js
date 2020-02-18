@@ -16,18 +16,16 @@ $("#searchCity").click(function() {
   let departureD = $("#departureDate")
     .val()
     .trim();
-  let departureYear = departureD.substring(0, 4);
-  let departureMonth = departureD.substring(5, 7);
-  let departureDay = departureD.substring(8);
-  let departureDate = departureMonth + "/" + departureDay + "/" + departureYear;
+
+  const departureDate = dateFormatter(departureD);
+
   console.log("Departure Date: " + departureDate);
   let returnD = $("#returnDate")
     .val()
     .trim();
-  let returnYear = returnD.substring(0, 4);
-  let returnMonth = returnD.substring(5, 7);
-  let returnDay = returnD.substring(8);
-  let returnDate = returnMonth + "/" + returnDay + "/" + returnYear;
+  
+  const returnDate = dateFormatter(returnD);
+
   console.log("Return Date: " + returnDate);
   
   // function to send to the backend
@@ -41,16 +39,11 @@ $(document).on("click", ".city", function(event) {
 
   // takes depature and return date and reformats it
   let departureD = $(this).attr("data-nameDeparture");
-  let departureYear = departureD.substring(0, 4);
-  let departureMonth = departureD.substring(5, 7);
-  let departureDay = departureD.substring(8);
-  let departureDate = departureMonth + "/" + departureDay + "/" + departureYear;
+  const departureDate = dateFormatter(departureD);
   console.log("Departure Date: " + departureDate);
+
   let returnD = $(this).attr("data-nameReturn");
-  let returnYear = returnD.substring(0, 4);
-  let returnMonth = returnD.substring(5, 7);
-  let returnDay = returnD.substring(8);
-  let returnDate = returnMonth + "/" + returnDay + "/" + returnYear;
+  const returnDate = dateFormatter(returnD);
   console.log("Return Date: " + returnDate);
 
   // function to send to the backend
@@ -67,6 +60,14 @@ function postCity(cityFrom, cityTo, departureDate, returnDate) {
       console.log("That is not a valid city");
     }
   });
+}
+
+function dateFormatter(date) {
+    let year = date.substring(0, 4);
+    let month = date.substring(5, 7);
+    let day = date.substring(8);
+    let finalDate = month + "/" + day + "/" + year;
+    return finalDate;
 }
 
 // create function that creates button for each saved itinerary
