@@ -1,5 +1,7 @@
 // Requiring our models and passport as we've configured it
 var db = require("../models");
+var axios = require("axios");
+var moment = require("moment");
 // var passport = require("../config/passport");
 
 const flights = [];
@@ -37,14 +39,34 @@ module.exports = function(app) {
   //   });
 
   // Route for getting some data about our user to be used client side
-  app.get("/api/citySearch", function(req, res) {
+  app.post("/api/citySearch", function(req, res) {
+    console.log("apiFlights", req.body);
     const cityFrom = req.body.cityFrom;
     const cityTo = req.body.cityTo;
-    const queryUrl = `https://api.skypicker.com/flights?flyFrom=${cityTo}&to=${cityTo}`;
-    axios.get(queryUrl).then(function(res) {
-      const flightNames = res.data.map(function() {
-        flights.push(flightNames);
+    const queryUrl = `https://api.skypicker.com/flights?flyFrom=${cityFrom}&to=${cityTo}&dateFrom=18/11/2020&dateTo=12/12/2020&partner=picky&v=3&USD`;
+    axios.get(queryUrl).then(function(data) {
+      // console.log(data.data);
+      var dataArr = data.data.data;
+
+      console.log(typeof dataArr);
+      console.log(dataArr);
+
+      dataArr.forEach(function(flight) {
+        // console.log(flight);
+        flights.push(
+          "Price",
+          flight.price,
+          "Duration",
+          flight.fly_duration,
+          "DepartureTime",
+          moment.unix(flight.dTime).format("MM/DD/YYYY"),
+          "ArrivalTime",
+          moment.unix(flight.aTime).format("MM/DD/YYYY"),
+          "Airline",
+          flight.airline
+        );
       });
+      res.json(flights);
     });
   });
 };

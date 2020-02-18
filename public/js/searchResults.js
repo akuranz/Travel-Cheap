@@ -2,31 +2,36 @@ AirportInput("cityFromInput");
 AirportInput("cityToInput");
 
 // clicking search button
-$("#searchCity").click(function(){
-    event.preventDefault();
-    var cityFrom = $("#cityFromInput").val().trim();
-    var cityTo = $("#cityToInput").val().trim();
-    // insert function to send to the backend for the axios call?
-    postCity(cityFrom, cityTo);
+$("#searchCity").click(function() {
+  event.preventDefault();
+  var cityFrom = $("#cityFromInput")
+    .val()
+    .trim();
+  var cityTo = $("#cityToInput")
+    .val()
+    .trim();
+  // insert function to send to the backend for the axios call?
+  postCity(cityFrom, cityTo);
 });
 
 // clicking previously searched itinerary
-$(document).on("click", ".city", function(event){
-    var cityFrom = $(this).attr("data-nameFrom");
-    var cityTo = $(this).attr("data-nameTo");
-    // insert function to send to the backend for the axios call?
-    postCity(cityFrom, cityTo);
+$(document).on("click", ".city", function(event) {
+  var cityFrom = $(this).attr("data-nameFrom");
+  var cityTo = $(this).attr("data-nameTo");
+  // insert function to send to the backend for the axios call?
+  postCity(cityFrom, cityTo);
 });
 
-function postCity (cityFrom, cityTo) {
-    cities = {cityFrom: cityFrom, cityTo: cityTo};
-    $.post("/api/citySearch", cities).then(function(data) {
-        if (data) {
-            console.log("You looked up: " + cities);
-        } else {
-            console.log("That is not a valid city");
-        }
-    });
+function postCity(cityFrom, cityTo) {
+  cities = { cityFrom: cityFrom, cityTo: cityTo };
+  $.post("/api/citySearch", cities).then(function(data) {
+    console.log(data);
+    if (data) {
+      console.log("You looked up: ", cities);
+    } else {
+      console.log("That is not a valid city");
+    }
+  });
 }
 
 // create function that creates button for each saved itinerary

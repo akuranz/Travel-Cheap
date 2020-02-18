@@ -5,7 +5,9 @@ var path = require("path");
 // var isAuthenticated = require("../config/middleware/isAuthenticated");
 
 module.exports = function(app) {
-  app.get("/api/searchCity", function(req, res) {
+  app.get("/", function(req, res) {
+    console.log("HEREEEEEEE");
+
     res.sendFile(path.join(__dirname, "../public/searchResults.html"));
   });
 
