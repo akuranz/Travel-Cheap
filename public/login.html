@@ -1,1 +1,61 @@
-
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Travel Search</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" type="text/css" href="./stylesheets/style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <div class="jumbotron jumbotron-fluid pageTitle">
+      <div class="container">
+        <!--put something more descriptive in the title at a later date?-->
+        <h1 class="display-4 pageTitle">Travel Search Login</h1>
+      </div>
+    </div>
+    <div class="container m-auto">
+      <div class="row">
+        <div class="card col-md-4">
+          <div class="card-body">
+            <h5 class="card-title searchTitle">Travel Login</h5>
+            <form class="form-inline">
+              <div class="form-group mx-sm-3 mb-2">
+                <p id="userEmailTitle">Email:</p>
+                <input type="text" class="form-control" id="userEmail" />
+              </div>
+              <div class="form-group mx-sm-3 mb-2">
+                <p id="userPasswordTitle">Password:</p>
+                <input type="text" class="form-control" id="userPassword" />
+              </div>
+            </form>
+            <div id="loginBtn">
+              <button type="submit" class="btn btn-primary mb-2" id="loginBtn">
+                <span class="searchBtn">Login</span>
+              </button>
+            </div>
+            <!--Show previous itineraries based on user-->
+            <div id="previousSearch"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script
+      src="https://kit.fontawesome.com/5a59e9708f.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/airport-autocomplete-js@latest/dist/index.browser.min.js"></script>
+    <script src="js/searchResults.js"></script>
+    <!--insert other js links here-->
+  </body>
+</html>
