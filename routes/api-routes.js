@@ -43,7 +43,10 @@ module.exports = function(app) {
     console.log("apiFlights", req.body);
     const cityFrom = req.body.cityFrom;
     const cityTo = req.body.cityTo;
-    const queryUrl = `https://api.skypicker.com/flights?flyFrom=${cityFrom}&to=${cityTo}&dateFrom=18/11/2020&dateTo=12/12/2020&partner=picky&v=3&USD`;
+    const departureDate = req.body.departureDate;
+    const arrivalDate = req.body.departureDate;
+
+    const queryUrl = `https://api.skypicker.com/flights?flyFrom=${cityFrom}&to=${cityTo}&dateFrom=${departureDate}&dateTo=${arrivalDate}&partner=picky&v=3&USD`;
     axios.get(queryUrl).then(function(data) {
       // console.log(data.data);
       var dataArr = data.data.data;

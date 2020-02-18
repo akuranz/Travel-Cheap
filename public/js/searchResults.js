@@ -1,5 +1,5 @@
-AirportInput("cityFromInput");
-AirportInput("cityToInput");
+// AirportInput("cityFromInput");
+// AirportInput("cityToInput");
 
 // clicking search button
 $("#searchCity").click(function() {
