@@ -10,20 +10,28 @@ $("#searchCity").click(function() {
   var cityTo = $("#cityToInput")
     .val()
     .trim();
+  var departureDate = $("#departureDate")
+    .val()
+    .trim();
+  var returnDate = $("#returnDate")
+    .val()
+    .trim();
   // insert function to send to the backend for the axios call?
-  postCity(cityFrom, cityTo);
+  postCity(cityFrom, cityTo, departureDate, returnDate);
 });
 
 // clicking previously searched itinerary
 $(document).on("click", ".city", function(event) {
   var cityFrom = $(this).attr("data-nameFrom");
   var cityTo = $(this).attr("data-nameTo");
+  var departureDate = $(this).attr("data-nameDeparture");
+  var returnDate = $(this).attr("data-nameReturn");
   // insert function to send to the backend for the axios call?
-  postCity(cityFrom, cityTo);
+  postCity(cityFrom, cityTo, departureDate, returnDate);
 });
 
-function postCity(cityFrom, cityTo) {
-  cities = { cityFrom: cityFrom, cityTo: cityTo };
+function postCity(cityFrom, cityTo, departureDate, returnDate) {
+  cities = { cityFrom: cityFrom, cityTo: cityTo, departureDate: departureDate, returnDate, returnDate };
   $.post("/api/citySearch", cities).then(function(data) {
     console.log(data);
     if (data) {
