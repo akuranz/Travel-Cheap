@@ -4,29 +4,56 @@
 // clicking search button
 $("#searchCity").click(function() {
   event.preventDefault();
-  var cityFrom = $("#cityFromInput")
+  let cityFrom = $("#cityFromInput")
     .val()
     .trim();
-  var cityTo = $("#cityToInput")
+  let cityTo = $("#cityToInput")
     .val()
     .trim();
-  var departureDate = $("#departureDate")
+
+  // original format YYYY-MM-DD, needs to change to MM/DD/YYYY
+  // takes depature and return date and reformats it
+  let departureD = $("#departureDate")
     .val()
     .trim();
-  var returnDate = $("#returnDate")
+  let departureYear = departureD.substring(0, 4);
+  let departureMonth = departureD.substring(5, 7);
+  let departureDay = departureD.substring(8);
+  let departureDate = departureMonth + "/" + departureDay + "/" + departureYear;
+  console.log("Departure Date: " + departureDate);
+  let returnD = $("#returnDate")
     .val()
     .trim();
-  // insert function to send to the backend for the axios call?
+  let returnYear = returnD.substring(0, 4);
+  let returnMonth = returnD.substring(5, 7);
+  let returnDay = returnD.substring(8);
+  let returnDate = returnMonth + "/" + returnDay + "/" + returnYear;
+  console.log("Return Date: " + returnDate);
+  
+  // function to send to the backend
   postCity(cityFrom, cityTo, departureDate, returnDate);
 });
 
 // clicking previously searched itinerary
 $(document).on("click", ".city", function(event) {
-  var cityFrom = $(this).attr("data-nameFrom");
-  var cityTo = $(this).attr("data-nameTo");
-  var departureDate = $(this).attr("data-nameDeparture");
-  var returnDate = $(this).attr("data-nameReturn");
-  // insert function to send to the backend for the axios call?
+  let cityFrom = $(this).attr("data-nameFrom");
+  let cityTo = $(this).attr("data-nameTo");
+
+  // takes depature and return date and reformats it
+  let departureD = $(this).attr("data-nameDeparture");
+  let departureYear = departureD.substring(0, 4);
+  let departureMonth = departureD.substring(5, 7);
+  let departureDay = departureD.substring(8);
+  let departureDate = departureMonth + "/" + departureDay + "/" + departureYear;
+  console.log("Departure Date: " + departureDate);
+  let returnD = $(this).attr("data-nameReturn");
+  let returnYear = returnD.substring(0, 4);
+  let returnMonth = returnD.substring(5, 7);
+  let returnDay = returnD.substring(8);
+  let returnDate = returnMonth + "/" + returnDay + "/" + returnYear;
+  console.log("Return Date: " + returnDate);
+
+  // function to send to the backend
   postCity(cityFrom, cityTo, departureDate, returnDate);
 });
 
