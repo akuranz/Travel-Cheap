@@ -1,87 +1,72 @@
 <!DOCTYPE html>
 <html lang="en-us">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Travel Search</title>
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" type="text/css" href="./stylesheets/style.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  </head>
-  <body>
+<head>
+  <meta charset="UTF-8">
+  <title>Travel Search</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"/>
+  <link rel="stylesheet" type="text/css" href="./stylesheets/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
     <div class="jumbotron jumbotron-fluid pageTitle">
-      <div class="container">
-        <!--put something more descriptive in the title at a later date?-->
-        <h1 class="display-4 pageTitle">Travel Search</h1>
-      </div>
+        <div class="container">
+            <!--put something more descriptive in the title at a later date?-->
+            <h1 class="display-4 pageTitle">Travel Search</h1>
+        </div>
     </div>
-    <div class="container">
-      <div class="row">
+    <div class = "container">
+        <div class = "row">
         <div class="card col-md-4">
-          <div class="card-body">
-            <h5 class="card-title searchTitle">
-              Search for Cities by Airport:
-            </h5>
-            <form class="form-inline">
-              <div class="form-group mx-sm-3 mb-2">
-                <p id="fromTitle">From:</p>
-                <input type="text" class="form-control" id="cityFromInput" />
-              </div>
-              <div class="form-group mx-sm-3 mb-2">
-                <p id="toTitle">To:</p>
-                <input type="text" class="form-control" id="cityToInput" />
-              </div>
-            </form>
-            <div id="centerBtn">
-              <button
-                type="submit"
-                class="btn btn-primary mb-2"
-                id="searchCity"
-              >
-                <span class="searchBtn"><i class="fas fa-search"></i></span>
-              </button>
+            <div class="card-body">
+                <h5 class="card-title searchTitle">Search for Cities by Airport:</h5>
+                <form class="form-inline">
+                    <div class="form-group mx-sm-3 mb-2">
+                        <p id="fromTitle">From:   </p><input type="text" class="form-control" id="cityFromInput">
+                    </div>
+                    <div class="form-group mx-sm-3 mb-2">
+                        <p id="toTitle">To:     </p><input type="text" class="form-control" id="cityToInput">
+                    </div>
+                    <div class="form-group mx-sm-3 mb-2">
+                            <p id="departure">Departure Date: </p><input type="date" class="form-control" id="departureDate">
+                    </div>
+                    <div class="form-group mx-sm-3 mb-2">
+                            <p id="return">Return Date: </p><input type="date" class="form-control" id="returnDate">
+                    </div>
+                </form>
+                <div id="centerBtn">
+                    <button type="submit" class="btn btn-primary mb-2" id="searchCity"><span class="searchBtn"><i class="fas fa-search"></i></span></button>
+                </div>
+                <!--Show previous itineraries based on user-->
+                <div id = "previousSearch"></div>
             </div>
-            <!--Show previous itineraries based on user-->
-            <div id="previousSearch"></div>
-          </div>
         </div>
-        <div class="col-md-8">
-          <div class="card">
-            <div class="card-body container">
-              <!--Flights-->
-              <div class="flightSearchResults"></div>
+        <div class = "col-md-8">
+            <div class="card">
+                <div class="card-body container">
+                    <!--Flights-->
+                    <div class="flightSearchResults"></div>
+                </div>
             </div>
-          </div>
-          <div class="card">
-            <div class="card-body container">
-              <!--Hotels-->
-              <div class="hotelSearchResults"></div>
+            <div class="card">
+                <div class="card-body container">
+                    <!--Hotels-->
+                    <div class = "hotelSearchResults"></div>
+                </div>
             </div>
-          </div>
-          <div class="card">
-            <div class="card-body container">
-              <!--Restaurants-->
-              <div class="foodSearchResults"></div>
+            <div class="card">
+                <div class="card-body container">
+                    <!--Restaurants-->
+                    <div class = "foodSearchResults"></div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
+        </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script
-      src="https://kit.fontawesome.com/5a59e9708f.js"
-      crossorigin="anonymous"
-    ></script>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/airport-autocomplete-js@latest/dist/index.browser.min.js"></script> -->
-    <script src="js/searchResults.js"></script>
-    <!--insert other js links here-->
-  </body>
+      <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+      <script src="https://kit.fontawesome.com/5a59e9708f.js" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/airport-autocomplete-js@latest/dist/index.browser.min.js"></script>
+      <script src="js/searchResults.js"></script>
+      <!--insert other js links here-->
+</body>
 </html>
