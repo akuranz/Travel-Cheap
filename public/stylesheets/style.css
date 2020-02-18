@@ -26,3 +26,9 @@
 #centerBtn {
     text-align: center;
 }
+#departure {
+    padding-right: 5px;
+}
+#return {
+    padding-right: 29px;
+}
