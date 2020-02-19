@@ -4,12 +4,13 @@
 // clicking search button
 $("#searchCity").click(function() {
   event.preventDefault();
-  var cityFrom = $("#cityFromInput")
+  let cityFrom = $("#cityFromInput")
     .val()
     .trim();
-  var cityTo = $("#cityToInput")
+  let cityTo = $("#cityToInput")
     .val()
     .trim();
+
   // var departureDate = $("#departureDate")
   //   .val()
   //   .trim();
@@ -18,16 +19,55 @@ $("#searchCity").click(function() {
   //   .trim();
   // insert function to send to the backend for the axios call?
   postCity(cityFrom, cityTo);
+
+
+  // original format YYYY-MM-DD, needs to change to MM/DD/YYYY
+  // takes depature and return date and reformats it
+//   let departureD = $("#departureDate")
+//     .val()
+//     .trim();
+
+//   const departureDate = dateFormatter(departureD);
+
+//   console.log("Departure Date: " + departureDate);
+//   let returnD = $("#returnDate")
+//     .val()
+//     .trim();
+  
+//   const returnDate = dateFormatter(returnD);
+
+//   console.log("Return Date: " + returnDate);
+  
+//   // function to send to the backend
+//   postCity(cityFrom, cityTo, departureDate, returnDate);
+
 });
 
 // clicking previously searched itinerary
 $(document).on("click", ".city", function(event) {
+
   var cityFrom = $(this).attr("data-nameFrom");
   var cityTo = $(this).attr("data-nameTo");
   // var departureDate = $(this).attr("data-nameDeparture");
   // var returnDate = $(this).attr("data-nameReturn");
   // insert function to send to the backend for the axios call?
   postCity(cityFrom, cityTo);
+
+//   let cityFrom = $(this).attr("data-nameFrom");
+//   let cityTo = $(this).attr("data-nameTo");
+
+//   // takes depature and return date and reformats it
+//   let departureD = $(this).attr("data-nameDeparture");
+//   const departureDate = dateFormatter(departureD);
+//   console.log("Departure Date: " + departureDate);
+
+//   let returnD = $(this).attr("data-nameReturn");
+//   const returnDate = dateFormatter(returnD);
+//   console.log("Return Date: " + returnDate);
+
+//   // function to send to the backend
+//   postCity(cityFrom, cityTo, departureDate, returnDate);
+
 });
 
 function postCity(cityFrom, cityTo) {
@@ -55,6 +95,14 @@ function postEvent() {
       console.log("That is not a valid city");
     }
   });
+}
+
+function dateFormatter(date) {
+    let year = date.substring(0, 4);
+    let month = date.substring(5, 7);
+    let day = date.substring(8);
+    let finalDate = month + "/" + day + "/" + year;
+    return finalDate;
 }
 
 // create function that creates button for each saved itinerary
