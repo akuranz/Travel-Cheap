@@ -40,19 +40,19 @@ module.exports = function(app) {
 
   // Route for getting some data about our user to be used client side
   app.post("/api/citySearch", function(req, res) {
-    console.log("apiFlights", req.body);
+    // console.log("apiFlights", req.body);
     const cityFrom = req.body.cityFrom;
     const cityTo = req.body.cityTo;
-    const departureDate = req.body.departureDate;
-    const arrivalDate = req.body.departureDate;
+    // const departureDate = req.body.departureDate;
+    // const arrivalDate = req.body.departureDate;
 
-    const queryUrl = `https://api.skypicker.com/flights?flyFrom=${cityFrom}&to=${cityTo}&dateFrom=${departureDate}&dateTo=${arrivalDate}&partner=picky&v=3&USD`;
+    const queryUrl = `https://api.skypicker.com/flights?flyFrom=${cityFrom}&to=${cityTo}&partner=picky&v=3&USD`;
     axios.get(queryUrl).then(function(data) {
       // console.log(data.data);
       var dataArr = data.data.data;
 
-      console.log(typeof dataArr);
-      console.log(dataArr);
+      // console.log(typeof dataArr);
+      // console.log(dataArr);
 
       dataArr.forEach(function(flight) {
         // console.log(flight);
@@ -71,5 +71,9 @@ module.exports = function(app) {
       });
       res.json(flights);
     });
-  });
-};
+    const eventQueryURL=`https://app.ticketmaster.com/discovery/v2/events.json?city=Denver&apikey=zotluMaanqoUR4sTfliAco7lbM5hAij4`;
+    axios.get(eventQueryURL).then(function(data) {
+      console.log(data.data._embedded.events);
+      });
+    });
+  };
