@@ -1,7 +1,7 @@
-<p>
+<div class="col-md-3">
     <div class="event-name">{{name}}</div>
-    <!--add in formatting for date of event, time, price?-->
-    <button data-eventid="{{id}}" class="change-saved" data-saved="{{saved}}">
-        {{#if saved}}RETURN TO LIST >>{{else}} Save to itinerary >>{{/if}} </button>
-
-</p>
+    <!--date, time, price-->
+    <div class="event-info">{{date}}<br>{{time}}<br>{{price}}</div>
+    <button data-eventid="{{id}}" class="btn btn-primary change-saved" data-saved="{{saved}}">
+        {{#if saved}}RETURN TO LIST >>{{else}} Save {{/if}} </button>
+</div>

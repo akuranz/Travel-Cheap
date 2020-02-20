@@ -11,7 +11,7 @@
                 <h5 class="card-title searchTitle">Which city would you like to visit? </h5>
                 <form class="form-inline">
                     <div class="form-group mx-sm-3 mb-2">
-                        <p id="toTitle">City:     </p><input type="text" class="form-control" id="cityToVisit">
+                        <p id="toVisitTitle">City:     </p><input type="text" class="form-control" id="cityToVisit">
                     </div>
                     <div class="form-group mx-sm-3 mb-2">
                             <p id="departure">Departure Date: </p><input type="date" class="form-control" id="departureDate">
@@ -28,7 +28,7 @@
         <div class = "col-md-8">
             <div class="card">
                 <div class="card-body container">
-                    <div class="eventSearchResults">
+                    <div class="eventSearchResults row">
                         {{#each events}}
                         {{#unless saved}}
                         {{> events/event-block saved=false}}
@@ -59,7 +59,7 @@
         <div class = "col-md-8">
             <div class="card">
                 <div class="card-body container">
-                    <div class="eventSearchResults">
+                    <div class="flightSearchResults row">
                         {{#each flights}}
                         {{#unless saved}}
                         {{> flights/flight-block saved=false}}
