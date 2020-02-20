@@ -5,6 +5,7 @@ var moment = require("moment");
 var passport = require("../config/passport");
 
 const flights = [];
+const events = [];
 
 module.exports = function(app) {
   // Using the passport.authenticate middleware with our local strategy.
@@ -83,13 +84,35 @@ module.exports = function(app) {
           flight.airline
         );
       });
-      res.json(flights);
+      // res.json(flights);
     });
     const eventQueryURL = `https://app.ticketmaster.com/discovery/v2/events.json?city=Denver&apikey=zotluMaanqoUR4sTfliAco7lbM5hAij4`;
     axios.get(eventQueryURL).then(function(data) {
-      console.log(data.data._embedded.events);
+      // console.log(data.data._embedded.events[0]);
+      // console.log("Event Name: ",data.data._embedded.events[0].name)
+      // console.log("Event Date: ",data.data._embedded.events[0].dates.start.localDate)
+      // console.log("Event Time: ",data.data._embedded.events[0].dates.start.localTime)
+      // console.log("Event Venue: ",data.data._embedded.events)
+      // console.log("Event URL: ", data.data._embedded.events[0].url)
+      var eventsDataArr=data.data._embedded.events;
+      // console.log(eventsDataArr)
+      eventsDataArr.forEach(function(event){
+        // console.log(event)
+      const eventDetails = {
+          "Event Name": event.name,
+          "Event Date:": event.dates.start.localDate,
+          "Event Time:": event.dates.start.localTime,
+          "Event Venue:": event._embedded.venues[0].name,
+          "Event URL:":event.url
+        }
+        events.push(
+          eventDetails
+        );
+      });
+      console.log("EVENTS",events)
+      res.json(events);
+     });
     });
-  });
 
   app.post("/api/trips", (req, res) => {
     // front-end JS todo: get access to currently logged in user's id (by making an AJAX
