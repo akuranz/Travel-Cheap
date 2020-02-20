@@ -22,34 +22,29 @@ $("#searchCity").click(function() {
   // postCity(cityFrom, cityTo, departureDate, returnDate);
   postCity(cityFrom, cityTo);
 
-
-
   // original format YYYY-MM-DD, needs to change to MM/DD/YYYY
   // takes depature and return date and reformats it
-//   let departureD = $("#departureDate")
-//     .val()
-//     .trim();
+  //   let departureD = $("#departureDate")
+  //     .val()
+  //     .trim();
 
-//   const departureDate = dateFormatter(departureD);
+  //   const departureDate = dateFormatter(departureD);
 
-//   console.log("Departure Date: " + departureDate);
-//   let returnD = $("#returnDate")
-//     .val()
-//     .trim();
-  
-//   const returnDate = dateFormatter(returnD);
+  //   console.log("Departure Date: " + departureDate);
+  //   let returnD = $("#returnDate")
+  //     .val()
+  //     .trim();
 
-//   console.log("Return Date: " + returnDate);
-  
-//   // function to send to the backend
-//   postCity(cityFrom, cityTo, departureDate, returnDate);
+  //   const returnDate = dateFormatter(returnD);
 
+  //   console.log("Return Date: " + returnDate);
 
+  //   // function to send to the backend
+  //   postCity(cityFrom, cityTo, departureDate, returnDate);
 });
 
 // clicking previously searched itinerary
 $(document).on("click", ".city", function(event) {
-
   var cityFrom = $(this).attr("data-nameFrom");
   var cityTo = $(this).attr("data-nameTo");
   // var departureDate = $(this).attr("data-nameDeparture");
@@ -70,25 +65,24 @@ function postCity(cityFrom, cityTo) {
 
   postCity(cityFrom, cityTo);
 
-//   let cityFrom = $(this).attr("data-nameFrom");
-//   let cityTo = $(this).attr("data-nameTo");
+  //   let cityFrom = $(this).attr("data-nameFrom");
+  //   let cityTo = $(this).attr("data-nameTo");
 
-//   // takes depature and return date and reformats it
-//   let departureD = $(this).attr("data-nameDeparture");
-//   const departureDate = dateFormatter(departureD);
-//   console.log("Departure Date: " + departureDate);
+  //   // takes depature and return date and reformats it
+  //   let departureD = $(this).attr("data-nameDeparture");
+  //   const departureDate = dateFormatter(departureD);
+  //   console.log("Departure Date: " + departureDate);
 
-//   let returnD = $(this).attr("data-nameReturn");
-//   const returnDate = dateFormatter(returnD);
-//   console.log("Return Date: " + returnDate);
+  //   let returnD = $(this).attr("data-nameReturn");
+  //   const returnDate = dateFormatter(returnD);
+  //   console.log("Return Date: " + returnDate);
 
-//   // function to send to the backend
-//   postCity(cityFrom, cityTo, departureDate, returnDate);
-
-});
+  //   // function to send to the backend
+  //   postCity(cityFrom, cityTo, departureDate, returnDate);
+}
 
 function postCity(cityFrom, cityTo) {
-  cities = { cityFrom: cityFrom, cityTo: cityTo};
+  cities = { cityFrom: cityFrom, cityTo: cityTo };
   // function postCity(cityFrom, cityTo, departureDate, returnDate) {
   //   cities = { cityFrom: cityFrom, cityTo: cityTo, departureDate: departureDate, returnDate, returnDate };
   $.post("/api/citySearch", cities).then(function(data) {
@@ -100,7 +94,6 @@ function postCity(cityFrom, cityTo) {
     }
   });
 }
-
 
 // -------FUNCTION BELOW TO POST EVENT, EVENTUALLY--------
 // function postEvent() {
@@ -129,7 +122,6 @@ function postEvent() {
     }
   });
 }
-
 
 // function dateFormatter(date) {
 //     let year = date.substring(0, 4);
