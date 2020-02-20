@@ -1,0 +1,78 @@
+    <div class="jumbotron jumbotron-fluid pageTitle">
+        <div class="container">
+            <!--put something more descriptive in the title at a later date?-->
+            <h1 class="display-4 pageTitle">Travel Search</h1>
+        </div>
+    </div>
+    <div class = "container">
+        <div class = "row">
+        <div class="card col-md-4">
+            <div class="card-body">
+                <h5 class="card-title searchTitle">Which city would you like to visit? </h5>
+                <form class="form-inline">
+                    <div class="form-group mx-sm-3 mb-2">
+                        <p id="toVisitTitle">City:     </p><input type="text" class="form-control" id="cityToVisit">
+                    </div>
+                    <div class="form-group mx-sm-3 mb-2">
+                            <p id="departure">Departure Date: </p><input type="date" class="form-control" id="departureDate">
+                    </div>
+                    <div class="form-group mx-sm-3 mb-2">
+                            <p id="return">Return Date: </p><input type="date" class="form-control" id="returnDate">
+                    </div>
+                </form>
+                <div id="centerBtn">
+                    <button type="submit" class="btn btn-primary mb-2" id="searchEvents"><span class="searchBtn"><i class="fas fa-search"></i></span></button>
+                </div>
+            </div>
+        </div>
+        <div class = "col-md-8">
+            <div class="card">
+                <div class="card-body container">
+                    <div class="eventSearchResults row">
+                        {{#each events}}
+                        {{#unless saved}}
+                        {{> events/event-block saved=false}}
+                        {{/unless}}
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class = "row">
+        <div class="card col-md-4">
+            <div class="card-body">
+                <h5 class="card-title searchTitle">Which airports will you be using for your trip? </h5>
+                <form class="form-inline">
+                    <div class="form-group mx-sm-3 mb-2">
+                        <p id="fromTitle">From:   </p><input type="text" class="form-control" id="cityFromInput">
+                    </div>
+                    <div class="form-group mx-sm-3 mb-2">
+                        <p id="toTitle">To:     </p><input type="text" class="form-control" id="cityToInput">
+                    </div>
+                </form>
+                <div id="centerBtn">
+                    <button type="submit" class="btn btn-primary mb-2" id="searchFlights"><span class="searchBtn"><i class="fas fa-search"></i></span></button>
+                </div>
+            </div>
+        </div>
+        <div class = "col-md-8">
+            <div class="card">
+                <div class="card-body container">
+                    <div class="flightSearchResults row">
+                        {{#each flights}}
+                        {{#unless saved}}
+                        {{> flights/flight-block saved=false}}
+                        {{/unless}}
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+      <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+      <script src="https://kit.fontawesome.com/5a59e9708f.js" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/airport-autocomplete-js@latest/dist/index.browser.min.js"></script>
+      <script src="js/searchResults.js"></script>
+      <!--insert other js links here-->

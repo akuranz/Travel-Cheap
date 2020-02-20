@@ -23,6 +23,9 @@
 #toTitle {
     padding-right: 29px;
 }
+#toVisitTitle {
+    padding-right: 72px;
+}
 #centerBtn {
     text-align: center;
 }
@@ -31,4 +34,11 @@
 }
 #return {
     padding-right: 29px;
+}
+.event-name, .flight-airline {
+    font-size: 20px;
+    font-weight: bold;
+}
+.event-info, .flight-info {
+    font-size: 16px;
 }
