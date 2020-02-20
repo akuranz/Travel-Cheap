@@ -5,6 +5,7 @@ var moment = require("moment");
 var passport = require("../config/passport");
 
 const flights = [];
+const events = [];
 
 module.exports = function(app) {
   // Using the passport.authenticate middleware with our local strategy.
@@ -20,6 +21,7 @@ module.exports = function(app) {
   // how we configured our Sequelize User Model. If the user is created successfully, proceed to log the user in,
   // otherwise send back an error
   app.post("/api/signup", function(req, res) {
+    console.log(req.body);
     db.User.create({
       email: req.body.email,
       password: req.body.password
@@ -28,7 +30,7 @@ module.exports = function(app) {
         res.redirect(307, "/api/login");
       })
       .catch(function(err) {
-        res.status(401).json(err);
+        res.status(401).json("User already exists.");
       });
   });
 
@@ -69,7 +71,7 @@ module.exports = function(app) {
       // console.log(dataArr);
 
       dataArr.forEach(function(flight) {
-        // console.log(flight);
+        console.log(flight);
         flights.push(
           "Price",
           flight.price,
@@ -80,7 +82,7 @@ module.exports = function(app) {
           "ArrivalTime",
           moment.unix(flight.aTime).format("MM/DD/YYYY"),
           "Airline",
-          flight.airline
+          flight.airlines
         );
       });
       res.json(flights);
