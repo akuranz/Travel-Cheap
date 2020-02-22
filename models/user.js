@@ -19,6 +19,16 @@ module.exports = function(sequelize, DataTypes) {
     }
   });
 
+  User.associate = function(models) {
+    // We're saying that a User should belong to an User
+    // An event can't be created without an User due to the foreign key constrain
+    // Associating User with Events and Flights
+    // When an User is deleted, also delete any associated Events and Flights
+    User.hasMany(models.Trip, {
+      onDelete: "cascade"
+    });
+  };
+
   // Creating a custom method for our User model. This will check if an unhashed password entered by the user can be compared to the hashed password stored in our database
   User.prototype.validPassword = function(password) {
     return bcrypt.compareSync(password, this.password);

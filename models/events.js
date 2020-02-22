@@ -1,11 +1,11 @@
 module.exports = function(sequelize, DataTypes) {
   var Event = sequelize.define("Event", {
-    // price: DataTypes.STRING,
-    // date: DataTypes.STRING,
-    // time: DataTypes.STRING,
-    price: DataTypes.INTEGER,
-    date: DataTypes.DATEONLY,
-    time: DataTypes.TIME
+    price: DataTypes.STRING,
+    date: DataTypes.STRING,
+    time: DataTypes.STRING
+    // price: DataTypes.INTEGER,
+    // date: DataTypes.DATEONLY,
+    // time: DataTypes.STRING
   });
 
   Event.associate = function(models) {

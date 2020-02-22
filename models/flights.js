@@ -1,11 +1,11 @@
 module.exports = function(sequelize, DataTypes) {
   var Flight = sequelize.define("Flight", {
-    // price: DataTypes.STRING,
-    // departureDate: DataTypes.STRING,
-    // arrivalDate: DataTypes.STRING,
-    price: DataTypes.INTEGER,
-    departureDate: DataTypes.DATEONLY,
-    arrivalDate: DataTypes.DATEONLY
+    price: DataTypes.STRING,
+    departureDate: DataTypes.STRING,
+    arrivalDate: DataTypes.STRING
+    // price: DataTypes.INTEGER,
+    // departureDate: DataTypes.DATEONLY,
+    // arrivalDate: DataTypes.DATEONLY
   });
 
   Flight.associate = function(models) {

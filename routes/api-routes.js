@@ -93,6 +93,24 @@ module.exports = function(app) {
     });
   });
 
+  app.get("/api/trips/:id", (req, res) => {
+    db.User.findAll({
+      where: {
+        // id: req.params.id
+        id: 1
+      },
+      include: [
+        { model: db.Trip, include: [{ model: db.Flight }, { model: db.Event }] }
+
+        // include: [{ model: db.Event }],
+        // include: [{ model: db.Flight }]
+      ]
+    }).then(function(dbUser) {
+      console.log(dbUser);
+      res.json(dbUser);
+    });
+  });
+
   app.post("/api/trips", (req, res) => {
     // front-end JS todo: get access to currently logged in user's id (by making an AJAX
     // call to the route referenced above) and save it as the trip object's 'UserId'
