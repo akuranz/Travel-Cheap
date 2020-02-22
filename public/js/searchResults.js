@@ -3,6 +3,7 @@
 
 // clicking search button
 $("#searchCity").click(function() {
+  console.log("hi")
   event.preventDefault();
   let cityFrom = $("#cityFromInput")
     .val()
@@ -55,15 +56,16 @@ $(document).on("click", ".city", function(event) {
   postCity(cityFrom, cityTo);
 });
 
-function postCity(cityFrom, cityTo) {
-  cities = {
-    cityFrom: cityFrom,
-    cityTo: cityTo
-    // departureDate: departureDate,
-    // returnDate: returnDate
-  };
+// function postCity(cityFrom, cityTo) {
+//   console.log("In post city")
+//   cities = {
+//     cityFrom: cityFrom,
+//     cityTo: cityTo
+//     // departureDate: departureDate,
+//     // returnDate: returnDate
+//   };
 
-  postCity(cityFrom, cityTo);
+  // postCity(cityFrom, cityTo);
 
   //   let cityFrom = $(this).attr("data-nameFrom");
   //   let cityTo = $(this).attr("data-nameTo");
@@ -79,9 +81,10 @@ function postCity(cityFrom, cityTo) {
 
   //   // function to send to the backend
   //   postCity(cityFrom, cityTo, departureDate, returnDate);
-}
+// }
 
 function postCity(cityFrom, cityTo) {
+  console.log("In post city")
   cities = { cityFrom: cityFrom, cityTo: cityTo };
   // function postCity(cityFrom, cityTo, departureDate, returnDate) {
   //   cities = { cityFrom: cityFrom, cityTo: cityTo, departureDate: departureDate, returnDate, returnDate };

@@ -7,6 +7,7 @@ var passport = require("../config/passport");
 const flights = [];
 const events = [];
 
+
 module.exports = function(app) {
   // Using the passport.authenticate middleware with our local strategy.
   // If the user has valid login credentials, send them to the  page.
@@ -61,15 +62,9 @@ module.exports = function(app) {
     const cityTo = req.body.cityTo;
     // const departureDate = req.body.departureDate;
     // const arrivalDate = req.body.departureDate;
-
     const queryUrl = `https://api.skypicker.com/flights?flyFrom=${cityFrom}&to=${cityTo}&partner=picky&v=3&USD`;
     axios.get(queryUrl).then(function(data) {
-      // console.log(data.data);
       var dataArr = data.data.data;
-
-      // console.log(typeof dataArr);
-      // console.log(dataArr);
-
       dataArr.forEach(function(flight) {
         console.log(flight);
         flights.push(
@@ -83,15 +78,41 @@ module.exports = function(app) {
           moment.unix(flight.aTime).format("MM/DD/YYYY"),
           "Airline",
           flight.airlines
-        );
-      });
-      res.json(flights);
-    });
-    const eventQueryURL = `https://app.ticketmaster.com/discovery/v2/events.json?city=Denver&apikey=zotluMaanqoUR4sTfliAco7lbM5hAij4`;
-    axios.get(eventQueryURL).then(function(data) {
-      console.log(data.data._embedded.events);
-    });
+            )
+          
+          }) // end dataArr.forEach
+    }) // end axios.get
+    .then(function() {
+      const eventQueryURL = `https://app.ticketmaster.com/discovery/v2/events.json?city=Denver&apikey=zotluMaanqoUR4sTfliAco7lbM5hAij4`;
+      return axios.get(eventQueryURL);
+    })
+    .then(function(eventsData) {
+      var eventsDataArr=eventsData.data._embedded.events;
+      // console.log(eventsDataArr)
+      eventsDataArr.forEach(function(event){
+      // console.log(event)
+      const eventDetails = {
+      "Event Name": event.name,
+      "Event Date:": event.dates.start.localDate,
+      "Event Time:": event.dates.start.localTime,
+      "Event Venue:": event._embedded.venues[0].name,
+      "Event URL:":event.url
+      }
+
+      events.push(
+        eventDetails
+      );
+
+      const flightsAndEvents = {
+        flights: flights,
+        events: events
+      }
+
+      res.json(flightsAndEvents);
+    })
+
   });
+
 
   app.get("/api/trips/:id", (req, res) => {
     db.User.findAll({
@@ -111,6 +132,33 @@ module.exports = function(app) {
     });
   });
 
+        
+        
+    // const eventQueryURL = `https://app.ticketmaster.com/discovery/v2/events.json?city=Denver&apikey=zotluMaanqoUR4sTfliAco7lbM5hAij4`;
+    // axios.get(eventQueryURL).then(function(data) {
+    //   var eventsDataArr=data.data._embedded.events;
+    //   // console.log(eventsDataArr)
+    //   eventsDataArr.forEach(function(event){
+    //     // console.log(event)
+    //   const eventDetails = {
+    //       "Event Name": event.name,
+    //       "Event Date:": event.dates.start.localDate,
+    //       "Event Time:": event.dates.start.localTime,
+    //       "Event Venue:": event._embedded.venues[0].name,
+    //       "Event URL:":event.url
+    //     }
+    //     events.push(
+    //       eventDetails
+    //     );
+      // console.log("EVENTS",events)
+      // res.json(events);
+    //  const flightsAndEvents = {
+    //   flights: flights,
+    //   events: events
+    // }
+    // res.json(flightsAndEvents);
+
+
   app.post("/api/trips", (req, res) => {
     // front-end JS todo: get access to currently logged in user's id (by making an AJAX
     // call to the route referenced above) and save it as the trip object's 'UserId'
@@ -128,7 +176,7 @@ module.exports = function(app) {
       // after the trip is created, grab the id of newly-created trip (you'll need this
       // in order to add new flight and event records that are associated with the
       // correct trip!)
-      .then(async ({ id }) => {
+  }).then(async ({ id }) => {
         console.log("hi");
         // mapping through array of flights/events from the front-end and adding
         // the correct TripId to each
@@ -157,5 +205,6 @@ module.exports = function(app) {
           console.log(err);
         }
       });
-  });
-};
+    })
+    
+  };
