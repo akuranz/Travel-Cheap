@@ -35,7 +35,7 @@
 #return {
     padding-right: 29px;
 }
-.event-name, .flight-airline {
+.event-name, .flight-airline, .trip-name {
     font-size: 20px;
     font-weight: bold;
 }
