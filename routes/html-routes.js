@@ -3,7 +3,7 @@ var path = require("path");
 var fs = require("fs");
 var util = require("util");
 const db = require("../models");
-var readFile = util.promisify(fs.readFile);
+// var readFile = util.promisify(fs.readFile);
 
 // Requiring our custom middleware for checking if a user is logged in
 var isAuthenticated = require("../config/middleware/isAuthenticated");
@@ -78,10 +78,11 @@ module.exports = function(app) {
   //Real handlebars route:
   app.get("/itinerary", isAuthenticated, async function(req, res) {
     //res.sendFile(path.join(__dirname, "../public/itinerary.html"));
-    let user = db.User.findAll({
+    console.log("inside itinerary get route");
+    let user = await db.User.findAll({
       where: {
-        // id: req.params.id
-        id: req.user.id
+        // id: req.user.id
+        id: 1
       },
       include: [
         {
@@ -90,14 +91,18 @@ module.exports = function(app) {
         }
       ]
     });
-    console.log(user);
-    res.render("itinerary", {
-      user
-    });
+    console.log("Natalia", user);
+    res.render(
+      "itinerary",
+      // { layout: "main" },
+      {
+        user
+      }
+    );
   });
 
   app.get("/citySearch", function(req, res) {
+    // res.render("index", { layout: "mian" });
     res.sendFile(path.join(__dirname, "../public/searchResults.html"));
   });
 };
-
