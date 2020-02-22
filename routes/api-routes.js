@@ -62,30 +62,27 @@ module.exports = function(app) {
     // const departureDate = req.body.departureDate;
     // const arrivalDate = req.body.departureDate;
     const queryUrl =
-      "https://api.skypicker.com/flights?flyFrom=${cityFrom}&to=${cityTo}&partner=picky&v=3&USD";
+      `https://api.skypicker.com/flights?flyFrom=${cityFrom}&to=${cityTo}&partner=picky&v=3&USD`;
     axios
       .get(queryUrl)
       .then(function(data) {
         var dataArr = data.data.data;
         dataArr.forEach(function(flight) {
+          const flightDetails = {
+            "Price":flight.price,
+            "Duration":flight.fly_duration,
+            "DepartureTime":moment.unix(flight.dTime).format("MM/DD/YYYY"),
+            "ArrivalTime":moment.unix(flight.aTime).format("MM/DD/YYYY"),
+            "Airline":flight.airline
+          }
           // console.log(flight);
-          flights.push(
-            "Price",
-            flight.price,
-            "Duration",
-            flight.fly_duration,
-            "DepartureTime",
-            moment.unix(flight.dTime).format("MM/DD/YYYY"),
-            "ArrivalTime",
-            moment.unix(flight.aTime).format("MM/DD/YYYY"),
-            "Airline",
-            flight.airlines
-          );
+          flights.push(flightDetails);
         }); // end dataArr.forEach
       }) // end axios.get
       .then(function() {
+        // const cityEvent = req.body.cityEvent;
         const eventQueryURL =
-          "https://app.ticketmaster.com/discovery/v2/events.json?city=Denver&apikey=zotluMaanqoUR4sTfliAco7lbM5hAij4";
+          `https://app.ticketmaster.com/discovery/v2/events.json?city=Denver&apikey=zotluMaanqoUR4sTfliAco7lbM5hAij4`;
         return axios.get(eventQueryURL);
       })
       .then(function(eventsData) {

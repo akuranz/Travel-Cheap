@@ -11,6 +11,9 @@ $("#searchCity").click(function() {
   let cityTo = $("#cityToInput")
     .val()
     .trim();
+  let cityEvent = $("#cityEvent")
+    .val()
+    .trim();
 
   // var departureDate = $("#departureDate")
   //   .val()
@@ -21,7 +24,7 @@ $("#searchCity").click(function() {
   // insert function to send to the backend for the axios call?
 
   // postCity(cityFrom, cityTo, departureDate, returnDate);
-  postCity(cityFrom, cityTo);
+  postCity(cityFrom, cityTo, cityEvent);
 
   // original format YYYY-MM-DD, needs to change to MM/DD/YYYY
   // takes depature and return date and reformats it
