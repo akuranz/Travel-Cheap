@@ -5,20 +5,19 @@
 </div>
 <div class="container">
     <div class="row">
-        <div class="card col-md-4">
+        <div class="card col-md">
             <div class="card-body">
                 <div class="eventSearchResults row">
-
-                    {{#each trip}}
+                    {{#each info}}
                     <div class="col-md-3">
-                        <class="trip-name">{{trip.cityName}}
+                        <div class="trip-name">{{dataValues.cityName}}</div>
+                        <!--date, time, price-->
+                        <div class="event-info">{{dataValues.departureDate}} - {{dataValues.arrivalDate}}</div>
+                        <button data-eventid="{{id}}" class="btn btn-primary seeInfo">Itinerary</button>
                     </div>
-                    <!--date, time, price-->
-                    <div class="event-info">{{trip.departureDate}} - {{trip.arrivalDate}}</div>
-                    <button data-eventid="{{id}}" class="btn btn-primary seeInfo">Itinerary</button>-->
                     <!--sort out hidden information to show if button is clicked-->
+                    {{/each}}
                 </div>
-                {{/each}}
             </div>
         </div>
     </div>
