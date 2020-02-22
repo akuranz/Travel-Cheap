@@ -29,7 +29,11 @@ $(document).ready(function() {
       password: password
     })
       .then(function() {
+        //if successful then make the ajax call
+
+        //try inside and outside the .then
         window.location.replace("/itinerary");
+
         // If there's an error, log the error
       })
       .catch(function(err) {

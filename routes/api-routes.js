@@ -113,6 +113,25 @@ module.exports = function(app) {
 
   });
 
+
+  app.get("/api/trips/:id", (req, res) => {
+    db.User.findAll({
+      where: {
+        // id: req.params.id
+        id: 1
+      },
+      include: [
+        { model: db.Trip, include: [{ model: db.Flight }, { model: db.Event }] }
+
+        // include: [{ model: db.Event }],
+        // include: [{ model: db.Flight }]
+      ]
+    }).then(function(dbUser) {
+      console.log(dbUser);
+      res.json(dbUser);
+    });
+  });
+
         
         
     // const eventQueryURL = `https://app.ticketmaster.com/discovery/v2/events.json?city=Denver&apikey=zotluMaanqoUR4sTfliAco7lbM5hAij4`;
@@ -138,6 +157,7 @@ module.exports = function(app) {
     //   events: events
     // }
     // res.json(flightsAndEvents);
+
 
   app.post("/api/trips", (req, res) => {
     // front-end JS todo: get access to currently logged in user's id (by making an AJAX
