@@ -91,12 +91,13 @@ module.exports = function(app) {
         }
       ]
     });
-    console.log("Natalia", user);
+    console.log("Natalia", user[0].dataValues.Trips[0].dataValues);
+    let info = user[0].dataValues.Trips;
+    console.log(info[0].cityName);
     res.render(
       "itinerary",
-      // { layout: "main" },
       {
-        user
+        info
       }
     );
   });
