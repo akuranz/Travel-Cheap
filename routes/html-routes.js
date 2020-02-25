@@ -1,7 +1,7 @@
 // Requiring path to so we can use relative routes to our HTML files
 var path = require("path");
-var fs = require("fs");
-var util = require("util");
+// var fs = require("fs");
+// var util = require("util");
 const db = require("../models");
 // var readFile = util.promisify(fs.readFile);
 
@@ -104,8 +104,13 @@ module.exports = function(app) {
     );
   });
 
+  // app.get("/citySearch", function(req, res) {
+  //   // res.render("index", { layout: "mian" });
+  //   res.sendFile(path.join(__dirname, "../public/searchResults.html"));
+  // });
+
+  //handlebar HTML route
   app.get("/citySearch", function(req, res) {
-    // res.render("index", { layout: "mian" });
-    res.sendFile(path.join(__dirname, "../public/searchResults.html"));
+    res.render("index");
   });
 };
