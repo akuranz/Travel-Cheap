@@ -94,6 +94,8 @@ module.exports = function(app) {
     console.log("Natalia", user[0].dataValues.Trips[0].dataValues);
     let info = user[0].dataValues.Trips;
     console.log(info[0].cityName);
+    console.log("Flight: ", info[0].Flights[0].dataValues);
+    console.log("Events: ", info[0].Events[0].dataValues);
     res.render(
       "itinerary",
       {
