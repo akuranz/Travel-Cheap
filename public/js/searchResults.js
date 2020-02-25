@@ -1,9 +1,8 @@
 // AirportInput("cityFromInput");
 // AirportInput("cityToInput");
-
 // clicking search button
 $("#searchCity").click(function() {
-  console.log("hi")
+  console.log("hi");
   event.preventDefault();
   let cityFrom = $("#cityFromInput")
     .val()
@@ -14,50 +13,49 @@ $("#searchCity").click(function() {
   let cityEvent = $("#cityEvent")
     .val()
     .trim();
-
-  // var departureDate = $("#departureDate")
-  //   .val()
-  //   .trim();
-  // var returnDate = $("#returnDate")
-  //   .val()
-  //   .trim();
+  let departureDate = $("#departureDate")
+    .val()
+    .trim();
+  let returnDate = $("#returnDate")
+    .val()
+    .trim();
   // insert function to send to the backend for the axios call?
 
   // postCity(cityFrom, cityTo, departureDate, returnDate);
-  postCity(cityFrom, cityTo, cityEvent);
+  // postCity(cityFrom, cityTo, cityEvent);
 
   // original format YYYY-MM-DD, needs to change to MM/DD/YYYY
   // takes depature and return date and reformats it
-  //   let departureD = $("#departureDate")
-  //     .val()
-  //     .trim();
+  // let departureD = $("#departureDate")
+  //   .val()
+  //   .trim();
 
-  //   const departureDate = dateFormatter(departureD);
+  // const departureDate = dateFormatter(departureD);
 
-  //   console.log("Departure Date: " + departureDate);
+  // console.log("Departure Date: ", departureDate.moment().format("DD/MM/YYYY"));
   //   let returnD = $("#returnDate")
   //     .val()
   //     .trim();
 
-  //   const returnDate = dateFormatter(returnD);
+  console.log("Departure Date: ", departureDate);
+  // const returnDate = dateFormatter(returnD);
 
-  //   console.log("Return Date: " + returnDate);
-
-  //   // function to send to the backend
-  //   postCity(cityFrom, cityTo, departureDate, returnDate);
+  console.log("Return Date: ", returnDate);
+  postCity(cityFrom, cityTo, departureDate, returnDate);
 });
-
 // clicking previously searched itinerary
-$(document).on("click", ".city", function(event) {
-  var cityFrom = $(this).attr("data-nameFrom");
-  var cityTo = $(this).attr("data-nameTo");
-  // var departureDate = $(this).attr("data-nameDeparture");
-  // var returnDate = $(this).attr("data-nameReturn");
-  // insert function to send to the backend for the axios call?
+// $(document).on("click", ".city", function(event) {
+//   var cityFrom = $(this).attr("data-nameFrom");
+//   var cityTo = $(this).attr("data-nameTo");
+//   // var departureDate = $(this).attr("data-nameDeparture");
+//   // var returnDate = $(this).attr("data-nameReturn");
+//   // insert function to send to the backend for the axios call?
+
 
   // postCity(cityFrom, cityTo, departureDate, returnDate);
-  postCity(cityFrom, cityTo);
+  postCity(cityFrom, cityTo, cityEvent);
 });
+
 
 // function postCity(cityFrom, cityTo) {
 //   console.log("In post city")
@@ -68,29 +66,36 @@ $(document).on("click", ".city", function(event) {
 //     // returnDate: returnDate
 //   };
 
-  // postCity(cityFrom, cityTo);
+// postCity(cityFrom, cityTo);
 
-  //   let cityFrom = $(this).attr("data-nameFrom");
-  //   let cityTo = $(this).attr("data-nameTo");
+//   let cityFrom = $(this).attr("data-nameFrom");
+//   let cityTo = $(this).attr("data-nameTo");
 
-  //   // takes depature and return date and reformats it
-  //   let departureD = $(this).attr("data-nameDeparture");
-  //   const departureDate = dateFormatter(departureD);
-  //   console.log("Departure Date: " + departureDate);
+//   // takes depature and return date and reformats it
+//   let departureD = $(this).attr("data-nameDeparture");
+//   const departureDate = dateFormatter(departureD);
+//   console.log("Departure Date: " + departureDate);
 
-  //   let returnD = $(this).attr("data-nameReturn");
-  //   const returnDate = dateFormatter(returnD);
-  //   console.log("Return Date: " + returnDate);
+//   let returnD = $(this).attr("data-nameReturn");
+//   const returnDate = dateFormatter(returnD);
+//   console.log("Return Date: " + returnDate);
 
-  //   // function to send to the backend
-  //   postCity(cityFrom, cityTo, departureDate, returnDate);
+//   // function to send to the backend
+//   postCity(cityFrom, cityTo, departureDate, returnDate);
 // }
 
-function postCity(cityFrom, cityTo) {
-  console.log("In post city")
-  cities = { cityFrom: cityFrom, cityTo: cityTo };
+function postCity(cityFrom, cityTo, cityEvent, departureDate, returnDate) {
+  console.log("In post city");
+  // cities = { cityFrom: cityFrom, cityTo: cityTo };
   // function postCity(cityFrom, cityTo, departureDate, returnDate) {
-  //   cities = { cityFrom: cityFrom, cityTo: cityTo, departureDate: departureDate, returnDate, returnDate };
+  cities = {
+    cityFrom: cityFrom,
+    cityTo: cityTo,
+    departureDate: departureDate
+    returnDate:
+    returnDate,
+    cityEvent: cityEvent
+  };
   $.post("/api/citySearch", cities).then(function(data) {
     console.log(data);
     if (data) {
@@ -101,33 +106,14 @@ function postCity(cityFrom, cityTo) {
   });
 }
 
-// -------FUNCTION BELOW TO POST EVENT, EVENTUALLY--------
-// function postEvent() {
-//   // function postCity(cityFrom, cityTo, departureDate, returnDate) {
-//   //   cities = { cityFrom: cityFrom, cityTo: cityTo, departureDate: departureDate, returnDate, returnDate };
-//   $.post("/api/citySearch", cities).then(function(data) {
-//     console.log(data);
-//     if (data) {
-//       console.log("You looked up: ", cities);
-//     } else {
-//       console.log("That is not a valid city");
-//     }
-//   });
+//reformatted to move day first, then month to match api query
+// function dateFormatter(date) {
+//   let year = date.substring(0, 4);
+//   let month = date.substring(5, 7);
+//   let day = date.substring(8);
+//   let finalDate = day + "/" + month + "/" + year;
+//   return finalDate;
 // }
-
-function postEvent() {
-  // function postCity(cityFrom, cityTo, departureDate, returnDate) {
-  //   cities = { cityFrom: cityFrom, cityTo: cityTo, departureDate: departureDate, returnDate, returnDate };
-
-  $.post("/api/citySearch", cities).then(function(data) {
-    console.log(data);
-    if (data) {
-      console.log("You looked up: ", cities);
-    } else {
-      console.log("That is not a valid city");
-    }
-  });
-}
 
 // function dateFormatter(date) {
 //     let year = date.substring(0, 4);

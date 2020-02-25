@@ -12,3 +12,4 @@ if(showInfo === true){
     showInfo = true;
 }
 });
+
