@@ -42,3 +42,9 @@
 .event-info, .flight-info {
     font-size: 16px;
 }
+.hiddenItinerary {
+    display: none;
+}
+.boldTitle {
+    font-weight: bold;
+}
