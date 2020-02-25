@@ -1,16 +1,17 @@
 // AirportInput("cityFromInput");
 // AirportInput("cityToInput");
 // clicking search button
+console.log("searchResults js file");
 $("#searchCity").click(function() {
   console.log("hi");
   event.preventDefault();
-  let cityFrom = $("#cityFromInput")
-    .val()
-    .trim();
-  let cityTo = $("#cityToInput")
-    .val()
-    .trim();
   let cityEvent = $("#cityEvent")
+    .val()
+    .trim();
+  let cityFrom = $("#cityFrom")
+    .val()
+    .trim();
+  let cityTo = $("#cityTo")
     .val()
     .trim();
   let departureDate = $("#departureDate")
@@ -19,30 +20,46 @@ $("#searchCity").click(function() {
   let returnDate = $("#returnDate")
     .val()
     .trim();
-  // insert function to send to the backend for the axios call?
-
-  // postCity(cityFrom, cityTo, departureDate, returnDate);
-  // postCity(cityFrom, cityTo, cityEvent);
-
-  // original format YYYY-MM-DD, needs to change to MM/DD/YYYY
-  // takes depature and return date and reformats it
-  // let departureD = $("#departureDate")
-  //   .val()
-  //   .trim();
-
-  // const departureDate = dateFormatter(departureD);
-
-  // console.log("Departure Date: ", departureDate.moment().format("DD/MM/YYYY"));
-  //   let returnD = $("#returnDate")
-  //     .val()
-  //     .trim();
-
-  console.log("Departure Date: ", departureDate);
-  // const returnDate = dateFormatter(returnD);
-
-  console.log("Return Date: ", returnDate);
-  postCity(cityFrom, cityTo, departureDate, returnDate);
+  postCity(cityFrom, cityTo, departureDate, returnDate, cityEvent);
 });
+
+function postCity(cityFrom, cityTo, departureDate, returnDate, cityEvent) {
+  console.log("In post flight");
+  cities = {
+    cityFrom: cityFrom,
+    cityTo: cityTo,
+    departureDate: departureDate,
+    returnDate: returnDate,
+    cityEvent: cityEvent
+  };
+  $.post("/api/citySearch", cities).then(function(data) {
+    console.log(data);
+    if (data) {
+      console.log("You looked up: ", cities);
+    } else {
+      console.log("That is not a valid city");
+    }
+  });
+}
+
+// original format YYYY-MM-DD, needs to change to MM/DD/YYYY
+// takes depature and return date and reformats it
+// let departureD = $("#departureDate")
+//   .val()
+//   .trim();
+
+// const departureDate = dateFormatter(departureD);
+
+// console.log("Departure Date: ", departureDate.moment().format("DD/MM/YYYY"));
+//   let returnD = $("#returnDate")
+//     .val()
+//     .trim();
+
+// console.log("Departure Date: ", departureDate);
+// const returnDate = dateFormatter(returnD);
+
+// console.log("Return Date: ", returnDate);
+
 // clicking previously searched itinerary
 // $(document).on("click", ".city", function(event) {
 //   var cityFrom = $(this).attr("data-nameFrom");
@@ -51,11 +68,9 @@ $("#searchCity").click(function() {
 //   // var returnDate = $(this).attr("data-nameReturn");
 //   // insert function to send to the backend for the axios call?
 
-
-  // postCity(cityFrom, cityTo, departureDate, returnDate);
-  postCity(cityFrom, cityTo, cityEvent);
-});
-
+// postCity(cityFrom, cityTo, departureDate, returnDate);
+//   postCity(cityFrom, cityTo, cityEvent);
+// });
 
 // function postCity(cityFrom, cityTo) {
 //   console.log("In post city")
@@ -83,28 +98,6 @@ $("#searchCity").click(function() {
 //   // function to send to the backend
 //   postCity(cityFrom, cityTo, departureDate, returnDate);
 // }
-
-function postCity(cityFrom, cityTo, cityEvent, departureDate, returnDate) {
-  console.log("In post city");
-  // cities = { cityFrom: cityFrom, cityTo: cityTo };
-  // function postCity(cityFrom, cityTo, departureDate, returnDate) {
-  cities = {
-    cityFrom: cityFrom,
-    cityTo: cityTo,
-    departureDate: departureDate
-    returnDate:
-    returnDate,
-    cityEvent: cityEvent
-  };
-  $.post("/api/citySearch", cities).then(function(data) {
-    console.log(data);
-    if (data) {
-      console.log("You looked up: ", cities);
-    } else {
-      console.log("That is not a valid city");
-    }
-  });
-}
 
 //reformatted to move day first, then month to match api query
 // function dateFormatter(date) {
