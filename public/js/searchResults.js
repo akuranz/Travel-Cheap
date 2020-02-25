@@ -56,7 +56,7 @@ $(document).on("click", ".city", function(event) {
   // insert function to send to the backend for the axios call?
 
   // postCity(cityFrom, cityTo, departureDate, returnDate);
-  postCity(cityFrom, cityTo);
+  postCity(cityFrom, cityTo, cityEvent);
 });
 
 // function postCity(cityFrom, cityTo) {
@@ -86,9 +86,9 @@ $(document).on("click", ".city", function(event) {
   //   postCity(cityFrom, cityTo, departureDate, returnDate);
 // }
 
-function postCity(cityFrom, cityTo) {
+function postCity(cityFrom, cityTo, cityEvent) {
   console.log("In post city")
-  cities = { cityFrom: cityFrom, cityTo: cityTo };
+  cities = { cityFrom: cityFrom, cityTo: cityTo, cityEvent: cityEvent};
   // function postCity(cityFrom, cityTo, departureDate, returnDate) {
   //   cities = { cityFrom: cityFrom, cityTo: cityTo, departureDate: departureDate, returnDate, returnDate };
   $.post("/api/citySearch", cities).then(function(data) {
@@ -101,33 +101,6 @@ function postCity(cityFrom, cityTo) {
   });
 }
 
-// -------FUNCTION BELOW TO POST EVENT, EVENTUALLY--------
-// function postEvent() {
-//   // function postCity(cityFrom, cityTo, departureDate, returnDate) {
-//   //   cities = { cityFrom: cityFrom, cityTo: cityTo, departureDate: departureDate, returnDate, returnDate };
-//   $.post("/api/citySearch", cities).then(function(data) {
-//     console.log(data);
-//     if (data) {
-//       console.log("You looked up: ", cities);
-//     } else {
-//       console.log("That is not a valid city");
-//     }
-//   });
-// }
-
-function postEvent() {
-  // function postCity(cityFrom, cityTo, departureDate, returnDate) {
-  //   cities = { cityFrom: cityFrom, cityTo: cityTo, departureDate: departureDate, returnDate, returnDate };
-
-  $.post("/api/citySearch", cities).then(function(data) {
-    console.log(data);
-    if (data) {
-      console.log("You looked up: ", cities);
-    } else {
-      console.log("That is not a valid city");
-    }
-  });
-}
 
 // function dateFormatter(date) {
 //     let year = date.substring(0, 4);
