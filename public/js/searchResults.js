@@ -51,9 +51,11 @@ $("#searchCity").click(function() {
 //   // var returnDate = $(this).attr("data-nameReturn");
 //   // insert function to send to the backend for the axios call?
 
-//   // postCity(cityFrom, cityTo, departureDate, returnDate);
-//   postCity(cityFrom, cityTo);
-// });
+
+  // postCity(cityFrom, cityTo, departureDate, returnDate);
+  postCity(cityFrom, cityTo, cityEvent);
+});
+
 
 // function postCity(cityFrom, cityTo) {
 //   console.log("In post city")
@@ -82,16 +84,17 @@ $("#searchCity").click(function() {
 //   postCity(cityFrom, cityTo, departureDate, returnDate);
 // }
 
-function postCity(cityFrom, cityTo, departureDate, returnDate) {
+function postCity(cityFrom, cityTo, cityEvent, departureDate, returnDate) {
   console.log("In post city");
   // cities = { cityFrom: cityFrom, cityTo: cityTo };
   // function postCity(cityFrom, cityTo, departureDate, returnDate) {
   cities = {
     cityFrom: cityFrom,
     cityTo: cityTo,
-    departureDate: departureDate.moment().format("DD/MM/YYYY")),
+    departureDate: departureDate
+    returnDate:
     returnDate,
-    returnDate
+    cityEvent: cityEvent
   };
   $.post("/api/citySearch", cities).then(function(data) {
     console.log(data);
@@ -103,42 +106,14 @@ function postCity(cityFrom, cityTo, departureDate, returnDate) {
   });
 }
 
-// -------FUNCTION BELOW TO POST EVENT, EVENTUALLY--------
-// function postEvent() {
-//   // function postCity(cityFrom, cityTo, departureDate, returnDate) {
-//   //   cities = { cityFrom: cityFrom, cityTo: cityTo, departureDate: departureDate, returnDate, returnDate };
-//   $.post("/api/citySearch", cities).then(function(data) {
-//     console.log(data);
-//     if (data) {
-//       console.log("You looked up: ", cities);
-//     } else {
-//       console.log("That is not a valid city");
-//     }
-//   });
-// }
-
-function postEvent() {
-  // function postCity(cityFrom, cityTo, departureDate, returnDate) {
-  //   cities = { cityFrom: cityFrom, cityTo: cityTo, departureDate: departureDate, returnDate, returnDate };
-
-  $.post("/api/citySearch", cities).then(function(data) {
-    console.log(data);
-    if (data) {
-      console.log("You looked up: ", cities);
-    } else {
-      console.log("That is not a valid city");
-    }
-  });
-}
-
 //reformatted to move day first, then month to match api query
-function dateFormatter(date) {
-  let year = date.substring(0, 4);
-  let month = date.substring(5, 7);
-  let day = date.substring(8);
-  let finalDate = day + "/" + month + "/" + year;
-  return finalDate;
-}
+// function dateFormatter(date) {
+//   let year = date.substring(0, 4);
+//   let month = date.substring(5, 7);
+//   let day = date.substring(8);
+//   let finalDate = day + "/" + month + "/" + year;
+//   return finalDate;
+// }
 
 // function dateFormatter(date) {
 //     let year = date.substring(0, 4);

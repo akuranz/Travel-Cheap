@@ -98,8 +98,10 @@ module.exports = function(app) {
         }); // end dataArr.forEach
       }) // end axios.get
       .then(function() {
-        // const cityEvent = req.body.cityEvent;
-        const eventQueryURL = `https://app.ticketmaster.com/discovery/v2/events.json?city=Denver&apikey=zotluMaanqoUR4sTfliAco7lbM5hAij4`;
+
+        const cityEvent = req.body.cityEvent;
+        const eventQueryURL =
+          `https://app.ticketmaster.com/discovery/v2/events.json?city=${cityEvent}&apikey=zotluMaanqoUR4sTfliAco7lbM5hAij4`;
         return axios.get(eventQueryURL);
       })
       .then(function(eventsData) {
