@@ -13,11 +13,11 @@
                         <div class="trip-name">{{dataValues.cityName}}</div>
                         <!--date, time, price-->
                         <div class="event-info">{{dataValues.departureDate}} - {{dataValues.arrivalDate}}</div>
-                        <div class="hiddenItinerary">
+                        <div id="{{dataValues.id}}" class="hiddenItinerary">
                             <div class="boldTitle">Flights</div>
                             {{#each Flights}}
-                            <!--figure out airlines? make sure it is in the db-->
-                            <!--<div>{{flights.airlines}}</div>-->
+                            <!--figure out airlines? departure time? arrival time? make sure it is in the db-->
+                            <!--<div>{{dataValues.airlines}}</div>-->
                             <div>Price: ${{dataValues.price}}</div>
                             <div>Departure Date: {{dataValues.departureDate}}</div>
                             <div>Arrival Date: {{dataValues.arrivalDate}}</div>
@@ -25,13 +25,13 @@
                             <div class="boldTitle">Events</div>
                             {{#each Events}}
                             <!--figure out event name? make sure it is in the db-->
-                            <!--<div>{{name}}</div>-->
+                            <!--<div>{{dataValues.name}}</div>-->
                             <div>Price: ${{dataValues.price}}</div>
                             <div>Date: {{dataValues.date}}</div>
                             <div>Time: {{dataValues.time}}</div>
                             {{/each}}
                         </div>
-                        <button data-eventid="{{id}}" class="btn btn-primary seeInfo">Itinerary</button>
+                        <button data-id="{{dataValues.id}}" class="btn btn-primary seeInfo">Itinerary</button>
                     </div>
                     <!--sort out hidden information to show if button is clicked-->
                     {{/each}}
