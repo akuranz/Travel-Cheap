@@ -1,14 +1,14 @@
 {
   "development": {
     "username": "root",
-    "password": "Wrigley1!",
+    "password": "akuranz_1987",
     "database": "travel_db",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "test": {
     "username": "root",
-    "password": "Wrigley1!",
+    "password": "akuranz_1987",
     "database": "travel_db",
     "host": "127.0.0.1",
     "dialect": "mysql"

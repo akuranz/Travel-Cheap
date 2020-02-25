@@ -13,7 +13,25 @@
                         <div class="trip-name">{{dataValues.cityName}}</div>
                         <!--date, time, price-->
                         <div class="event-info">{{dataValues.departureDate}} - {{dataValues.arrivalDate}}</div>
-                        <button data-eventid="{{id}}" class="btn btn-primary seeInfo">Itinerary</button>
+                        <div id="{{dataValues.id}}" class="hiddenItinerary">
+                            <div class="boldTitle">Flights</div>
+                            {{#each Flights}}
+                            <!--figure out airlines? departure time? arrival time? make sure it is in the db-->
+                            <!--<div>{{dataValues.airlines}}</div>-->
+                            <div>Price: ${{dataValues.price}}</div>
+                            <div>Departure Date: {{dataValues.departureDate}}</div>
+                            <div>Arrival Date: {{dataValues.arrivalDate}}</div>
+                            {{/each}}
+                            <div class="boldTitle">Events</div>
+                            {{#each Events}}
+                            <!--figure out event name? make sure it is in the db-->
+                            <!--<div>{{dataValues.name}}</div>-->
+                            <div>Price: ${{dataValues.price}}</div>
+                            <div>Date: {{dataValues.date}}</div>
+                            <div>Time: {{dataValues.time}}</div>
+                            {{/each}}
+                        </div>
+                        <button data-id="{{dataValues.id}}" class="btn btn-primary seeInfo">Itinerary</button>
                     </div>
                     <!--sort out hidden information to show if button is clicked-->
                     {{/each}}
@@ -26,6 +44,5 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://kit.fontawesome.com/5a59e9708f.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/airport-autocomplete-js@latest/dist/index.browser.min.js"></script>
-{{!-- <script src="js/searchResults.js"></script> --}}
-{{!-- <script src="itinerary.js"></script> --}}
+<script src="/js/itinerary.js"></script>
 <!--insert other js links here-->
