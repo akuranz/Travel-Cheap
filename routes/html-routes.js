@@ -108,7 +108,28 @@ module.exports = function(app) {
 
   //handlebar HTML route
   app.get("/citySearch", function(req, res) {
-    //redo post route
     res.render("index");
+  });
+  app.get("/citySearch/:qId", function(req, res) {
+    // get db info about query
+    // query your API
+    res.render("index", {
+      //flights,
+      //events,
+    });
+  });
+
+  app.get("/citySearch/flight/:qId/:name", function(req, res) {
+    // get db info about query
+    // query your API
+
+    res.render("index", {
+      //flights,
+      //events,
+      dispFlight: true,
+      flight: {
+        eventName: "Some Flight"
+      }
+    });
   });
 };

@@ -11,34 +11,39 @@
                 <h5 class="card-title searchTitle">
                     Search for Events by City:
                 </h5>
-                <form class="form-inline">
+                <form class="form-inline" method="POST" action="/api/citySearch">
                     <div class="form-group mx-sm-3 mb-2">
                         <p id="fromTitle">City:</p>
-                        <input type="text" class="form-control" id="cityEvent" placeholder="City input" />
+                        <input type="text" class="form-control" id="cityEvent" placeholder="City input"
+                            name="cityEvent" />
                     </div>
-                </form>
 
-                <h5 class="card-title searchTitle">Which airports will you be using for your trip? </h5>
-                <div class="form-group mx-sm-3 mb-2">
-                    <p id="fromTitle">From:</p>
-                    <input type="text" class="form-control" id="cityFrom" />
-                </div>
-                <div class="form-group mx-sm-3 mb-2">
-                    <p id="toTitle">To:</p>
-                    <input type="text" class="form-control" id="cityTo" />
-                </div>
-                <div class="form-group mx-sm-3 mb-2">
-                    <p id="departure">Departure Date:</p>
-                    <input type="date" class="form-control" id="departureDate" />
-                </div>
-                <div class="form-group mx-sm-3 mb-2">
-                    <p id="return">Return Date:</p>
-                    <input type="date" class="form-control" id="returnDate" />
-                </div>
-                <div id="centerBtn">
-                    <button type="submit" class="btn btn-primary mb-2" id="searchCity"><span class="searchBtn"><i
-                                class="fas fa-search"></i></span></button>
-                </div>
+                    <h5 class="card-title searchTitle">Which airports will you be using for your trip? </h5>
+                    <div class="form-group mx-sm-3 mb-2">
+                        <p id="fromTitle">From:</p>
+                        <input type="text" class="form-control" id="cityFrom" name="cityFrom" />
+                    </div>
+                    <div class="form-group mx-sm-3 mb-2">
+                        <p id="toTitle">To:</p>
+                        <input type="text" class="form-control" id="cityTo" name="cityTo" />
+                    </div>
+                    <div class="form-group mx-sm-3 mb-2">
+                        <p id="departure">Departure Date:</p>
+                        <input type="date" class="form-control" id="departureDate" name="departureDate" />
+                    </div>
+                    <div class="form-group mx-sm-3 mb-2">
+                        <p id="return">Return Date:</p>
+                        <input type="date" class="form-control" id="returnDate" name="returnDate" />
+                    </div>
+                    <div id="centerBtn">
+                        <button type="submit" class="btn btn-primary mb-2" id="searchCity">
+                            <span class="searchBtn">
+                                <i class="fas fa-search"></i>
+                            </span>
+                        </button>
+                    </div>
+
+                </form>
             </div>
         </div>
     </div>
@@ -46,12 +51,27 @@
         <div class="card">
             <div class="card-body container">
                 <div class="eventSearchResults row">
-                    <!-- {{#each events}}
-                        {{#unless saved}}
-                        {{> events/event-block saved=false}}
-                        {{/unless}}
-                        {{/each}}
-                        <p>"Hello you are in search results</p> -->
+                    <!--{{#each dataValues.flights}}
+                    {{#unless saved}}
+                    {{> events/event-block saved=false}}
+                    {{/unless}}
+                    {{/each}}-->
+                    <p>"Hello you are in search results</p>
+                    {{#each flights}}
+                    {{this.Price}}
+                    {{/each}}
+                    {{#each events}}
+                    {{eventName}}
+
+                    <form action="/citySearch/flight/{{queryId}}/{{eventName}}" method="get">
+                        <input type="submit" value="See More!">
+                    </form>
+                    {{/each}}
+
+
+                    {{#if dispFlight}}
+                    {{flight.eventName}}
+                    {{/if}}
                 </div>
             </div>
         </div>
@@ -80,7 +100,6 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://kit.fontawesome.com/5a59e9708f.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/airport-autocomplete-js@latest/dist/index.browser.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <script src="/js/itinerary.js"></script>
 <script src="/js/searchResults.js""></script>
 

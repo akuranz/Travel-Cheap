@@ -2,26 +2,26 @@
 // AirportInput("cityToInput");
 // clicking search button
 console.log("searchResults js file");
-$("#searchCity").click(function() {
-  console.log("hi");
-  event.preventDefault();
-  let cityEvent = $("#cityEvent")
-    .val()
-    .trim();
-  let cityFrom = $("#cityFrom")
-    .val()
-    .trim();
-  let cityTo = $("#cityTo")
-    .val()
-    .trim();
-  let departureDate = $("#departureDate")
-    .val()
-    .trim();
-  let returnDate = $("#returnDate")
-    .val()
-    .trim();
-  postCity(cityFrom, cityTo, departureDate, returnDate, cityEvent);
-});
+// $("#searchCity").click(function() {
+//   console.log("hi");
+//   event.preventDefault();
+//   let cityEvent = $("#cityEvent")
+//     .val()
+//     .trim();
+//   let cityFrom = $("#cityFrom")
+//     .val()
+//     .trim();
+//   let cityTo = $("#cityTo")
+//     .val()
+//     .trim();
+//   let departureDate = $("#departureDate")
+//     .val()
+//     .trim();
+//   let returnDate = $("#returnDate")
+//     .val()
+//     .trim();
+//   postCity(cityFrom, cityTo, departureDate, returnDate, cityEvent);
+// });
 
 function postCity(cityFrom, cityTo, departureDate, returnDate, cityEvent) {
   console.log("In post flight");
@@ -32,15 +32,78 @@ function postCity(cityFrom, cityTo, departureDate, returnDate, cityEvent) {
     returnDate: returnDate,
     cityEvent: cityEvent
   };
-  $.post("/api/citySearch", cities).then(function(data) {
-    console.log(data);
-    if (data) {
-      console.log("You looked up: ", cities);
-    } else {
-      console.log("That is not a valid city");
-    }
-  });
+  $.post("/api/citySearch", cities)
+    .then(function(data) {
+      console.log(data);
+      if (data) {
+        console.log("You looked up: ", cities);
+      } else {
+        console.log("That is not a valid city");
+      }
+    })
+    .catch(function(err) {
+      console.log(err.message);
+    });
 }
+
+//this is where we create the nested object?
+//create container with events and flights in index.handlebars
+// const saveItinerary = ".saveItinerary";
+//get the object
+// saveItinerary.on(() => {
+//   event.preventDefault();
+//   let UserID = AJAX;
+//   ajax.get;
+//   //AJAX call to get UserID of loggedin
+// });
+
+// function saveItinerary(trip, flights, events) {
+//   // savedItineraries = {
+//   //   trip: {
+//   //     cityName: cityNAme,
+//   //     departureDate: departureDate,
+//   //     arrivalDate: arrivalDate,
+//   //     UserId: UserId //get this from the AJAX call?
+//   //   },
+//   //   flights: [
+//   //     {
+//   //       price: price,
+//   //       departureDate: departureDate,
+//   //       arrivalDate: arrivalDate
+//   //     },
+//   //     {
+//   //       price: price,
+//   //       departureDate: departureDate,
+//   //       arrivalDate: arrivalDate
+//   //     }
+//   //   ],
+//   //   events: [
+//   //     {
+//   //       price: price,
+//   //       date: date,
+//   //       time: time
+//   //     },
+//   //     {
+//   //       price: price,
+//   //       date: date,
+//   //       time: time
+//   //     },
+//   //     {
+//   //       price: price,
+//   //       date: date,
+//   //       time: time
+//   //     }
+//   //   ]
+//   // };
+//   // $.post("api/trips", savedItineraries).then(function(data) {
+//   //   console.log(data);
+//   //   if (data) {
+//   //     console.log("You looked up: ", cities);
+//   //   } else {
+//   //     console.log("That is not a valid city");
+//   //   }
+//   // });
+// }
 
 // original format YYYY-MM-DD, needs to change to MM/DD/YYYY
 // takes depature and return date and reformats it
