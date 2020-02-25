@@ -101,34 +101,6 @@ function postCity(cityFrom, cityTo, cityEvent) {
   });
 }
 
-// -------FUNCTION BELOW TO POST EVENT, EVENTUALLY--------
-// function postEvent() {
-//   // function postCity(cityFrom, cityTo, departureDate, returnDate) {
-//   //   cities = { cityFrom: cityFrom, cityTo: cityTo, departureDate: departureDate, returnDate, returnDate };
-//   $.post("/api/citySearch", cities).then(function(data) {
-//     console.log(data);
-//     if (data) {
-//       console.log("You looked up: ", cities);
-//     } else {
-//       console.log("That is not a valid city");
-//     }
-//   });
-// }
-
-function postEvent() {
-  // function postCity(cityFrom, cityTo, departureDate, returnDate) {
-  //   cities = { cityFrom: cityFrom, cityTo: cityTo, departureDate: departureDate, returnDate, returnDate };
-
-  $.post("/api/citySearch", cities).then(function(data) {
-    console.log(data);
-    if (data) {
-      console.log("You looked up: ", cities);
-    } else {
-      console.log("That is not a valid city");
-    }
-  });
-}
-
 // function dateFormatter(date) {
 //     let year = date.substring(0, 4);
 //     let month = date.substring(5, 7);
