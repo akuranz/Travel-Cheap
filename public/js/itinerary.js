@@ -1,8 +1,14 @@
-// var queryURL = "/api/trips/" + 1;
-// console.log("inside itinerary js");
-// $.ajax({
-//   url: queryURL,
-//   method: "GET"
-// }).then(function(response) {
-//   // console.log(response);
-// });
+//toggle button to show saved info for Flights and Events
+let showInfo = true;
+$(".seeInfo").on("click", function(event) {
+console.log("btn clicked");
+if(showInfo === true){
+    $(".hiddenItinerary").css("display", "block");
+    $(".seeInfo").text("Hide Info");
+    showInfo = false;
+}else{
+    $(".hiddenItinerary").css("display", "none");
+    $(".seeInfo").text("Itinerary");
+    showInfo = true;
+}
+});
