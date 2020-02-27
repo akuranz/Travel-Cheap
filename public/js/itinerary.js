@@ -1,14 +1,16 @@
 //toggle button to show saved info for Flights and Events
 let showInfo = true;
-$(".seeInfo").on("click", function(event) {
-  console.log("btn clicked");
-  if (showInfo === true) {
-    $(".hiddenItinerary").css("display", "block");
-    $(".seeInfo").text("Hide Info");
+
+$("button").on("click", function(event) {
+console.log("btn clicked");
+var currentBtn = $(this).data("id");
+console.log(currentBtn);
+if(showInfo === true){
+    $(`#${currentBtn}`).css("display", "block");
     showInfo = false;
-  } else {
-    $(".hiddenItinerary").css("display", "none");
-    $(".seeInfo").text("Itinerary");
+}else{
+    $(`#${currentBtn}`).css("display", "none");
+  
     showInfo = true;
   }
 });
