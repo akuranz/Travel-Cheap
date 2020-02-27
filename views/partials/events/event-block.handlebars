@@ -1,7 +1,4 @@
 <div class="col-md-3">
-    <div class="event-name">{{events}}</div>
-    <!--date, time, price-->
-    {{!-- <div class="event-info">{{date}}<br>{{time}}<br>{{price}}</div> --}}
-    <button data-eventid="{{id}}" class="btn btn-primary change-saved" data-saved="{{saved}}">
+    <button data-saved={{saved}} data-eventName={{eventName}} class="btn btn-primary change-saved">
         {{#if saved}}RETURN TO LIST >>{{else}} Save {{/if}} </button>
 </div>

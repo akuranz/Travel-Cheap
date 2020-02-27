@@ -34,7 +34,6 @@ $(".saved-itinerary").click(function() {
 console.log(savedEventName, savedEventTime, savedEventDate, savedEventVenue, savedEventURL, savedFlightPrice, savedDepartureDate, savedArrivalDate)
 });
 
-
 // let saved = $(".change-saved");
 // saved.click(function() {
 //   let eventId = saved.data(eventid)
@@ -45,22 +44,26 @@ let savedSearch = [];
 $(function() {
   $(".change-saved").on("click", function(event) {
     event.preventDefault();
-    var eventId = $(this).data("eventid");
-    var saved = $(this).data("saved");
-    // saved = $(this).attr("saved", false);
-    console.log("eventId", eventId);
-    console.log("saved", saved);
-    console.log(typeof saved);
-    if (saved === true) {
-      for (i = 0; i < savedSearch.length; i++) {
-        //loop through array
-        savedSearch.push(saved); //push variables
+    let saved = $(this).data("saved");
+    let eventName = $(this).data("eventname");
+    let eventDetails = {
+      eventName: eventName
+    };
+    console.log("eventName", eventName);
+    if (saved === false) {
+      saved = $(this).attr("saved", !saved);
+      console.log("saved", !saved);
+      savedSearch.push(eventDetails);
+      // clear out the saved container
+      let savedResults = $(".savedResults");
+      // loop through savedSearch
+      for (var i = 0; i < savedSearch.length; i++) {
+        // add divs for each event/flight in savedSearch to the saved container
+        var eventNamePrint = $("<p>").text(savedSearch[i].eventName);
+        savedResults.append(eventNamePrint);
       }
     }
     console.log(savedSearch);
-
-    // var newSaved = $(this).data("eventid", true);
-    // console.log(newSaved);
   });
 });
 
@@ -90,7 +93,9 @@ $(function() {
 //this is where we create the nested object?
 //create container with events and flights in index.handlebars
 // const saveItinerary = $(".saveItinerary");
-//get the object
+
+// //get the object
+
 // saveItinerary.on(() => {
 //   event.preventDefault();
 // });
@@ -130,6 +135,7 @@ function saveItinerary(savedEventName, savedEventTime, savedEventDate, savedEven
     }
   });
 }
+
 
 // original format YYYY-MM-DD, needs to change to MM/DD/YYYY
 // takes depature and return date and reformats it

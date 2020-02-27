@@ -51,13 +51,15 @@
                 <div class="card-body">
                     <div class="eventSearchResults row">
                         {{#each events}}
+
                         <div class="col-md-6">
                         <div class="boldTitle">{{eventName}}</div>
+                        Name: {{eventName}}<br>
                         Date: {{eventDate}}<br>
                         Time: {{eventTime}}<br>
                         Venue: {{eventVenue}}<br>
                         <a href="{{eventUrl}}">More info!</a>
-                        {{> events/event-block saved=false}}
+                        {{> events/event-block saved=false eventName=this.eventName}}
                         </div>
                         {{/each}}
                     </div>
@@ -68,6 +70,7 @@
         <div class="card col-md-8">
                 <div class="card-body">
                     <div class="flightSearchResults row">
+
                         <!--shows airline, price, duration, departure/arrival dates, needs to include departure/arrival times-->
                         {{#each flights}}
                         <div class="col-md-4">
@@ -79,6 +82,7 @@
                         {{> flights/flight-block saved=false}}
                         </div>
                         {{/each}}
+
                     </div>
                 </div>
         </div>
