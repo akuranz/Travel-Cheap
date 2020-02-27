@@ -78,7 +78,11 @@ module.exports = function(app) {
         }); // end dataArr.forEach
 
         const cityEvent = req.body.cityEvent;
-        const eventQueryURL = `https://app.ticketmaster.com/discovery/v2/events.json?city=${cityEvent}&apikey=zotluMaanqoUR4sTfliAco7lbM5hAij4`;
+        const startDate =  moment(req.body.departureDate).format("YYYY-MM-DD");
+        const endDate =  moment(req.body.returnDate).format("YYYY-MM-DD");
+        console.log("Ticketmaster Dates: ", startDate, endDate);
+        //&startDateTime=YYYY-MM-DDT00:00:00Z&endDateTime=YYYY-MM-DDT23:59:00Z
+        const eventQueryURL = `https://app.ticketmaster.com/discovery/v2/events.json?city=${cityEvent}&startDateTime=${startDate}T00:01:00Z&endDateTime=${endDate}T23:59:00Z&apikey=zotluMaanqoUR4sTfliAco7lbM5hAij4`;
         return axios.get(eventQueryURL);
       })
       .then(function(eventsData) {
