@@ -54,87 +54,13 @@ module.exports = function(app) {
     }
   });
 
-  // Route for getting some data about our user to be used client side
-  // app.post("/api/citySearch", function(req, res) {
-  //   console.log("apiFlights", req.body);
-  //   const cityFrom = req.body.cityFromInput;
-  //   const cityTo = req.body.cityToInput;
-  //   // const departureDate = "11/03/2020";
-  //   // const returnDate = "11/03/2020";
-  //   // const departureDate = req.body.departureDate;
-  //   // const returnDate = req.body.returnDate;
-  //   const queryUrl = `https://api.skypicker.com/flights?flyFrom=${cityFrom}&to=${cityTo}&partner=picky&v=3&USD`;
-  //   // const queryUrl = `https://api.skypicker.com/flights?flyFrom=${cityFrom}&to=${cityTo}&dateFrom=23/03/2020&dateTo=24/03/2020&partner=picky&v=3&USD`;
-  //   axios
-  //     .get(queryUrl)
-  //     .then(function(data) {
-  //       var dataArr = data.data.data;
-  //       dataArr.forEach(function(flight) {
-  //         const flightRoute = flight.route[0];
-  //         const flightDetails = {
-  //           Price: flight.price,
-  //           Duration: flight.fly_duration,
-  //           DepartureTime: moment
-  //             .unix(flight.dTime)
-  //             .format("MMMM Do YYYY | h:mm a"),
-  //           ArrivalTime: moment
-  //             .unix(flight.aTime)
-  //             .format("MMMM Do YYYY | h:mm a"),
-  //           //need to figure out array return
-  //           Airline: flight.airlines,
-  //           //this is not layover
-  //           Layover: flight.has_airport_change,
-  //           //if more than one object in flight, which no is it returning?
-  //           //is this in handlebars or here?
-  //           FlightNumber: flightRoute.operating_flight_no,
-  //           OriginCity: flightRoute.cityFrom,
-  //           DestinationCity: flightRoute.cityTo
-  //         };
-  //         console.log(flight);
-  //         flights.push(flightDetails);
-  //       }); // end dataArr.forEach
-  //     }) // end axios.get
-  //     .then(function() {
-  //       const cityEvent = req.body.cityEvent;
-  //       const eventQueryURL = `https://app.ticketmaster.com/discovery/v2/events.json?city=${cityEvent}&apikey=zotluMaanqoUR4sTfliAco7lbM5hAij4`;
-  //       return axios.get(eventQueryURL);
-  //     })
-  //     .then(function(eventsData) {
-  //       var eventsDataArr = eventsData.data._embedded.events;
-  //       // console.log(eventsDataArr)
-  //       eventsDataArr
-  //         .forEach(function(event) {
-  //           // console.log(event)
-  //           const eventDetails = {
-  //             "Event Name": event.name,
-  //             "Event Date:": event.dates.start.localDate,
-  //             "Event Time:": event.dates.start.localTime,
-  //             "Event Venue:": event._embedded.venues[0].name,
-  //             // "Event Price:": event.priceRanges[2].min,
-  //             "Event URL:": event.url
-  //           };
-  //           events.push(eventDetails);
-  //         })
-  //         .catch(err => {
-  //           if (err) throw new Error(err);
-  //         });
-
-  //       const flightsAndEvents = {
-  //         flights: flights,
-  //         events: events
-  //       };
-  //       console.log(flightsAndEvents);
-  //       res.json(flightsAndEvents);
-  //     });
-  // });
-
   app.post("/api/citySearch", function(req, res) {
     // console.log("apiFlights", req.body);
     const cityFrom = req.body.cityFrom;
     const cityTo = req.body.cityTo;
-    // const departureDate = req.body.departureDate;
-    // const arrivalDate = req.body.departureDate;
-    const queryUrl = `https://api.skypicker.com/flights?flyFrom=${cityFrom}&to=${cityTo}&partner=picky&v=3&USD`;
+    const departureDate = moment(req.body.departureDate).format("DD/MM/YYYY");
+    const returnDate = moment(req.body.departureDate).format("DD/MM/YYYY");
+    const queryUrl = `https://api.skypicker.com/flights?flyFrom=${cityFrom}&to=${cityTo}&date_from=${departureDate}&date_to=${returnDate}&partner=picky&v=3&USD`;
     axios
       .get(queryUrl)
       .then(function(data) {
@@ -145,13 +71,12 @@ module.exports = function(app) {
             Duration: flight.fly_duration,
             DepartureTime: moment.unix(flight.dTime).format("MM/DD/YYYY"),
             ArrivalTime: moment.unix(flight.aTime).format("MM/DD/YYYY"),
-            Airline: flight.airline
+            Airline: flight.airlines
           };
           // console.log(flight);
           flights.push(flightDetails);
         }); // end dataArr.forEach
-      }) // end axios.get
-      .then(function() {
+
         const cityEvent = req.body.cityEvent;
         const eventQueryURL = `https://app.ticketmaster.com/discovery/v2/events.json?city=${cityEvent}&apikey=zotluMaanqoUR4sTfliAco7lbM5hAij4`;
         return axios.get(eventQueryURL);
@@ -162,12 +87,12 @@ module.exports = function(app) {
         eventsDataArr.forEach(function(event) {
           // console.log(event)
           const eventDetails = {
-            "Event Name": event.name,
-            "Event Date:": event.dates.start.localDate,
-            "Event Time:": event.dates.start.localTime,
-            "Event Venue:": event._embedded.venues[0].name,
+            eventName: event.name,
+            eventDate: event.dates.start.localDate,
+            eventTime: event.dates.start.localTime,
+            eventVenue: event._embedded.venues[0].name,
             // "Event Price:": event.priceRanges[2].min,
-            "Event URL:": event.url
+            eventUrl: event.url
           };
           events.push(eventDetails);
         });
@@ -177,8 +102,19 @@ module.exports = function(app) {
           events: events
         };
         console.log(flightsAndEvents);
-        res.json(flightsAndEvents);
+        // res.json(flightsAndEvents);
+        res.render("index", {
+          flights,
+          events
+        });
+      })
+      .catch(function(err) {
+        console.log("ERROR API_ROUTE");
+        console.log(err);
       });
+
+    // store form submission in db
+    // res.redirect("/citySearch/ new id from db insert")
   });
 
   //route to post data from citySearch but for now will post from itinerary
@@ -186,6 +122,7 @@ module.exports = function(app) {
   //this needs to go in the /api/trips routes?
   app.post("/api/itinerary", function(req, res) {
     console.log(req.body);
+
     db.Trip.create({
       UserId: 1, //need to define UserID from user_data api call,
       cityName: req.body.cityName,
