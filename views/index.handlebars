@@ -51,31 +51,44 @@
         <div class="card">
             <div class="card-body container">
                 <div class="eventSearchResults row">
-                    <!--{{#each dataValues.flights}}
+                    <p>"Hello you are in search results</p>
+                    <div class="event-name">
+                        {{#each events}}
+                        {{eventName}}
+                        {{eventDate}}
+                        {{eventTime}}
+                        {{eventVenue}}
+                        {{eventUrl}}
+                        {{> events/event-block saved=false}}
+                        {{/each}}</div>
+                </div>
+
+                <!--{{#each events}}
                     {{#unless saved}}
+                    {{eventName}}
                     {{> events/event-block saved=false}}
                     {{/unless}}
-                    {{/each}}-->
-                    <p>"Hello you are in search results</p>
+                    {{/each}}
                     {{#each flights}}
-                    {{this.Price}}
-                    {{/each}}
-                    {{#each events}}
-                    {{eventName}}
+                    {{#unless saved}}
+                    {{Price}}
+                    {{> flights/flight-block saved=false}}
+                    {{/unless}}
+                    {{/each}}-->
 
-                    <form action="/citySearch/flight/{{queryId}}/{{eventName}}" method="get">
+                <!-- <form action="/citySearch/flight/{{queryId}}/{{eventName}}" method="get">
                         <input type="submit" value="See More!">
-                    </form>
-                    {{/each}}
+                    </form> -->
 
 
-                    {{#if dispFlight}}
+
+                <!--{{#if dispFlight}}
                     {{flight.eventName}}
-                    {{/if}}
-                </div>
+                    {{/if}}-->
             </div>
         </div>
     </div>
+</div>
 </div>
 <div class="row">
     <div class="card col-md-4">
@@ -86,11 +99,17 @@
             <div class="card">
                 <div class="card-body container">
                     <div class="flightSearchResults row">
-                        {{#each flights}}
-                        {{#unless saved}}
+
+                        <!--{{#each flights}}
+                        {{#if saved}}
                         {{> flights/flight-block saved=false}}
-                        {{/unless}}
+                        {{/if}}
                         {{/each}}
+                        {{#each events}}
+                        {{#if saved}}
+                        {{> events/event-block saved=false}}
+                        {{/if}}
+                        {{/each}}-->
                     </div>
                 </div>
             </div>
