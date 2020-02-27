@@ -88,38 +88,32 @@
             </div>
         </div>
     </div>
-</div>
-</div>
-<div class="row">
-    <div class="card col-md-4">
-        <div class="card-body">
-
-        </div>
+    <div class="row">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-body container">
+                <div class="card-body">
                     <div class="flightSearchResults row">
-
-                        <!--{{#each flights}}
-                        {{#if saved}}
+                        <div class="flight-name">
+                        {{#each flights}}
+                        {{Airline}}
+                        {{Price}}
+                        {{Duration}}
+                        {{DepartureTime}}
+                        {{ArrivalTime}}
                         {{> flights/flight-block saved=false}}
-                        {{/if}}
                         {{/each}}
-                        {{#each events}}
-                        {{#if saved}}
-                        {{> events/event-block saved=false}}
-                        {{/if}}
-                        {{/each}}-->
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://kit.fontawesome.com/5a59e9708f.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/airport-autocomplete-js@latest/dist/index.browser.min.js"></script>
-<script src="/js/itinerary.js"></script>
 <script src="/js/searchResults.js""></script>
 
 <!--insert other js links here-->
