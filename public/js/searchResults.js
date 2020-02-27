@@ -23,86 +23,113 @@ console.log("searchResults js file");
 //   postCity(cityFrom, cityTo, departureDate, returnDate, cityEvent);
 // });
 
-function postCity(cityFrom, cityTo, departureDate, returnDate, cityEvent) {
-  console.log("In post flight");
-  cities = {
-    cityFrom: cityFrom,
-    cityTo: cityTo,
-    departureDate: departureDate,
-    returnDate: returnDate,
-    cityEvent: cityEvent
-  };
-  $.post("/api/citySearch", cities)
-    .then(function(data) {
-      console.log(data);
-      if (data) {
-        console.log("You looked up: ", cities);
-      } else {
-        console.log("That is not a valid city");
+
+// let saved = $(".change-saved");
+// saved.click(function() {
+//   let eventId = saved.data(eventid)
+//   saved.data("saved", true);
+// });
+
+let savedSearch = [];
+$(function() {
+  $(".change-saved").on("click", function(event) {
+    event.preventDefault();
+    var eventId = $(this).data("eventid");
+    var saved = $(this).data("saved");
+    // saved = $(this).attr("saved", false);
+    console.log("eventId", eventId);
+    console.log("saved", saved);
+    console.log(typeof saved);
+    if (saved === true) {
+      for (i = 0; i < savedSearch.length; i++) {
+        //loop through array
+        savedSearch.push(saved); //push variables
       }
-    })
-    .catch(function(err) {
-      console.log(err.message);
-    });
-}
+    }
+    console.log(savedSearch);
+
+    // var newSaved = $(this).data("eventid", true);
+    // console.log(newSaved);
+  });
+});
+
+// function postCity(cityFrom, cityTo, departureDate, returnDate, cityEvent) {
+//   console.log("In post flight");
+//   cities = {
+//     cityFrom: cityFrom,
+//     cityTo: cityTo,
+//     departureDate: departureDate,
+//     returnDate: returnDate,
+//     cityEvent: cityEvent
+//   };
+//   $.post("/api/citySearch", cities)
+//     .then(function(data) {
+//       console.log(data);
+//       if (data) {
+//         console.log("You looked up: ", cities);
+//       } else {
+//         console.log("That is not a valid city");
+//       }
+//     })
+//     .catch(function(err) {
+//       console.log(err.message);
+//     });
+// }
 
 //this is where we create the nested object?
 //create container with events and flights in index.handlebars
-// const saveItinerary = ".saveItinerary";
+const saveItinerary = $(".saveItinerary");
 //get the object
 // saveItinerary.on(() => {
 //   event.preventDefault();
-//   let UserID = AJAX;
-//   ajax.get;
-//   //AJAX call to get UserID of loggedin
 // });
 
 // function saveItinerary(trip, flights, events) {
-//   // savedItineraries = {
-//   //   trip: {
-//   //     cityName: cityNAme,
-//   //     departureDate: departureDate,
-//   //     arrivalDate: arrivalDate,
-//   //     UserId: UserId //get this from the AJAX call?
-//   //   },
-//   //   flights: [
-//   //     {
-//   //       price: price,
-//   //       departureDate: departureDate,
-//   //       arrivalDate: arrivalDate
-//   //     },
-//   //     {
-//   //       price: price,
-//   //       departureDate: departureDate,
-//   //       arrivalDate: arrivalDate
-//   //     }
-//   //   ],
-//   //   events: [
-//   //     {
-//   //       price: price,
-//   //       date: date,
-//   //       time: time
-//   //     },
-//   //     {
-//   //       price: price,
-//   //       date: date,
-//   //       time: time
-//   //     },
-//   //     {
-//   //       price: price,
-//   //       date: date,
-//   //       time: time
-//   //     }
-//   //   ]
-//   // };
-//   // $.post("api/trips", savedItineraries).then(function(data) {
-//   //   console.log(data);
-//   //   if (data) {
-//   //     console.log("You looked up: ", cities);
-//   //   } else {
-//   //     console.log("That is not a valid city");
-//   //   }
-//   // });
+//   //need an array on the front end in the right format
+//   savedItineraries = {
+//     trip: {
+//       cityName: cityEvent,
+//       departureDate: departureDate,
+//       arrivalDate: arrivalDate
+//     },
+//     flights: [
+//       {
+//         price: price,
+//         departureDate: departureDate,
+//         arrivalDate: arrivalDate
+//       },
+//       {
+//         price: price,
+//         departureDate: departureDate,
+//         arrivalDate: arrivalDate
+//       }
+//     ],
+//     events: [
+//       {
+//         name: eventName,
+//         date: eventDate,
+//         time: eventTime
+//       },
+//       {
+//         name: eventName,
+//         date: eventDate,
+//         time: eventTime
+//       },
+//       {
+//        name: eventName,
+//         date: eventDate,
+//         time: eventTime
+//       }
+//     ]
+//   };
+//   $.post("api/trips", savedItineraries).then(function(data) {
+//     console.log(data);
+//     if (data) {
+//       console.log("You looked up: ", cities);
+//     } else {
+//       console.log("That is not a valid city");
+//     }
+//   });
 // }
 
 // original format YYYY-MM-DD, needs to change to MM/DD/YYYY
