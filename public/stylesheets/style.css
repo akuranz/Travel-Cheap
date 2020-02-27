@@ -45,6 +45,6 @@
 .hiddenItinerary {
     display: none;
 }
-.boldTitle {
+.boldTitle, .eventTitle {
     font-weight: bold;
 }

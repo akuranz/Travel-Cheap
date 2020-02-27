@@ -1,7 +1,7 @@
 <div class="col-md-3">
     <div class="flight-airline">{{flights}}</div>
     <!--price, date, departure time, arrival time, airport change-->
-    <div class="flight-info">{{price}}<br>{{date}}<br>{{dTime}}<br>{{aTime}}<br>{{has_airport_change}}</div>
+    {{!-- <div class="flight-info">{{price}}<br>{{date}}<br>{{dTime}}<br>{{aTime}}<br>{{has_airport_change}}</div> --}}
     <button data-flightid="{{id}}" class="btn btn-primary change-saved" data-saved="{{saved}}">
         {{#if saved}}RETURN TO LIST >>{{else}} Save {{/if}} </button>
 </div>

@@ -2,26 +2,37 @@
 // AirportInput("cityToInput");
 // clicking search button
 console.log("searchResults js file");
-// $("#searchCity").click(function() {
-//   console.log("hi");
-//   event.preventDefault();
-//   let cityEvent = $("#cityEvent")
-//     .val()
-//     .trim();
-//   let cityFrom = $("#cityFrom")
-//     .val()
-//     .trim();
-//   let cityTo = $("#cityTo")
-//     .val()
-//     .trim();
-//   let departureDate = $("#departureDate")
-//     .val()
-//     .trim();
-//   let returnDate = $("#returnDate")
-//     .val()
-//     .trim();
-//   postCity(cityFrom, cityTo, departureDate, returnDate, cityEvent);
-// });
+$(".saved-itinerary").click(function() {
+  console.log("hi");
+  event.preventDefault();
+  let savedEventName = $(".savedEventName")
+    .val()
+    .trim();
+  let savedEventTime = $(".savedEventTime")
+    .val()
+    .trim();
+  let savedEventDate = $(".savedEventDate")
+    .val()
+    .trim();
+  let savedEventVenue = $(".savedEventVenue")
+    .val()
+    .trim();
+  let savedEventURL = $(".savedEventURL")
+    .val()
+    .trim();
+  let savedFlightPrice = $(".savedFlightPrice")
+    .val()
+    .trim();
+  let savedDepartureDate = $(".savedDepartureDate")
+    .val()
+    .trim();
+  let savedArrivalDate = $(".savedArrivalDate")
+    .val()
+    .trim();
+
+  saveItinerary(savedEventName, savedEventTime, savedEventDate, savedEventVenue, savedEventURL, savedFlightPrice, savedDepartureDate, savedArrivalDate);
+console.log(savedEventName, savedEventTime, savedEventDate, savedEventVenue, savedEventURL, savedFlightPrice, savedDepartureDate, savedArrivalDate)
+});
 
 // let saved = $(".change-saved");
 // saved.click(function() {
@@ -82,58 +93,49 @@ $(function() {
 //this is where we create the nested object?
 //create container with events and flights in index.handlebars
 // const saveItinerary = $(".saveItinerary");
+
 // //get the object
+
 // saveItinerary.on(() => {
 //   event.preventDefault();
 // });
 
-// function saveItinerary(trip, flights, events) {
-//   //need an array on the front end in the right format
-//   savedItineraries = {
-//     trip: {
-//       cityName: cityEvent,
-//       departureDate: departureDate,
-//       arrivalDate: arrivalDate
-//     },
-//     flights: [
-//       {
-//         price: price,
-//         departureDate: departureDate,
-//         arrivalDate: arrivalDate
-//       },
-//       {
-//         price: price,
-//         departureDate: departureDate,
-//         arrivalDate: arrivalDate
-//       }
-//     ],
-//     events: [
-//       {
-//         name: eventName,
-//         date: eventDate,
-//         time: eventTime
-//       },
-//       {
-//         name: eventName,
-//         date: eventDate,
-//         time: eventTime
-//       },
-//       {
-//         name: eventName,
-//         date: eventDate,
-//         time: eventTime
-//       }
-//     ]
-//   };
-//   $.post("api/trips", savedItineraries).then(function(data) {
-//     console.log(data);
-//     if (data) {
-//       console.log("You looked up: ", cities);
-//     } else {
-//       console.log("That is not a valid city");
-//     }
-//   });
-// }
+function saveItinerary(savedEventName, savedEventTime, savedEventDate, savedEventVenue, savedEventURL, savedFlightPrice, savedDepartureDate, savedArrivalDate) {
+  // $(".saved-itinerary").on("click", function(event) {
+  //   event.preventDefault();
+  //need an array on the front end in the right format
+  savedItineraries = {
+    trip: {
+      UserId: 1,
+      cityName: "Denver",
+      departureDate: "2020-03-28",
+      arrivalDate: "2020-03-28"
+    },
+    flights: [
+      {
+        price: "200",
+        departureDate: "2020-03-28",
+        arrivalDate: "2020-03-28"
+      }
+    ],
+    events: [
+      {
+        price: "20",
+        date: "2020-03-28",
+        time: "8:00"
+      }
+    ]
+  };
+  $.post("/api/trips", savedItineraries).then(function(data) {
+    console.log(data);
+    if (data) {
+      console.log("You looked up: ", cities);
+    } else {
+      console.log("That is not a valid city");
+    }
+  });
+}
+
 
 // original format YYYY-MM-DD, needs to change to MM/DD/YYYY
 // takes depature and return date and reformats it
