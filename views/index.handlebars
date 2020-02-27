@@ -42,68 +42,52 @@
                             </span>
                         </button>
                     </div>
-
                 </form>
             </div>
         </div>
     </div>
-    <div class="col-md-8">
-        <div class="card">
-            <div class="card-body container">
-                <div class="eventSearchResults row">
-                    <p>"Hello you are in search results</p>
-                    <div class="event-name">
+    <div class="row">
+        <div class="card col-md-8">
+                <div class="card-body">
+                    <div class="eventSearchResults row">
                         {{#each events}}
+                        <div class="col-md">
                         {{eventName}}
                         {{eventDate}}
                         {{eventTime}}
                         {{eventVenue}}
                         {{eventUrl}}
                         {{> events/event-block saved=false}}
-                        {{/each}}</div>
+                        </div>
+                        {{/each}}
+                    </div>
                 </div>
-
-                <!--{{#each events}}
-                    {{#unless saved}}
-                    {{eventName}}
-                    {{> events/event-block saved=false}}
-                    {{/unless}}
-                    {{/each}}
-                    {{#each flights}}
-                    {{#unless saved}}
-                    {{Price}}
-                    {{> flights/flight-block saved=false}}
-                    {{/unless}}
-                    {{/each}}-->
-
-                <!-- <form action="/citySearch/flight/{{queryId}}/{{eventName}}" method="get">
-                        <input type="submit" value="See More!">
-                    </form> -->
-
-
-
-                <!--{{#if dispFlight}}
-                    {{flight.eventName}}
-                    {{/if}}-->
-            </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-8">
-            <div class="card">
+        <div class="card col-md-8">
                 <div class="card-body">
                     <div class="flightSearchResults row">
-                        <div class="flight-name">
+                        <!--shows airline, price, duration, departure/arrival dates, needs to include departure/arrival times-->
                         {{#each flights}}
-                        {{Airline}}
-                        {{Price}}
-                        {{Duration}}
-                        {{DepartureTime}}
-                        {{ArrivalTime}}
+                        <div class="col-md-4">
+                        Airline: {{Airline}}<br>
+                        Price: ${{Price}}<br>
+                        Duration: {{Duration}}<br>
+                        Departure: {{DepartureTime}}<br>
+                        Arrival: {{ArrivalTime}}<br>
                         {{> flights/flight-block saved=false}}
-                        {{/each}}
                         </div>
+                        {{/each}}
                     </div>
+                </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="card col-md-8">
+            <div class="card-body">
+                <div class="savedResults row">
+                    
                 </div>
             </div>
         </div>
@@ -115,5 +99,4 @@
 <script src="https://kit.fontawesome.com/5a59e9708f.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/airport-autocomplete-js@latest/dist/index.browser.min.js"></script>
 <script src="/js/searchResults.js""></script>
-
 <!--insert other js links here-->
