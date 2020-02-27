@@ -23,6 +23,7 @@ console.log("searchResults js file");
 //   postCity(cityFrom, cityTo, departureDate, returnDate, cityEvent);
 // });
 
+
 // let saved = $(".change-saved");
 // saved.click(function() {
 //   let eventId = saved.data(eventid)

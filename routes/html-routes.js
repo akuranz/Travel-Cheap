@@ -96,12 +96,9 @@ module.exports = function(app) {
     console.log(info[0].cityName);
     console.log("Flight: ", info[0].Flights[0].dataValues);
     console.log("Events: ", info[0].Events[0].dataValues);
-    res.render(
-      "itinerary",
-      {
-        info
-      }
-    );
+    res.render("itinerary", {
+      info
+    });
   });
 
   // app.get("/citySearch", function(req, res) {
@@ -112,5 +109,27 @@ module.exports = function(app) {
   //handlebar HTML route
   app.get("/citySearch", function(req, res) {
     res.render("index");
+  });
+  app.get("/citySearch/:qId", function(req, res) {
+    // get db info about query
+    // query your API
+    res.render("index", {
+      //flights,
+      //events,
+    });
+  });
+
+  app.get("/citySearch/flight/:qId/:name", function(req, res) {
+    // get db info about query
+    // query your API
+
+    res.render("index", {
+      //flights,
+      //events,
+      dispFlight: true,
+      flight: {
+        eventName: "Some Flight"
+      }
+    });
   });
 };
