@@ -59,32 +59,9 @@
                         {{eventTime}}
                         {{eventVenue}}
                         {{eventUrl}}
-                        {{> events/event-block saved=false}}
+                        {{> events/event-block saved=false eventName=this.eventName}}
                         {{/each}}</div>
                 </div>
-
-                <!--{{#each events}}
-                    {{#unless saved}}
-                    {{eventName}}
-                    {{> events/event-block saved=false}}
-                    {{/unless}}
-                    {{/each}}
-                    {{#each flights}}
-                    {{#unless saved}}
-                    {{Price}}
-                    {{> flights/flight-block saved=false}}
-                    {{/unless}}
-                    {{/each}}-->
-
-                <!-- <form action="/citySearch/flight/{{queryId}}/{{eventName}}" method="get">
-                        <input type="submit" value="See More!">
-                    </form> -->
-
-
-
-                <!--{{#if dispFlight}}
-                    {{flight.eventName}}
-                    {{/if}}-->
             </div>
         </div>
     </div>
@@ -100,16 +77,6 @@
                 <div class="card-body container">
                     <div class="flightSearchResults row">
 
-                        <!--{{#each flights}}
-                        {{#if saved}}
-                        {{> flights/flight-block saved=false}}
-                        {{/if}}
-                        {{/each}}
-                        {{#each events}}
-                        {{#if saved}}
-                        {{> events/event-block saved=false}}
-                        {{/if}}
-                        {{/each}}-->
                     </div>
                 </div>
             </div>
