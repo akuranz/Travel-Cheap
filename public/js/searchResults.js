@@ -5,6 +5,7 @@ console.log("searchResults js file");
 $(".saved-itinerary").click(function() {
   console.log("hi");
   event.preventDefault();
+  
   let savedEventName = $("#savedEventName").text();
   
   let savedEventTime = $("#savedEventTime").text();
@@ -21,8 +22,26 @@ $(".saved-itinerary").click(function() {
     
   let savedArrivalDate = $("#savedArrivalDate").text();
   
-console.log("SAVED EVENTS: ", savedEventName, savedEventTime, savedEventDate, savedEventVenue, savedEventURL, savedFlightPrice, savedDepartureDate, savedArrivalDate);
-saveItinerary(savedEventName, savedEventTime, savedEventDate, savedEventVenue, savedEventURL, savedFlightPrice, savedDepartureDate, savedArrivalDate);
+  saveItinerary(
+    savedEventName,
+    savedEventTime,
+    savedEventDate,
+    savedEventVenue,
+    savedEventURL,
+    savedFlightPrice,
+    savedDepartureDate,
+    savedArrivalDate
+  );
+  console.log(
+    savedEventName,
+    savedEventTime,
+    savedEventDate,
+    savedEventVenue,
+    savedEventURL,
+    savedFlightPrice,
+    savedDepartureDate,
+    savedArrivalDate
+  );
 });
 
 // let saved = $(".change-saved");
@@ -31,30 +50,73 @@ saveItinerary(savedEventName, savedEventTime, savedEventDate, savedEventVenue, s
 //   saved.data("saved", true);
 // });
 
-let savedSearch = [];
+let savedEvents = [];
+let savedFlights = [];
 $(function() {
   $(".change-saved").on("click", function(event) {
     event.preventDefault();
     let saved = $(this).data("saved");
     let eventName = $(this).data("eventname");
+    let eventDate = $(this).data("eventdate");
+    let eventTime = $(this).data("eventtime");
+    let eventVenue = $(this).data("eventvenue");
+    let eventUrl = $(this).data("eventurl");
     let eventDetails = {
-      eventName: eventName
+      eventName: eventName,
+      eventDate: eventDate,
+      eventTime: eventTime,
+      eventVenue: eventVenue,
+      eventUrl: eventUrl
     };
-    console.log("eventName", eventName);
+
+    let flightPrice = $(this).data("flightprice");
+    let flightDuration = $(this).data("flightduration");
+    let flightDepartureTime = $(this).data("flightdeparturetime");
+    let flightArrivalTime = $(this).data("flightarrivaltime");
+
+    let flightDetails = {
+      flightPrice: flightPrice,
+      flightDuration: flightDuration,
+      flightDepartureTime: flightDepartureTime,
+      flightArrivalTime: flightArrivalTime
+    };
+
+    console.log("eventDetails", event.target);
+    $(".savedResults").empty();
     if (saved === false) {
       saved = $(this).attr("saved", !saved);
       console.log("saved", !saved);
-      savedSearch.push(eventDetails);
+      savedEvents.push(eventDetails);
+      savedFlights.push(flightDetails);
       // clear out the saved container
       let savedResults = $(".savedResults");
-      // loop through savedSearch
-      for (var i = 0; i < savedSearch.length; i++) {
-        // add divs for each event/flight in savedSearch to the saved container
-        var eventNamePrint = $("<p>").text(savedSearch[i].eventName);
+      // loop through savedEvents
+      for (var i = 0; i < savedEvents.length; i++) {
+        // add divs for each event/flight in savedEvents to the saved container
+        var eventNamePrint = [
+          $("<p>").text(savedEvents[i].eventName),
+          $("<p>").text(savedEvents[i].eventDate),
+          $("<p>").text(savedEvents[i].eventTime),
+          $("<p>").text(savedEvents[i].eventVenue),
+          $("<p>").text(savedEvents[i].eventUrl)
+        ];
+
         savedResults.append(eventNamePrint);
       }
+      for (var i = 0; i < savedFlights.length; i++) {
+        // add divs for each event/flight in savedEvents to the saved container
+        var flightNamePrint = [
+          $("<p>").text(savedFlights[i].flightPrice),
+          $("<p>").text(savedFlights[i].flightDuration),
+          $("<p>").text(savedFlights[i].flightDepartureTime),
+          $("<p>").text(savedFlights[i].flightArrivalTime)
+        ];
+
+        savedResults.append(flightNamePrint);
+      }
     }
-    console.log(savedSearch);
+    console.log("Saved Events:", savedEvents);
+    console.log("Saved Flights:", savedFlights);
   });
 });
 
@@ -91,7 +153,16 @@ $(function() {
 //   event.preventDefault();
 // });
 
-function saveItinerary(savedEventName, savedEventTime, savedEventDate, savedEventVenue, savedEventURL, savedFlightPrice, savedDepartureDate, savedArrivalDate) {
+function saveItinerary(
+  savedEventName,
+  savedEventTime,
+  savedEventDate,
+  savedEventVenue,
+  savedEventURL,
+  savedFlightPrice,
+  savedDepartureDate,
+  savedArrivalDate
+) {
   // $(".saved-itinerary").on("click", function(event) {
   //   event.preventDefault();
   //need an array on the front end in the right format
@@ -126,7 +197,6 @@ function saveItinerary(savedEventName, savedEventTime, savedEventDate, savedEven
     }
   });
 }
-
 
 // original format YYYY-MM-DD, needs to change to MM/DD/YYYY
 // takes depature and return date and reformats it

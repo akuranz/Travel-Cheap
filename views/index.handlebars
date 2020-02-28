@@ -48,43 +48,43 @@
     </div>
     <div class="row">
         <div class="card col-md-8">
-                <div class="card-body">
-                    <div class="eventSearchResults row">
-                        {{#each events}}
+            <div class="card-body">
+                <div class="eventSearchResults row">
+                    {{#each events}}
 
-                        <div class="col-md-6">
+                    <div class="col-md-6">
                         <div class="boldTitle">{{eventName}}</div>
                         Name: {{eventName}}<br>
                         Date: {{eventDate}}<br>
                         Time: {{eventTime}}<br>
                         Venue: {{eventVenue}}<br>
                         <a href="{{eventUrl}}">More info!</a>
-                        {{> events/event-block saved=false eventName=this.eventName}}
-                        </div>
-                        {{/each}}
+                        {{> events/event-block saved=false eventName=this.eventName eventDate=this.eventDate eventVenue=this.eventVenue eventUrl=this.eventUrl}}
                     </div>
+                    {{/each}}
                 </div>
+            </div>
         </div>
     </div>
     <div class="row">
         <div class="card col-md-8">
-                <div class="card-body">
-                    <div class="flightSearchResults row">
+            <div class="card-body">
+                <div class="flightSearchResults row">
 
-                        <!--shows airline, price, duration, departure/arrival dates, needs to include departure/arrival times-->
-                        {{#each flights}}
-                        <div class="col-md-4">
+                    <!--shows airline, price, duration, departure/arrival dates, needs to include departure/arrival times-->
+                    {{#each flights}}
+                    <div class="col-md-4">
                         <div class="boldTitle">Airline: {{Airline}}</div>
                         Price: ${{Price}}<br>
                         Duration: {{Duration}}<br>
                         Departure: {{DepartureTime}}<br>
                         Arrival: {{ArrivalTime}}<br>
-                        {{> flights/flight-block saved=false}}
-                        </div>
-                        {{/each}}
-
+                        {{> flights/flight-block saved=false flightPrice=this.Price flightduration=this.Duration flightDepartureTime=this.DepartureTime flightArrivalTime=ArrivalTime}}
                     </div>
+                    {{/each}}
+
                 </div>
+            </div>
         </div>
     </div>
     <div class="row">
@@ -101,7 +101,7 @@
                         <a id="savedEventURL" href="https://www.ticketmaster.com/eagles-denver-colorado-03-28-2020/event/1E005751F9E1AF02">Event Details</a>
                         </span>
                         <div class="col-md-3">
-                        
+
                             <div class="event-name"></div>
                             <!--date, time, price-->
                             <div class="event-info"><br><br></div>
@@ -121,8 +121,6 @@
                         </div>    
                     </span>                    
                     </div>
-
-
                 </div>
             </div>
         </div>
