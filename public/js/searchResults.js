@@ -5,33 +5,24 @@ console.log("searchResults js file");
 $(".saved-itinerary").click(function() {
   console.log("hi");
   event.preventDefault();
-  let savedEventName = $(".savedEventName")
-    .val()
-    .trim();
-  let savedEventTime = $(".savedEventTime")
-    .val()
-    .trim();
-  let savedEventDate = $(".savedEventDate")
-    .val()
-    .trim();
-  let savedEventVenue = $(".savedEventVenue")
-    .val()
-    .trim();
-  let savedEventURL = $(".savedEventURL")
-    .val()
-    .trim();
-  let savedFlightPrice = $(".savedFlightPrice")
-    .val()
-    .trim();
-  let savedDepartureDate = $(".savedDepartureDate")
-    .val()
-    .trim();
-  let savedArrivalDate = $(".savedArrivalDate")
-    .val()
-    .trim();
-
-  saveItinerary(savedEventName, savedEventTime, savedEventDate, savedEventVenue, savedEventURL, savedFlightPrice, savedDepartureDate, savedArrivalDate);
-console.log(savedEventName, savedEventTime, savedEventDate, savedEventVenue, savedEventURL, savedFlightPrice, savedDepartureDate, savedArrivalDate)
+  let savedEventName = $("#savedEventName").text();
+  
+  let savedEventTime = $("#savedEventTime").text();
+   
+  let savedEventDate = $("#savedEventDate").text();
+  
+  let savedEventVenue = $("#savedEventVenue").text();
+  
+  let savedEventURL = $("#savedEventURL").text();
+   
+  let savedFlightPrice = $("#savedFlightPrice").text();
+  
+  let savedDepartureDate = $("#savedDepartureDate").text();
+    
+  let savedArrivalDate = $("#savedArrivalDate").text();
+  
+console.log("SAVED EVENTS: ", savedEventName, savedEventTime, savedEventDate, savedEventVenue, savedEventURL, savedFlightPrice, savedDepartureDate, savedArrivalDate);
+saveItinerary(savedEventName, savedEventTime, savedEventDate, savedEventVenue, savedEventURL, savedFlightPrice, savedDepartureDate, savedArrivalDate);
 });
 
 // let saved = $(".change-saved");
@@ -113,16 +104,16 @@ function saveItinerary(savedEventName, savedEventTime, savedEventDate, savedEven
     },
     flights: [
       {
-        price: "200",
-        departureDate: "2020-03-28",
-        arrivalDate: "2020-03-28"
+        price: savedFlightPrice,
+        departureDate: savedDepartureDate,
+        arrivalDate: savedArrivalDate
       }
     ],
     events: [
       {
-        price: "20",
-        date: "2020-03-28",
-        time: "8:00"
+        name: savedEventName,
+        date: savedEventDate,
+        time: savedEventTime
       }
     ]
   };
