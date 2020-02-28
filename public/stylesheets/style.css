@@ -1,50 +1,54 @@
 .jumbotron {
-    background-image: url("https://images.pexels.com/photos/346885/pexels-photo-346885.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260");
-    background-size: cover;
-    background-position: center;
-    height: 300px;
+  background-image: url("https://images.pexels.com/photos/346885/pexels-photo-346885.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260");
+  background-size: cover;
+  background-position: center;
+  height: 300px;
 }
-.btn-primary{
-    background-color: rgb(25, 133, 164);
-    border-color: rgb(25, 133, 164);
-    width: 100px;
+.btn-primary {
+  background-color: rgb(25, 133, 164);
+  border-color: rgb(25, 133, 164);
+  /* width: 100px; */
 }
 .btn-primary:hover {
-    border-color: rgb(75, 93, 99);
-    background-color: rgb(25, 133, 164);
-    width: 100px;
+  border-color: rgb(75, 93, 99);
+  background-color: rgb(25, 133, 164);
+  /* width: 100px; */
 }
 .searchTitle {
-    font-weight: normal;
+  font-weight: normal;
 }
 #fromTitle {
-    padding-right: 10px;
+  padding-right: 10px;
 }
 #toTitle {
-    padding-right: 29px;
+  padding-right: 29px;
 }
 #toVisitTitle {
-    padding-right: 72px;
+  padding-right: 72px;
 }
 #centerBtn {
-    text-align: center;
+  text-align: center;
 }
 #departure {
-    padding-right: 5px;
+  padding-right: 5px;
 }
 #return {
-    padding-right: 29px;
+  padding-right: 29px;
 }
-.event-name, .flight-airline, .trip-name {
-    font-size: 20px;
-    font-weight: bold;
+.event-name,
+.flight-airline,
+.trip-name {
+  font-size: 20px;
+  font-weight: bold;
 }
-.event-info, .flight-info {
-    font-size: 16px;
+.event-info,
+.flight-info {
+  font-size: 16px;
 }
 .hiddenItinerary {
-    display: none;
+  display: none;
 }
-.boldTitle, .eventTitle {
-    font-weight: bold;
+.boldTitle,
+.eventTitle {
+  font-weight: bold;
 }

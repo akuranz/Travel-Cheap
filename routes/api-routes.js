@@ -67,19 +67,21 @@ module.exports = function(app) {
         var dataArr = data.data.data;
         dataArr.forEach(function(flight) {
           const flightDetails = {
+            Airline: flight.airlines,
             Price: flight.price,
             Duration: flight.fly_duration,
-            DepartureTime: moment.unix(flight.dTime).format("MM/DD/YYYY"),
-            ArrivalTime: moment.unix(flight.aTime).format("MM/DD/YYYY"),
-            Airline: flight.airlines
+            DepartureTime: moment
+              .unix(flight.dTime)
+              .format("MM/DD/YYYY h:mm a"),
+            ArrivalTime: moment.unix(flight.aTime).format("MM/DD/YYYY h:mm a")
           };
           // console.log(flight);
           flights.push(flightDetails);
         }); // end dataArr.forEach
 
         const cityEvent = req.body.cityEvent;
-        const startDate =  moment(req.body.departureDate).format("YYYY-MM-DD");
-        const endDate =  moment(req.body.returnDate).format("YYYY-MM-DD");
+        const startDate = moment(req.body.departureDate).format("YYYY-MM-DD");
+        const endDate = moment(req.body.returnDate).format("YYYY-MM-DD");
         console.log("Ticketmaster Dates: ", startDate, endDate);
         //&startDateTime=YYYY-MM-DDT00:00:00Z&endDateTime=YYYY-MM-DDT23:59:00Z
         const eventQueryURL = `https://app.ticketmaster.com/discovery/v2/events.json?city=${cityEvent}&startDateTime=${startDate}T00:01:00Z&endDateTime=${endDate}T23:59:00Z&apikey=zotluMaanqoUR4sTfliAco7lbM5hAij4`;
@@ -95,8 +97,8 @@ module.exports = function(app) {
             eventDate: event.dates.start.localDate,
             eventTime: event.dates.start.localTime,
             eventVenue: event._embedded.venues[0].name,
-            // "Event Price:": event.priceRanges[2].min,
             eventUrl: event.url
+            // "Event Price:": event.priceRanges[2].min,
           };
           events.push(eventDetails);
         });
@@ -140,8 +142,7 @@ module.exports = function(app) {
   app.get("/api/trips/:id", (req, res) => {
     db.User.findAll({
       where: {
-        // id: req.params.id
-        id: 1
+        id: req.params.id
       },
       include: [
         {
@@ -194,6 +195,11 @@ module.exports = function(app) {
 
     // make sure that when you create a new trip, the 'trip' object you send from the
     // front-end has a UserId key/val pair!
+
+    // where: {
+    //   id: req.params.id
+    // },
+
     console.log("Trip", req.body.trip);
     db.Trip.create(req.body.trip)
       .then(async ({ id }) => {
