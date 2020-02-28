@@ -48,12 +48,6 @@ $(".saved-itinerary").click(function() {
   );
 });
 
-// let saved = $(".change-saved");
-// saved.click(function() {
-//   let eventId = saved.data(eventid)
-//   saved.data("saved", true);
-// });
-
 let cityName = $("#cityEvent").text(); //this may have to come frome the ticketmaster API
 let savedEvents = [];
 let savedFlights = [];
@@ -102,66 +96,72 @@ $(function() {
       // clear out the saved container
       let savedResults = $(".savedResults");
       // loop through savedEvents
+      if (category === "event") {
+        for (var i = 0; i < savedEvents.length; i++) {
+          // add divs for each event/flight in savedEvents to the saved container
+          var eventDiv = $("<div>").attr("class", "col-md-4");
 
-      for (var i = 0; i < savedEvents.length; i++) {
-        // add divs for each event/flight in savedEvents to the saved container
-        var eventDets = [
-          // $("<p>").text(cityName),
-          $("<h4>")
-            .text("City Name" + savedEvents[i].cityName)
-            .attr("id", "savedCityName"),
-          $("<p>")
-            .text("Event Name" + savedEvents[i].eventName)
-            .attr("id", "savedEventName"),
-          ,
-          $("<p>")
-            .text("Event Date" + savedEvents[i].eventDate)
-            .attr("id", "savedEventDate"),
-          ,
-          $("<p>")
-            .text("Event Time" + savedEvents[i].eventTime)
-            .attr("id", "savedEventTime"),
-          ,
-          $("<p>")
-            .text("Event Venue" + savedEvents[i].eventVenue)
-            .attr("id", "savedEventVenue"),
-          ,
-          $("<p>")
-            .text("Event Url" + savedEvents[i].eventUrl)
-            .attr("id", "savedEventURL")
-        ];
+          var eventDets = [
+            // $("<p>").text(cityName),
+            $("<h4>")
+              .text("City Name: " + savedEvents[i].cityName)
+              .attr("id", "savedCityName"),
+            $("<p>")
+              .text("Event Name: " + savedEvents[i].eventName)
+              .attr("id", "savedEventName"),
+            ,
+            $("<p>")
+              .text("Event Date: " + savedEvents[i].eventDate)
+              .attr("id", "savedEventDate"),
+            ,
+            $("<p>")
+              .text("Event Time: " + savedEvents[i].eventTime)
+              .attr("id", "savedEventTime"),
+            ,
+            $("<p>")
+              .text("Event Venue: " + savedEvents[i].eventVenue)
+              .attr("id", "savedEventVenue"),
+            ,
+            $("<p>")
+              .text("Event Url: " + savedEvents[i].eventUrl)
+              .attr("id", "savedEventURL")
+          ];
 
-        savedResults.append(eventDets);
+          eventDiv.append(eventDets);
+          savedResults.append(eventDiv);
+        }
       }
 
-      for (var i = 0; i < savedFlights.length; i++) {
-        // add divs for each event/flight in savedEvents to the saved container
-        var flightDiv = $("<div>").attr("class", "col-md-4");
+      if (category === "flight") {
+        for (var i = 0; i < savedFlights.length; i++) {
+          // add divs for each event/flight in savedEvents to the saved container
+          var flightDiv = $("<div>").attr("class", "col-md-4");
 
-        var flightDets = [
-          $("<h2>").text("Flight Details"),
-          $("<p>")
-            .text("Airline: " + savedFlights[i].flightAirline)
-            .attr("id", "savedAirlineName"),
-          $("<p>")
-            .text("Price: " + savedFlights[i].flightPrice)
-            .attr("id", "savedFlightPrice"),
-          $("<p>")
-            .text("Duration: " + savedFlights[i].flightDuration)
-            .attr("id", "savedFlightDuration"),
-          $("<p>")
-            .text("Departure Time: " + savedFlights[i].flightDepartureTime)
-            .attr("id", "savedDepartureDate"),
-          $("<p>")
-            .text("Arrival Time: " + savedFlights[i].flightArrivalTime)
-            .attr("id", "savedArrivalDate"),
-          $("<button>")
-            .text("Save Itinerary")
-            .attr("class", "btn btn-primary saved-itinerary")
-        ];
-        flightDiv.append(flightDets);
+          var flightDets = [
+            $("<h2>").text("Flight Details"),
+            $("<p>")
+              .text("Airline: " + savedFlights[i].flightAirline)
+              .attr("id", "savedAirlineName"),
+            $("<p>")
+              .text("Price: " + savedFlights[i].flightPrice)
+              .attr("id", "savedFlightPrice"),
+            $("<p>")
+              .text("Duration: " + savedFlights[i].flightDuration)
+              .attr("id", "savedFlightDuration"),
+            $("<p>")
+              .text("Departure Time: " + savedFlights[i].flightDepartureTime)
+              .attr("id", "savedDepartureDate"),
+            $("<p>")
+              .text("Arrival Time: " + savedFlights[i].flightArrivalTime)
+              .attr("id", "savedArrivalDate"),
+            $("<button>")
+              .text("Save Itinerary")
+              .attr("class", "btn btn-primary saved-itinerary")
+          ];
+          flightDiv.append(flightDets);
 
-        savedResults.append(flightDiv);
+          savedResults.append(flightDiv);
+        }
       }
     }
     console.log("Saved Events:", savedEvents);
@@ -234,7 +234,9 @@ function saveItinerary(
       {
         name: savedEventName,
         date: savedEventDate,
-        time: savedEventTime
+        time: savedEventTime,
+        venue: savedEventVenue,
+        url: savedEventURL
       }
     ]
   };

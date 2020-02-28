@@ -123,26 +123,26 @@ module.exports = function(app) {
     // res.redirect("/citySearch/ new id from db insert")
   });
 
-  //route to post data from citySearch but for now will post from itinerary
-  //need to get the user id first
-  //this needs to go in the /api/trips routes?
-  app.post("/api/itinerary", function(req, res) {
-    console.log(req.body);
+  // //route to post data from citySearch but for now will post from itinerary
+  // //need to get the user id first
+  // //this needs to go in the /api/trips routes?
+  // app.post("/api/itinerary", function(req, res) {
+  //   console.log(req.body);
 
-    db.Trip.create({
-      UserId: 1, //need to define UserID from user_data api call,
-      cityName: req.body.cityName,
-      departureDate: req.body.departureDate,
-      arrivalDate: req.body.arrivalDate
-    }).then(function() {
-      res.redirect(307, "/itinerary");
-    });
-  });
+  //   db.Trip.create({
+  //     UserId: 1, //need to define UserID from user_data api call,
+  //     cityName: req.body.cityName,
+  //     departureDate: req.body.departureDate,
+  //     arrivalDate: req.body.arrivalDate
+  //   }).then(function() {
+  //     res.redirect(307, "/itinerary");
+  //   });
+  // });
 
   app.get("/api/trips/:id", (req, res) => {
     db.User.findAll({
       where: {
-        id: req.params.id
+        id: req.user.id
       },
       include: [
         {
@@ -158,30 +158,6 @@ module.exports = function(app) {
       res.json(dbUser);
     });
   });
-
-  // const eventQueryURL = `https://app.ticketmaster.com/discovery/v2/events.json?city=Denver&apikey=zotluMaanqoUR4sTfliAco7lbM5hAij4`;
-  // axios.get(eventQueryURL).then(function(data) {
-  //   var eventsDataArr=data.data._embedded.events;
-  //   // console.log(eventsDataArr)
-  //   eventsDataArr.forEach(function(event){
-  //     // console.log(event)
-  //   const eventDetails = {
-  //       "Event Name": event.name,
-  //       "Event Date:": event.dates.start.localDate,
-  //       "Event Time:": event.dates.start.localTime,
-  //       "Event Venue:": event._embedded.venues[0].name,
-  //       "Event URL:":event.url
-  //     }
-  //     events.push(
-  //       eventDetails
-  //     );
-  // console.log("EVENTS",events)
-  // res.json(events);
-  //  const flightsAndEvents = {
-  //   flights: flights,
-  //   events: events
-  // }
-  // res.json(flightsAndEvents);
 
   app.post("/api/trips", (req, res) => {
     // front-end JS todo: get access to currently logged in user's id (by making an AJAX
