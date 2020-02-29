@@ -163,10 +163,10 @@ $(function() {
             .attr("id", "savedDepartureDate"),
           $("<p>")
             .text("Arrival Time: " + savedSearch[i].flightArrivalTime)
-            .attr("id", "savedArrivalDate"),
-          $("<button>")
-            .text("Save Itinerary")
-            .attr("class", "btn btn-primary saved-itinerary")
+            .attr("id", "savedArrivalDate")
+          // $("<button>")
+          //   .text("Save Itinerary")
+          //   .attr("class", "btn btn-primary saved-itinerary")
         ];
         flightDiv.append(flightDets);
         savedResults.append(flightDiv);
@@ -179,73 +179,6 @@ $(function() {
   // console.log("Saved Events:", savedEvents);
   // console.log("Saved Flights:", savedFlights);
 });
-
-// function postCity(cityFrom, cityTo, departureDate, returnDate, cityEvent) {
-//   console.log("In post flight");
-//   cities = {
-//     cityFrom: cityFrom,
-//     cityTo: cityTo,
-//     departureDate: departureDate,
-//     returnDate: returnDate,
-//     cityEvent: cityEvent
-//   };
-//   $.post("/api/citySearch", cities)
-//     .then(function(data) {
-//       console.log(data);
-//       if (data) {
-//         console.log("You looked up: ", cities);
-//       } else {
-//         console.log("That is not a valid city");
-//       }
-//     })
-//     .catch(function(err) {
-//       console.log(err.message);
-//     });
-// }
-
-//this is where we create the nested object?
-//create container with events and flights in index.handlebars
-// const saveItinerary = $(".saveItinerary");
-
-// //get the object
-
-// saveItinerary.on(() => {
-//   event.preventDefault();
-// });
-
-// function getUser() {
-//   $.get("/api/user_data", {
-//     id: id,
-//     email: email,
-//     password: password
-//   })
-//     .then(function(res) {
-//       //if successful then make the ajax call
-//       console.log("GET USER RESP", res.id);
-//       //try inside and outside the .then
-//       CurrentUserId = res.id;
-//       // If there's an error, log the error
-//     })
-//     .catch(function(err) {
-//       console.log(err);
-//     });
-// }
-
-// function getUser() {
-// $.get("/api/user_data", function(req, res) {
-//   if (!req.user) {
-//     // The user is not logged in, send back an empty object
-//     res.json({});
-//   } else {
-//     // Otherwise send back the user's email and id
-//     // Sending back a password, even a hashed password, isn't a good idea
-//     res.json({
-//       email: req.user.email,
-//       id: req.user.id
-//     });
-//   }
-//   console.log(id);
-// });
 
 function saveItinerary(
   savedEventName,
