@@ -26,8 +26,6 @@ $(".saved-itinerary").click(function() {
 
   let savedCityName = $("#savedCityName").text();
 
-  // getUser();
-
   saveItinerary(
     savedEventName,
     savedEventTime,
@@ -53,7 +51,7 @@ $(".saved-itinerary").click(function() {
   );
 });
 
-let cityName = $("#cityEvent").text(); //this may have to come frome the ticketmaster API
+let cityName = $("#cityEvent").text();
 // let savedEvents = [];
 // let savedFlights = [];
 let savedSearch = [];
@@ -236,59 +234,7 @@ $("#saved-itinerary").on("click", function(event) {
   window.location.href = "/itinerary";
 });
 
-// original format YYYY-MM-DD, needs to change to MM/DD/YYYY
-// takes depature and return date and reformats it
-// let departureD = $("#departureDate")
-//   .val()
-//   .trim();
-
-// const departureDate = dateFormatter(departureD);
-
-// console.log("Departure Date: ", departureDate.moment().format("DD/MM/YYYY"));
-//   let returnD = $("#returnDate")
-//     .val()
-//     .trim();
-
-// console.log("Departure Date: ", departureDate);
-// const returnDate = dateFormatter(returnD);
-
-// console.log("Return Date: ", returnDate);
-
-// clicking previously searched itinerary
-// $(document).on("click", ".city", function(event) {
-//   var cityFrom = $(this).attr("data-nameFrom");
-//   var cityTo = $(this).attr("data-nameTo");
-//   // var departureDate = $(this).attr("data-nameDeparture");
-//   // var returnDate = $(this).attr("data-nameReturn");
-//   // insert function to send to the backend for the axios call?
-
-// postCity(cityFrom, cityTo, departureDate, returnDate);
-//   postCity(cityFrom, cityTo, cityEvent);
-// });
-
-// function postCity(cityFrom, cityTo) {
-//   console.log("In post city")
-//   cities = {
-//     cityFrom: cityFrom,
-//     cityTo: cityTo
-//     // departureDate: departureDate,
-//     // returnDate: returnDate
-//   };
-
-// postCity(cityFrom, cityTo);
-
-//   let cityFrom = $(this).attr("data-nameFrom");
-//   let cityTo = $(this).attr("data-nameTo");
-
-//   // takes depature and return date and reformats it
-//   let departureD = $(this).attr("data-nameDeparture");
-//   const departureDate = dateFormatter(departureD);
-//   console.log("Departure Date: " + departureDate);
-
-//   let returnD = $(this).attr("data-nameReturn");
-//   const returnDate = dateFormatter(returnD);
-//   console.log("Return Date: " + returnDate);
-
-//   // function to send to the backend
-//   postCity(cityFrom, cityTo, departureDate, returnDate);
-// }
+$("#searchBtn").on("click", function(event) {
+  console.log("clear div");
+  $("#centerBtn").empty();
+});

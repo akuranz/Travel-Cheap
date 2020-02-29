@@ -10,18 +10,10 @@ const events = [];
 let UserId;
 
 module.exports = function(app) {
-  // Using the passport.authenticate middleware with our local strategy.
-  // If the user has valid login credentials, send them to the  page.
-  // Otherwise the user will be sent an error
-
-  // (req, res, next) => { ...code; next();}
   app.post("/api/login", passport.authenticate("local"), function(req, res) {
     res.json(req.user);
   });
 
-  // Route for signing up a user. The user's password is automatically hashed and stored securely thanks to
-  // how we configured our Sequelize User Model. If the user is created successfully, proceed to log the user in,
-  // otherwise send back an error
   app.post("/api/signup", function(req, res) {
     console.log(req.body);
     db.User.create({
@@ -36,7 +28,6 @@ module.exports = function(app) {
       });
   });
 
-  // Route for logging user out
   app.get("/logout", function(req, res) {
     req.logout();
     res.redirect("/");
@@ -44,11 +35,8 @@ module.exports = function(app) {
 
   app.get("/api/user_data", function(req, res) {
     if (!req.user) {
-      // The user is not logged in, send back an empty object
       res.json({});
     } else {
-      // Otherwise send back the user's email and id
-      // Sending back a password, even a hashed password, isn't a good idea
       res.json({
         email: req.user.email,
         id: req.user.id
@@ -63,6 +51,7 @@ module.exports = function(app) {
     const departureDate = moment(req.body.departureDate).format("DD/MM/YYYY");
     const returnDate = moment(req.body.departureDate).format("DD/MM/YYYY");
     const queryUrl = `https://api.skypicker.com/flights?flyFrom=${cityFrom}&to=${cityTo}&date_from=${departureDate}&date_to=${returnDate}&partner=picky&v=3&USD`;
+
     axios
       .get(queryUrl)
       .then(function(data) {
@@ -82,18 +71,19 @@ module.exports = function(app) {
         }); // end dataArr.forEach
 
         const cityEvent = req.body.cityEvent;
+        console.log(cityEvent);
         const startDate = moment(req.body.departureDate).format("YYYY-MM-DD");
         const endDate = moment(req.body.returnDate).format("YYYY-MM-DD");
+        const api_key = process.env.API_KEY;
         console.log("Ticketmaster Dates: ", startDate, endDate);
-        //&startDateTime=YYYY-MM-DDT00:00:00Z&endDateTime=YYYY-MM-DDT23:59:00Z
-        const eventQueryURL = `https://app.ticketmaster.com/discovery/v2/events.json?city=${cityEvent}&startDateTime=${startDate}T00:01:00Z&endDateTime=${endDate}T23:59:00Z&apikey=zotluMaanqoUR4sTfliAco7lbM5hAij4`;
+        const eventQueryURL = `https://app.ticketmaster.com/discovery/v2/events.json?city=${cityEvent}&startDateTime=${startDate}T00:01:00Z&endDateTime=${endDate}T23:59:00Z&apikey=${api_key}`;
         return axios.get(eventQueryURL);
       })
       .then(function(eventsData) {
         var eventsDataArr = eventsData.data._embedded.events;
-        // console.log(eventsDataArr)
+        console.log(eventsDataArr);
         eventsDataArr.forEach(function(event) {
-          // console.log(event)
+          console.log(event);
           const eventDetails = {
             eventName: event.name,
             eventDate: event.dates.start.localDate,
@@ -120,26 +110,7 @@ module.exports = function(app) {
         console.log("ERROR API_ROUTE");
         console.log(err);
       });
-
-    // store form submission in db
-    // res.redirect("/citySearch/ new id from db insert")
   });
-
-  // //route to post data from citySearch but for now will post from itinerary
-  // //need to get the user id first
-  // //this needs to go in the /api/trips routes?
-  // app.post("/api/itinerary", function(req, res) {
-  //   console.log(req.body);
-
-  //   db.Trip.create({
-  //     UserId: 1, //need to define UserID from user_data api call,
-  //     cityName: req.body.cityName,
-  //     departureDate: req.body.departureDate,
-  //     arrivalDate: req.body.arrivalDate
-  //   }).then(function() {
-  //     res.redirect(307, "/itinerary");
-  //   });
-  // });
 
   app.get("/api/trips/:id", (req, res) => {
     db.User.findAll({
@@ -151,9 +122,6 @@ module.exports = function(app) {
           model: db.Trip,
           include: [{ model: db.Flight }, { model: db.Event }]
         }
-
-        // include: [{ model: db.Event }],
-        // include: [{ model: db.Flight }]
       ]
     }).then(function(dbUser) {
       console.log(dbUser);
@@ -162,18 +130,6 @@ module.exports = function(app) {
   });
 
   app.post("/api/trips", (req, res) => {
-    // front-end JS todo: get access to currently logged in user's id (by making an AJAX
-    // call to the route referenced above) and save it as the trip object's 'UserId'
-
-    // front-end JS todo: build the object you're posting to this route with a trip
-    // sub-object (containing all the key/val pairs necessary for creating a new trip),
-    // a flights sub-array (containing a list of flight objects you want to save for
-    // that trip), and an objects sub-array (containing a list of event objects you want
-    // to save for that trip)
-
-    // make sure that when you create a new trip, the 'trip' object you send from the
-    // front-end has a UserId key/val pair!
-    // console.log("req", req);
     console.log("req", req.body);
     console.log("Trip", req.body.trip);
     console.log("Events", req.body.events);
@@ -187,8 +143,7 @@ module.exports = function(app) {
     })
       .then(async ({ id }) => {
         console.log("hi");
-        // mapping through array of flights/events from the front-end and adding
-        // the correct TripId to each
+
         const flights = req.body.flights.map(flight => {
           flight.TripId = id;
           return flight;
