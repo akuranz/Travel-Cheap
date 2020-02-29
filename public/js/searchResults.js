@@ -51,7 +51,6 @@ $(".saved-itinerary").click(function() {
   );
 });
 
-let cityName = $("#cityEvent").text();
 // let savedEvents = [];
 // let savedFlights = [];
 let savedSearch = [];
@@ -59,6 +58,7 @@ $(function() {
   $(".change-saved").on("click", function(event) {
     event.preventDefault();
     $(".savedResults").empty();
+    let cityName = $("#cityEvent").text();
     console.log("cityName", cityName);
     let saved = $(this).data("saved");
     let category = $(this).data("category");
@@ -234,7 +234,7 @@ $("#saved-itinerary").on("click", function(event) {
   window.location.href = "/itinerary";
 });
 
-$("#searchBtn").on("click", function(event) {
+$(".searchBtn").on("click", function(event) {
   console.log("clear div");
-  $("#centerBtn").empty();
+  $(".eventSearchResults").empty();
 });

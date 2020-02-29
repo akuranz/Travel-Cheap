@@ -3,9 +3,10 @@ var db = require("../models");
 var axios = require("axios");
 var moment = require("moment");
 var passport = require("../config/passport");
+var env = require("dotenv").config();
 
-const flights = [];
-const events = [];
+let flights = [];
+let events = [];
 
 let UserId;
 
@@ -51,7 +52,8 @@ module.exports = function(app) {
     const departureDate = moment(req.body.departureDate).format("DD/MM/YYYY");
     const returnDate = moment(req.body.departureDate).format("DD/MM/YYYY");
     const queryUrl = `https://api.skypicker.com/flights?flyFrom=${cityFrom}&to=${cityTo}&date_from=${departureDate}&date_to=${returnDate}&partner=picky&v=3&USD`;
-
+    flights = [];
+    events = [];
     axios
       .get(queryUrl)
       .then(function(data) {
@@ -67,6 +69,7 @@ module.exports = function(app) {
             ArrivalTime: moment.unix(flight.aTime).format("MM/DD/YYYY h:mm a")
           };
           // console.log(flight);
+          // flights.splice(0, flights.length);
           flights.push(flightDetails);
         }); // end dataArr.forEach
 
@@ -85,6 +88,7 @@ module.exports = function(app) {
         eventsDataArr.forEach(function(event) {
           console.log(event);
           const eventDetails = {
+            eventCity: event.cityName,
             eventName: event.name,
             eventDate: event.dates.start.localDate,
             eventTime: event.dates.start.localTime,
@@ -92,6 +96,7 @@ module.exports = function(app) {
             eventUrl: event.url
             // "Event Price:": event.priceRanges[2].min,
           };
+          // events.splice(0, events.length);
           events.push(eventDetails);
         });
 
