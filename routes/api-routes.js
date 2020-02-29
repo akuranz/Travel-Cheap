@@ -74,7 +74,8 @@ module.exports = function(app) {
         }); // end dataArr.forEach
 
         const cityEvent = req.body.cityEvent;
-        console.log(cityEvent);
+        // localStorage.setItem("CityName", cityEvent);
+        // console.log(cityEvent);
         const startDate = moment(req.body.departureDate).format("YYYY-MM-DD");
         const endDate = moment(req.body.returnDate).format("YYYY-MM-DD");
         const api_key = process.env.API_KEY;
@@ -137,9 +138,9 @@ module.exports = function(app) {
   app.post("/api/trips", (req, res) => {
     console.log("req", req.body);
     console.log("Trip", req.body.trip);
-    console.log("Events", req.body.events);
-    console.log("Flights", req.body.flights);
-    console.log("WONDERFUL", req.body.trip.UserId);
+    // console.log("Events", req.body.events);
+    // console.log("Flights", req.body.flights);
+    // console.log("WONDERFUL", req.body.trip.UserId);
     db.Trip.create({
       UserId: req.body.trip.UserId,
       cityName: req.body.trip.cityName,

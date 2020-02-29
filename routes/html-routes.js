@@ -29,6 +29,7 @@ module.exports = function(app) {
   app.get("/itinerary", isAuthenticated, async function(req, res) {
     //res.sendFile(path.join(__dirname, "../public/itinerary.html"));
     console.log("inside itinerary get route");
+
     let user = await db.User.findAll({
       where: {
         id: req.user.id
@@ -43,6 +44,8 @@ module.exports = function(app) {
     });
 
     let info = user[0].dataValues.Trips;
+    console.log(info[0].dataValues);
+    console.log("INFO", info);
 
     res.render("itinerary", {
       info

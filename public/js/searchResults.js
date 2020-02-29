@@ -2,6 +2,8 @@
 // AirportInput("cityToInput");
 // clicking search button
 let CurrentUserId = localStorage.getItem("UserId");
+// let cityName = localStorage.getItem("CityName");
+let cityName;
 
 console.log("searchResults js file");
 $(".saved-itinerary").click(function() {
@@ -24,7 +26,7 @@ $(".saved-itinerary").click(function() {
 
   let savedArrivalDate = $("#savedArrivalDate").text();
 
-  let savedCityName = $("#savedCityName").text();
+  let savedCityName = localStorage.getItem("cityName");
 
   saveItinerary(
     savedEventName,
@@ -58,7 +60,7 @@ $(function() {
   $(".change-saved").on("click", function(event) {
     event.preventDefault();
     $(".savedResults").empty();
-    let cityName = $("#cityEvent").text();
+    let cityName = $("#cityEvent").val();
     console.log("cityName", cityName);
     let saved = $(this).data("saved");
     let category = $(this).data("category");
@@ -116,15 +118,15 @@ $(function() {
             .text("City Name: " + savedSearch[i].cityName)
             .attr("id", "savedCityName"),
           $("<p>")
-            .text("Event Name: " + savedSearch[i].eventName)
+            .text(savedSearch[i].eventName)
             .attr("id", "savedEventName"),
           ,
           $("<p>")
-            .text("Event Date: " + savedSearch[i].eventDate)
+            .text(savedSearch[i].eventDate)
             .attr("id", "savedEventDate"),
           ,
           $("<p>")
-            .text("Event Time: " + savedSearch[i].eventTime)
+            .text(savedSearch[i].eventTime)
             .attr("id", "savedEventTime"),
           ,
           $("<p>")
@@ -148,23 +150,20 @@ $(function() {
         var flightDets = [
           $("<h4>").text("Flight Details"),
           $("<p>")
-            .text("Airline: " + savedSearch[i].flightAirline)
+            .text(savedSearch[i].flightAirline)
             .attr("id", "savedAirlineName"),
           $("<p>")
-            .text("Price: " + savedSearch[i].flightPrice)
+            .text(savedSearch[i].flightPrice)
             .attr("id", "savedFlightPrice"),
           $("<p>")
-            .text("Duration: " + savedSearch[i].flightDuration)
+            .text(savedSearch[i].flightDuration)
             .attr("id", "savedFlightDuration"),
           $("<p>")
-            .text("Departure Time: " + savedSearch[i].flightDepartureTime)
+            .text(savedSearch[i].flightDepartureTime)
             .attr("id", "savedDepartureDate"),
           $("<p>")
-            .text("Arrival Time: " + savedSearch[i].flightArrivalTime)
+            .text(savedSearch[i].flightArrivalTime)
             .attr("id", "savedArrivalDate")
-          // $("<button>")
-          //   .text("Save Itinerary")
-          //   .attr("class", "btn btn-primary saved-itinerary")
         ];
         flightDiv.append(flightDets);
         savedResults.append(flightDiv);
@@ -173,9 +172,6 @@ $(function() {
       console.log("Saved Flights:", savedSearch[i]);
     }
   });
-
-  // console.log("Saved Events:", savedEvents);
-  // console.log("Saved Flights:", savedFlights);
 });
 
 function saveItinerary(
@@ -189,6 +185,7 @@ function saveItinerary(
   savedArrivalDate,
   cityName
 ) {
+  console.log("city name", cityName);
   //need an array on the front end in the right format
   savedItineraries = {
     trip: {
@@ -235,6 +232,7 @@ $("#saved-itinerary").on("click", function(event) {
 });
 
 $(".searchBtn").on("click", function(event) {
-  console.log("clear div");
-  $(".eventSearchResults").empty();
+  cityName = $("#cityEvent").val();
+  localStorage.setItem("cityName", cityName);
+  console.log(cityName);
 });
