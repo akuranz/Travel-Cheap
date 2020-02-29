@@ -146,7 +146,7 @@ $(function() {
       if (savedSearch[i].category === "flight") {
         var flightDiv = $("<div>").attr("class", "col-md-4");
         var flightDets = [
-          $("<h2>").text("Flight Details"),
+          $("<h4>").text("Flight Details"),
           $("<p>")
             .text("Airline: " + savedSearch[i].flightAirline)
             .attr("id", "savedAirlineName"),
