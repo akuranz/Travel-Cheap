@@ -54,14 +54,15 @@
 
                     <div class="col-md-6">
                         <div class="boldTitle">{{eventName}}</div>
-                        Name: {{eventName}}<br>
                         Date: {{eventDate}}<br>
                         Time: {{eventTime}}<br>
                         Venue: {{eventVenue}}<br>
-                        <a href="{{eventUrl}}">More info!</a>
-                        {{> events/event-block saved=false eventName=this.eventName eventDate=this.eventDate eventVenue=this.eventVenue eventUrl=this.eventUrl}}
+                        <a href="{{eventUrl}}" target="_blank">More info!</a>
+                        {{> events/event-block saved=false category="event" eventName=this.eventName eventDate=this.eventDate eventVenue=this.eventVenue eventUrl=this.eventUrl}}
+                        <hr>
                     </div>
                     {{/each}}
+
                 </div>
             </div>
         </div>
@@ -79,9 +80,11 @@
                         Duration: {{Duration}}<br>
                         Departure: {{DepartureTime}}<br>
                         Arrival: {{ArrivalTime}}<br>
-                        {{> flights/flight-block saved=false flightPrice=this.Price flightduration=this.Duration flightDepartureTime=this.DepartureTime flightArrivalTime=ArrivalTime}}
+                        {{> flights/flight-block saved=false category="flight" flightAirline=this.Airline flightPrice=this.Price flightduration=this.Duration flightDepartureTime=this.DepartureTime flightArrivalTime=ArrivalTime}}
+                        <hr>
                     </div>
                     {{/each}}
+
 
                 </div>
             </div>
@@ -91,35 +94,41 @@
         <div class="card col-md-8">
             <div class="card-body">
                 <div class="savedResults row">
-
                     <div class="col-md">
+                        <h4 id="savedCityName">Chicago</h4>
+                    </div>
+
+                    <div class="col-md" id="savedEventDetails">
                         <span class="savedEventDetails">
-                        <h4 id="savedEventName">Eagles</h4>
-                        <p id="savedEventDate">2020-03-28</p>
-                        <p id="savedEventTime">20:00:00</p>
-                        <p id="savedEventVenue">Pepsi Center</p>
-                        <a id="savedEventURL" href="https://www.ticketmaster.com/eagles-denver-colorado-03-28-2020/event/1E005751F9E1AF02">Event Details</a>
+
+                            <h4 id="savedEventName">Eagles</h4>
+                            <p id="savedEventDate">2020-03-28</p>
+                            <p id="savedEventTime">20:00:00</p>
+                            <p id="savedEventVenue">Pepsi Center</p>
+                            <a id="savedEventURL"
+                                href="https://www.ticketmaster.com/eagles-denver-colorado-03-28-2020/event/1E005751F9E1AF02"
+                                targe="_blank">Event Details</a>
                         </span>
                         <div class="col-md-3">
 
                             <div class="event-name"></div>
                             <!--date, time, price-->
                             <div class="event-info"><br><br></div>
-                        </div> 
-                    <span class="savedFlightDetails">
-                        <div class="col-md-4">
-                        <h4 id="savedAirlineName">Airline: AA</h4>
-                        <p id="savedFlightPrice">Price: 799</p>
-                        <p id="savedFlightDuration">DurationDuration: 3h 48m</p>
-                        <p id="savedDepartureDate">: 27/02/2020</p>
-                        <p id="savedArrivalDate">Arrival: 27/03/2020</p>
-                        <div class="col-md-3">
-                            <div class="flight-airline"></div>
-                            <!--price, date, departure time, arrival time, airport change-->
-                            <button data-flightid="" class="btn btn-primary saved-itinerary" data-saved="false">
-                                 Save  </button>
-                        </div>    
-                    </span>                    
+                        </div>
+                        <span class="savedFlightDetails">
+                            <div class="col-md-4">
+                                <h4 id="savedAirlineName">Airline: AA</h4>
+                                <p id="savedFlightPrice">Price: 799</p>
+                                <p id="savedFlightDuration">DurationDuration: 3h 48m</p>
+                                <p id="savedDepartureDate">: 27/02/2020</p>
+                                <p id="savedArrivalDate">Arrival: 27/03/2020</p>
+                                <div class="col-md-3">
+                                    <div class="flight-airline"></div>
+                                    <!--price, date, departure time, arrival time, airport change-->
+                                    <button data-flightid="" class="btn btn-primary saved-itinerary" data-saved="false">
+                                        Save </button>
+                                </div>
+                        </span>
                     </div>
                 </div>
             </div>

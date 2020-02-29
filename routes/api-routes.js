@@ -67,19 +67,21 @@ module.exports = function(app) {
         var dataArr = data.data.data;
         dataArr.forEach(function(flight) {
           const flightDetails = {
+            Airline: flight.airlines,
             Price: flight.price,
             Duration: flight.fly_duration,
-            DepartureTime: moment.unix(flight.dTime).format("MM/DD/YYYY"),
-            ArrivalTime: moment.unix(flight.aTime).format("MM/DD/YYYY"),
-            Airline: flight.airlines
+            DepartureTime: moment
+              .unix(flight.dTime)
+              .format("MM/DD/YYYY h:mm a"),
+            ArrivalTime: moment.unix(flight.aTime).format("MM/DD/YYYY h:mm a")
           };
           // console.log(flight);
           flights.push(flightDetails);
         }); // end dataArr.forEach
 
         const cityEvent = req.body.cityEvent;
-        const startDate =  moment(req.body.departureDate).format("YYYY-MM-DD");
-        const endDate =  moment(req.body.returnDate).format("YYYY-MM-DD");
+        const startDate = moment(req.body.departureDate).format("YYYY-MM-DD");
+        const endDate = moment(req.body.returnDate).format("YYYY-MM-DD");
         console.log("Ticketmaster Dates: ", startDate, endDate);
         //&startDateTime=YYYY-MM-DDT00:00:00Z&endDateTime=YYYY-MM-DDT23:59:00Z
         const eventQueryURL = `https://app.ticketmaster.com/discovery/v2/events.json?city=${cityEvent}&startDateTime=${startDate}T00:01:00Z&endDateTime=${endDate}T23:59:00Z&apikey=zotluMaanqoUR4sTfliAco7lbM5hAij4`;
@@ -95,8 +97,8 @@ module.exports = function(app) {
             eventDate: event.dates.start.localDate,
             eventTime: event.dates.start.localTime,
             eventVenue: event._embedded.venues[0].name,
-            // "Event Price:": event.priceRanges[2].min,
             eventUrl: event.url
+            // "Event Price:": event.priceRanges[2].min,
           };
           events.push(eventDetails);
         });
@@ -121,27 +123,26 @@ module.exports = function(app) {
     // res.redirect("/citySearch/ new id from db insert")
   });
 
-  //route to post data from citySearch but for now will post from itinerary
-  //need to get the user id first
-  //this needs to go in the /api/trips routes?
-  app.post("/api/itinerary", function(req, res) {
-    console.log(req.body);
+  // //route to post data from citySearch but for now will post from itinerary
+  // //need to get the user id first
+  // //this needs to go in the /api/trips routes?
+  // app.post("/api/itinerary", function(req, res) {
+  //   console.log(req.body);
 
-    db.Trip.create({
-      UserId: 1, //need to define UserID from user_data api call,
-      cityName: req.body.cityName,
-      departureDate: req.body.departureDate,
-      arrivalDate: req.body.arrivalDate
-    }).then(function() {
-      res.redirect(307, "/itinerary");
-    });
-  });
+  //   db.Trip.create({
+  //     UserId: 1, //need to define UserID from user_data api call,
+  //     cityName: req.body.cityName,
+  //     departureDate: req.body.departureDate,
+  //     arrivalDate: req.body.arrivalDate
+  //   }).then(function() {
+  //     res.redirect(307, "/itinerary");
+  //   });
+  // });
 
   app.get("/api/trips/:id", (req, res) => {
     db.User.findAll({
       where: {
-        // id: req.params.id
-        id: 1
+        id: req.user.id
       },
       include: [
         {
@@ -158,30 +159,6 @@ module.exports = function(app) {
     });
   });
 
-  // const eventQueryURL = `https://app.ticketmaster.com/discovery/v2/events.json?city=Denver&apikey=zotluMaanqoUR4sTfliAco7lbM5hAij4`;
-  // axios.get(eventQueryURL).then(function(data) {
-  //   var eventsDataArr=data.data._embedded.events;
-  //   // console.log(eventsDataArr)
-  //   eventsDataArr.forEach(function(event){
-  //     // console.log(event)
-  //   const eventDetails = {
-  //       "Event Name": event.name,
-  //       "Event Date:": event.dates.start.localDate,
-  //       "Event Time:": event.dates.start.localTime,
-  //       "Event Venue:": event._embedded.venues[0].name,
-  //       "Event URL:":event.url
-  //     }
-  //     events.push(
-  //       eventDetails
-  //     );
-  // console.log("EVENTS",events)
-  // res.json(events);
-  //  const flightsAndEvents = {
-  //   flights: flights,
-  //   events: events
-  // }
-  // res.json(flightsAndEvents);
-
   app.post("/api/trips", (req, res) => {
     // front-end JS todo: get access to currently logged in user's id (by making an AJAX
     // call to the route referenced above) and save it as the trip object's 'UserId'
@@ -194,6 +171,11 @@ module.exports = function(app) {
 
     // make sure that when you create a new trip, the 'trip' object you send from the
     // front-end has a UserId key/val pair!
+
+    // where: {
+    //   id: req.params.id
+    // },
+
     console.log("Trip", req.body.trip);
     db.Trip.create(req.body.trip)
       .then(async ({ id }) => {

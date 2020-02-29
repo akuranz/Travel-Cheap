@@ -5,23 +5,25 @@ console.log("searchResults js file");
 $(".saved-itinerary").click(function() {
   console.log("hi");
   event.preventDefault();
-  
+
   let savedEventName = $("#savedEventName").text();
-  
+
   let savedEventTime = $("#savedEventTime").text();
-   
+
   let savedEventDate = $("#savedEventDate").text();
-  
+
   let savedEventVenue = $("#savedEventVenue").text();
-  
+
   let savedEventURL = $("#savedEventURL").text();
-   
+
   let savedFlightPrice = $("#savedFlightPrice").text();
-  
+
   let savedDepartureDate = $("#savedDepartureDate").text();
-    
+
   let savedArrivalDate = $("#savedArrivalDate").text();
-  
+
+  let savedCityName = $("#savedCityName").text();
+
   saveItinerary(
     savedEventName,
     savedEventTime,
@@ -30,7 +32,8 @@ $(".saved-itinerary").click(function() {
     savedEventURL,
     savedFlightPrice,
     savedDepartureDate,
-    savedArrivalDate
+    savedArrivalDate,
+    savedCityName
   );
   console.log(
     savedEventName,
@@ -40,28 +43,29 @@ $(".saved-itinerary").click(function() {
     savedEventURL,
     savedFlightPrice,
     savedDepartureDate,
-    savedArrivalDate
+    savedArrivalDate,
+    savedCityName
   );
 });
 
-// let saved = $(".change-saved");
-// saved.click(function() {
-//   let eventId = saved.data(eventid)
-//   saved.data("saved", true);
-// });
-
+let cityName = $("#cityEvent").text(); //this may have to come frome the ticketmaster API
 let savedEvents = [];
 let savedFlights = [];
 $(function() {
   $(".change-saved").on("click", function(event) {
     event.preventDefault();
+    $(".savedResults").empty();
+    console.log("cityName", cityName);
     let saved = $(this).data("saved");
+    let category = $(this).data("category");
+    console.log(category);
     let eventName = $(this).data("eventname");
     let eventDate = $(this).data("eventdate");
     let eventTime = $(this).data("eventtime");
     let eventVenue = $(this).data("eventvenue");
     let eventUrl = $(this).data("eventurl");
     let eventDetails = {
+      cityName: cityName,
       eventName: eventName,
       eventDate: eventDate,
       eventTime: eventTime,
@@ -69,12 +73,14 @@ $(function() {
       eventUrl: eventUrl
     };
 
+    let flightAirline = $(this).data("flightairline");
     let flightPrice = $(this).data("flightprice");
     let flightDuration = $(this).data("flightduration");
     let flightDepartureTime = $(this).data("flightdeparturetime");
     let flightArrivalTime = $(this).data("flightarrivaltime");
 
     let flightDetails = {
+      flightAirline: flightAirline,
       flightPrice: flightPrice,
       flightDuration: flightDuration,
       flightDepartureTime: flightDepartureTime,
@@ -82,7 +88,6 @@ $(function() {
     };
 
     console.log("eventDetails", event.target);
-    $(".savedResults").empty();
     if (saved === false) {
       saved = $(this).attr("saved", !saved);
       console.log("saved", !saved);
@@ -91,28 +96,72 @@ $(function() {
       // clear out the saved container
       let savedResults = $(".savedResults");
       // loop through savedEvents
-      for (var i = 0; i < savedEvents.length; i++) {
-        // add divs for each event/flight in savedEvents to the saved container
-        var eventNamePrint = [
-          $("<p>").text(savedEvents[i].eventName),
-          $("<p>").text(savedEvents[i].eventDate),
-          $("<p>").text(savedEvents[i].eventTime),
-          $("<p>").text(savedEvents[i].eventVenue),
-          $("<p>").text(savedEvents[i].eventUrl)
-        ];
+      if (category === "event") {
+        for (var i = 0; i < savedEvents.length; i++) {
+          // add divs for each event/flight in savedEvents to the saved container
+          var eventDiv = $("<div>").attr("class", "col-md-4");
 
-        savedResults.append(eventNamePrint);
+          var eventDets = [
+            // $("<p>").text(cityName),
+            $("<h4>")
+              .text("City Name: " + savedEvents[i].cityName)
+              .attr("id", "savedCityName"),
+            $("<p>")
+              .text("Event Name: " + savedEvents[i].eventName)
+              .attr("id", "savedEventName"),
+            ,
+            $("<p>")
+              .text("Event Date: " + savedEvents[i].eventDate)
+              .attr("id", "savedEventDate"),
+            ,
+            $("<p>")
+              .text("Event Time: " + savedEvents[i].eventTime)
+              .attr("id", "savedEventTime"),
+            ,
+            $("<p>")
+              .text("Event Venue: " + savedEvents[i].eventVenue)
+              .attr("id", "savedEventVenue"),
+            ,
+            $("<p>")
+              .text("Event Url: " + savedEvents[i].eventUrl)
+              .attr("id", "savedEventURL")
+          ];
+
+          eventDiv.append(eventDets);
+          savedResults.append(eventDiv);
+        }
       }
-      for (var i = 0; i < savedFlights.length; i++) {
-        // add divs for each event/flight in savedEvents to the saved container
-        var flightNamePrint = [
-          $("<p>").text(savedFlights[i].flightPrice),
-          $("<p>").text(savedFlights[i].flightDuration),
-          $("<p>").text(savedFlights[i].flightDepartureTime),
-          $("<p>").text(savedFlights[i].flightArrivalTime)
-        ];
 
-        savedResults.append(flightNamePrint);
+      if (category === "flight") {
+        for (var i = 0; i < savedFlights.length; i++) {
+          // add divs for each event/flight in savedEvents to the saved container
+          var flightDiv = $("<div>").attr("class", "col-md-4");
+
+          var flightDets = [
+            $("<h2>").text("Flight Details"),
+            $("<p>")
+              .text("Airline: " + savedFlights[i].flightAirline)
+              .attr("id", "savedAirlineName"),
+            $("<p>")
+              .text("Price: " + savedFlights[i].flightPrice)
+              .attr("id", "savedFlightPrice"),
+            $("<p>")
+              .text("Duration: " + savedFlights[i].flightDuration)
+              .attr("id", "savedFlightDuration"),
+            $("<p>")
+              .text("Departure Time: " + savedFlights[i].flightDepartureTime)
+              .attr("id", "savedDepartureDate"),
+            $("<p>")
+              .text("Arrival Time: " + savedFlights[i].flightArrivalTime)
+              .attr("id", "savedArrivalDate"),
+            $("<button>")
+              .text("Save Itinerary")
+              .attr("class", "btn btn-primary saved-itinerary")
+          ];
+          flightDiv.append(flightDets);
+
+          savedResults.append(flightDiv);
+        }
       }
     }
     console.log("Saved Events:", savedEvents);
@@ -161,7 +210,8 @@ function saveItinerary(
   savedEventURL,
   savedFlightPrice,
   savedDepartureDate,
-  savedArrivalDate
+  savedArrivalDate,
+  cityName
 ) {
   // $(".saved-itinerary").on("click", function(event) {
   //   event.preventDefault();
@@ -169,9 +219,9 @@ function saveItinerary(
   savedItineraries = {
     trip: {
       UserId: 1,
-      cityName: "Denver",
-      departureDate: "2020-03-28",
-      arrivalDate: "2020-03-28"
+      cityName: cityName,
+      departureDate: savedDepartureDate,
+      arrivalDate: savedArrivalDate
     },
     flights: [
       {
@@ -184,14 +234,16 @@ function saveItinerary(
       {
         name: savedEventName,
         date: savedEventDate,
-        time: savedEventTime
+        time: savedEventTime,
+        venue: savedEventVenue,
+        url: savedEventURL
       }
     ]
   };
   $.post("/api/trips", savedItineraries).then(function(data) {
     console.log(data);
     if (data) {
-      console.log("You looked up: ", cities);
+      console.log("You looked up: ", savedItineraries);
     } else {
       console.log("That is not a valid city");
     }
@@ -253,48 +305,4 @@ function saveItinerary(
 
 //   // function to send to the backend
 //   postCity(cityFrom, cityTo, departureDate, returnDate);
-// }
-
-//reformatted to move day first, then month to match api query
-// function dateFormatter(date) {
-//   let year = date.substring(0, 4);
-//   let month = date.substring(5, 7);
-//   let day = date.substring(8);
-//   let finalDate = day + "/" + month + "/" + year;
-//   return finalDate;
-// }
-
-// function dateFormatter(date) {
-//     let year = date.substring(0, 4);
-//     let month = date.substring(5, 7);
-//     let day = date.substring(8);
-//     let finalDate = month + "/" + day + "/" + year;
-//     return finalDate;
-// }
-
-// create function that creates button for each saved itinerary
-// below is renderButtons function from weather planner that uses local storage to create buttons
-// will have to change to using database information
-
-// function renderButtons() {
-//   cities = JSON.parse(localStorage.getItem("savedCities"));
-//   if (cities === null || cities === undefined) {
-//     return;
-//   }
-//   // Deleting the buttons prior to adding new cities
-//   $("#previousSearch").empty();
-//   // Looping through the array of cities
-//   console.log("Cities: " + cities);
-//   for (var i = 0; i < cities.length; i++) {
-//     // Then dynamicaly generating buttons for each city in the array
-//     var a = $("<button>");
-//     // Adding a class of movie to our button
-//     a.addClass("city btn btn-outline-secondary btn-block");
-//     // Adding a data-attribute
-//     a.attr("data-name", cities[i]);
-//     // Providing the initial button text
-//     a.text(cities[i]);
-//     // Adding the button to the buttons-view div
-//     $("#previousSearch").append(a);
-//   }
 // }
