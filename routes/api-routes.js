@@ -7,6 +7,8 @@ var passport = require("../config/passport");
 const flights = [];
 const events = [];
 
+let UserId;
+
 module.exports = function(app) {
   // Using the passport.authenticate middleware with our local strategy.
   // If the user has valid login credentials, send them to the  page.
@@ -142,7 +144,7 @@ module.exports = function(app) {
   app.get("/api/trips/:id", (req, res) => {
     db.User.findAll({
       where: {
-        id: req.user.id
+        id: req.params.id
       },
       include: [
         {
@@ -171,13 +173,18 @@ module.exports = function(app) {
 
     // make sure that when you create a new trip, the 'trip' object you send from the
     // front-end has a UserId key/val pair!
-
-    // where: {
-    //   id: req.params.id
-    // },
-
+    // console.log("req", req);
+    console.log("req", req.body);
     console.log("Trip", req.body.trip);
-    db.Trip.create(req.body.trip)
+    console.log("Events", req.body.events);
+    console.log("Flights", req.body.flights);
+    console.log("WONDERFUL", req.body.trip.UserId);
+    db.Trip.create({
+      UserId: req.body.trip.UserId,
+      cityName: req.body.trip.cityName,
+      departureDate: req.body.trip.departureDate,
+      arrivalDate: req.body.trip.arrivalDate
+    })
       .then(async ({ id }) => {
         console.log("hi");
         // mapping through array of flights/events from the front-end and adding

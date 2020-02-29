@@ -1,6 +1,8 @@
 // AirportInput("cityFromInput");
 // AirportInput("cityToInput");
 // clicking search button
+let CurrentUserId = localStorage.getItem("UserId");
+
 console.log("searchResults js file");
 $(".saved-itinerary").click(function() {
   console.log("hi");
@@ -24,6 +26,8 @@ $(".saved-itinerary").click(function() {
 
   let savedCityName = $("#savedCityName").text();
 
+  // getUser();
+
   saveItinerary(
     savedEventName,
     savedEventTime,
@@ -35,6 +39,7 @@ $(".saved-itinerary").click(function() {
     savedArrivalDate,
     savedCityName
   );
+
   console.log(
     savedEventName,
     savedEventTime,
@@ -49,8 +54,9 @@ $(".saved-itinerary").click(function() {
 });
 
 let cityName = $("#cityEvent").text(); //this may have to come frome the ticketmaster API
-let savedEvents = [];
-let savedFlights = [];
+// let savedEvents = [];
+// let savedFlights = [];
+let savedSearch = [];
 $(function() {
   $(".change-saved").on("click", function(event) {
     event.preventDefault();
@@ -70,7 +76,8 @@ $(function() {
       eventDate: eventDate,
       eventTime: eventTime,
       eventVenue: eventVenue,
-      eventUrl: eventUrl
+      eventUrl: eventUrl,
+      category: "event"
     };
 
     let flightAirline = $(this).data("flightairline");
@@ -84,89 +91,93 @@ $(function() {
       flightPrice: flightPrice,
       flightDuration: flightDuration,
       flightDepartureTime: flightDepartureTime,
-      flightArrivalTime: flightArrivalTime
+      flightArrivalTime: flightArrivalTime,
+      category: "flight"
     };
 
     console.log("eventDetails", event.target);
-    if (saved === false) {
-      saved = $(this).attr("saved", !saved);
-      console.log("saved", !saved);
-      savedEvents.push(eventDetails);
-      savedFlights.push(flightDetails);
-      // clear out the saved container
-      let savedResults = $(".savedResults");
-      // loop through savedEvents
-      if (category === "event") {
-        for (var i = 0; i < savedEvents.length; i++) {
-          // add divs for each event/flight in savedEvents to the saved container
-          var eventDiv = $("<div>").attr("class", "col-md-4");
-
-          var eventDets = [
-            // $("<p>").text(cityName),
-            $("<h4>")
-              .text("City Name: " + savedEvents[i].cityName)
-              .attr("id", "savedCityName"),
-            $("<p>")
-              .text("Event Name: " + savedEvents[i].eventName)
-              .attr("id", "savedEventName"),
-            ,
-            $("<p>")
-              .text("Event Date: " + savedEvents[i].eventDate)
-              .attr("id", "savedEventDate"),
-            ,
-            $("<p>")
-              .text("Event Time: " + savedEvents[i].eventTime)
-              .attr("id", "savedEventTime"),
-            ,
-            $("<p>")
-              .text("Event Venue: " + savedEvents[i].eventVenue)
-              .attr("id", "savedEventVenue"),
-            ,
-            $("<p>")
-              .text("Event Url: " + savedEvents[i].eventUrl)
-              .attr("id", "savedEventURL")
-          ];
-
-          eventDiv.append(eventDets);
-          savedResults.append(eventDiv);
-        }
-      }
-
-      if (category === "flight") {
-        for (var i = 0; i < savedFlights.length; i++) {
-          // add divs for each event/flight in savedEvents to the saved container
-          var flightDiv = $("<div>").attr("class", "col-md-4");
-
-          var flightDets = [
-            $("<h2>").text("Flight Details"),
-            $("<p>")
-              .text("Airline: " + savedFlights[i].flightAirline)
-              .attr("id", "savedAirlineName"),
-            $("<p>")
-              .text("Price: " + savedFlights[i].flightPrice)
-              .attr("id", "savedFlightPrice"),
-            $("<p>")
-              .text("Duration: " + savedFlights[i].flightDuration)
-              .attr("id", "savedFlightDuration"),
-            $("<p>")
-              .text("Departure Time: " + savedFlights[i].flightDepartureTime)
-              .attr("id", "savedDepartureDate"),
-            $("<p>")
-              .text("Arrival Time: " + savedFlights[i].flightArrivalTime)
-              .attr("id", "savedArrivalDate"),
-            $("<button>")
-              .text("Save Itinerary")
-              .attr("class", "btn btn-primary saved-itinerary")
-          ];
-          flightDiv.append(flightDets);
-
-          savedResults.append(flightDiv);
-        }
-      }
+    // if (saved === false) {
+    saved = $(this).attr("saved", !saved);
+    console.log("saved", !saved);
+    if (category === "event") {
+      savedSearch.push(eventDetails);
+    } else {
+      savedSearch.push(flightDetails);
     }
-    console.log("Saved Events:", savedEvents);
-    console.log("Saved Flights:", savedFlights);
+    // clear out the saved container
+    let savedResults = $(".savedResults");
+    // loop through savedEvents
+    console.log("SavedSearch:", savedSearch);
+    for (var i = 0; i < savedSearch.length; i++) {
+      // add divs for each event/flight in savedEvents to the saved container
+      if (savedSearch[i].category === "event") {
+        var eventDiv = $("<div>").attr("class", "col-md-4");
+        var eventDets = [
+          // $("<p>").text(cityName),
+          $("<h4>")
+            .text("City Name: " + savedSearch[i].cityName)
+            .attr("id", "savedCityName"),
+          $("<p>")
+            .text("Event Name: " + savedSearch[i].eventName)
+            .attr("id", "savedEventName"),
+          ,
+          $("<p>")
+            .text("Event Date: " + savedSearch[i].eventDate)
+            .attr("id", "savedEventDate"),
+          ,
+          $("<p>")
+            .text("Event Time: " + savedSearch[i].eventTime)
+            .attr("id", "savedEventTime"),
+          ,
+          $("<p>")
+            .text("Event Venue: " + savedSearch[i].eventVenue)
+            .attr("id", "savedEventVenue"),
+          ,
+          $("<p>")
+            .text("Event Url: " + savedSearch[i].eventUrl)
+            .attr("id", "savedEventURL")
+        ];
+
+        eventDiv.append(eventDets);
+        savedResults.append(eventDiv);
+      }
+
+      // }        for (var i = 0; i < savedFlights.length; i++) {
+      // add divs for each event/flight in savedEvents to the saved container
+      console.log(savedSearch[i]);
+      if (savedSearch[i].category === "flight") {
+        var flightDiv = $("<div>").attr("class", "col-md-4");
+        var flightDets = [
+          $("<h2>").text("Flight Details"),
+          $("<p>")
+            .text("Airline: " + savedSearch[i].flightAirline)
+            .attr("id", "savedAirlineName"),
+          $("<p>")
+            .text("Price: " + savedSearch[i].flightPrice)
+            .attr("id", "savedFlightPrice"),
+          $("<p>")
+            .text("Duration: " + savedSearch[i].flightDuration)
+            .attr("id", "savedFlightDuration"),
+          $("<p>")
+            .text("Departure Time: " + savedSearch[i].flightDepartureTime)
+            .attr("id", "savedDepartureDate"),
+          $("<p>")
+            .text("Arrival Time: " + savedSearch[i].flightArrivalTime)
+            .attr("id", "savedArrivalDate"),
+          $("<button>")
+            .text("Save Itinerary")
+            .attr("class", "btn btn-primary saved-itinerary")
+        ];
+        flightDiv.append(flightDets);
+        savedResults.append(flightDiv);
+      }
+      // }
+      console.log("Saved Flights:", savedSearch[i]);
+    }
   });
+
+  // console.log("Saved Events:", savedEvents);
+  // console.log("Saved Flights:", savedFlights);
 });
 
 // function postCity(cityFrom, cityTo, departureDate, returnDate, cityEvent) {
@@ -202,6 +213,40 @@ $(function() {
 //   event.preventDefault();
 // });
 
+// function getUser() {
+//   $.get("/api/user_data", {
+//     id: id,
+//     email: email,
+//     password: password
+//   })
+//     .then(function(res) {
+//       //if successful then make the ajax call
+//       console.log("GET USER RESP", res.id);
+//       //try inside and outside the .then
+//       CurrentUserId = res.id;
+//       // If there's an error, log the error
+//     })
+//     .catch(function(err) {
+//       console.log(err);
+//     });
+// }
+
+// function getUser() {
+// $.get("/api/user_data", function(req, res) {
+//   if (!req.user) {
+//     // The user is not logged in, send back an empty object
+//     res.json({});
+//   } else {
+//     // Otherwise send back the user's email and id
+//     // Sending back a password, even a hashed password, isn't a good idea
+//     res.json({
+//       email: req.user.email,
+//       id: req.user.id
+//     });
+//   }
+//   console.log(id);
+// });
+
 function saveItinerary(
   savedEventName,
   savedEventTime,
@@ -213,12 +258,10 @@ function saveItinerary(
   savedArrivalDate,
   cityName
 ) {
-  // $(".saved-itinerary").on("click", function(event) {
-  //   event.preventDefault();
   //need an array on the front end in the right format
   savedItineraries = {
     trip: {
-      UserId: 1,
+      UserId: CurrentUserId,
       cityName: cityName,
       departureDate: savedDepartureDate,
       arrivalDate: savedArrivalDate
@@ -249,6 +292,16 @@ function saveItinerary(
     }
   });
 }
+
+$("#search-logout").on("click", function(event) {
+  console.log("logout");
+  window.location.href = "/logout";
+});
+
+$("#saved-itinerary").on("click", function(event) {
+  console.log("logout");
+  window.location.href = "/itinerary";
+});
 
 // original format YYYY-MM-DD, needs to change to MM/DD/YYYY
 // takes depature and return date and reformats it
