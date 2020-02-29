@@ -81,8 +81,8 @@ module.exports = function(app) {
     console.log("inside itinerary get route");
     let user = await db.User.findAll({
       where: {
-        // id: req.user.id
-        id: 1
+        id: req.user.id
+        // id: 1
       },
       include: [
         {
