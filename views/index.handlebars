@@ -54,12 +54,13 @@
                     {{#each events}}
 
                     <div class="col-md-6">
-                        <div class="boldTitle">{{eventName}}</div>
+                        <div class="boldTitle">{{eventCity}}</div>
+                        Name: {{eventName}}<br>
                         Date: {{eventDate}}<br>
                         Time: {{eventTime}}<br>
                         Venue: {{eventVenue}}<br>
                         <a href="{{eventUrl}}" target="_blank">More info!</a>
-                        {{> events/event-block saved=false category="event" eventName=this.eventName eventDate=this.eventDate eventVenue=this.eventVenue eventUrl=this.eventUrl}}
+                        {{> events/event-block saved=false category="event" eventName=this.eventName eventDate=this.eventDate eventVenue=this.eventVenue eventUrl=this.eventUrl eventCity=this.eventCity}}
                         <hr>
                     </div>
                     {{/each}}

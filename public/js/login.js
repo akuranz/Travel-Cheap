@@ -29,11 +29,10 @@ $(document).ready(function() {
       password: password
     })
       .then(function(res) {
-        //if successful then make the ajax call
         console.log(res);
         //try inside and outside the .then
-        CurrentUserId = res.id;
-        localStorage.setItem("UserId", CurrentUserId);
+        // CurrentUserId = res.id;
+        // localStorage.setItem("UserId", CurrentUserId);
         window.location.replace("/itinerary");
 
         // If there's an error, log the error

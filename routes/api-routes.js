@@ -3,6 +3,7 @@ var db = require("../models");
 var axios = require("axios");
 var moment = require("moment");
 var passport = require("../config/passport");
+var isAuthenticated = require("../config/middleware/isAuthenticated");
 var env = require("dotenv").config();
 
 let flights = [];
@@ -34,15 +35,11 @@ module.exports = function(app) {
     res.redirect("/");
   });
 
-  app.get("/api/user_data", function(req, res) {
-    if (!req.user) {
-      res.json({});
-    } else {
-      res.json({
-        email: req.user.email,
-        id: req.user.id
-      });
-    }
+  app.get("/api/user_data", isAuthenticated, function(req, res) {
+    res.json({
+      email: req.user.email,
+      id: req.user.id
+    });
   });
 
   app.post("/api/citySearch", function(req, res) {
@@ -74,8 +71,7 @@ module.exports = function(app) {
         }); // end dataArr.forEach
 
         const cityEvent = req.body.cityEvent;
-        // localStorage.setItem("CityName", cityEvent);
-        // console.log(cityEvent);
+        console.log("city inside API Call", cityEvent);
         const startDate = moment(req.body.departureDate).format("YYYY-MM-DD");
         const endDate = moment(req.body.returnDate).format("YYYY-MM-DD");
         const api_key = process.env.API_KEY;
@@ -89,7 +85,7 @@ module.exports = function(app) {
         eventsDataArr.forEach(function(event) {
           console.log(event);
           const eventDetails = {
-            eventCity: event.cityName,
+            eventCity: req.body.cityEvent,
             eventName: event.name,
             eventDate: event.dates.start.localDate,
             eventTime: event.dates.start.localTime,
@@ -98,6 +94,7 @@ module.exports = function(app) {
             // "Event Price:": event.priceRanges[2].min,
           };
           // events.splice(0, events.length);
+          console.log(event);
           events.push(eventDetails);
         });
 
@@ -106,7 +103,6 @@ module.exports = function(app) {
           events: events
         };
         console.log(flightsAndEvents);
-        // res.json(flightsAndEvents);
         res.render("index", {
           flights,
           events
@@ -135,14 +131,14 @@ module.exports = function(app) {
     });
   });
 
-  app.post("/api/trips", (req, res) => {
+  app.post("/api/trips", isAuthenticated, (req, res) => {
     console.log("req", req.body);
     console.log("Trip", req.body.trip);
     // console.log("Events", req.body.events);
     // console.log("Flights", req.body.flights);
     // console.log("WONDERFUL", req.body.trip.UserId);
     db.Trip.create({
-      UserId: req.body.trip.UserId,
+      UserId: req.user.id,
       cityName: req.body.trip.cityName,
       departureDate: req.body.trip.departureDate,
       arrivalDate: req.body.trip.arrivalDate
@@ -172,7 +168,7 @@ module.exports = function(app) {
       })
       .catch(err => {
         if (err) {
-          console.log(err);
+          res.status(500).send(err);
         }
       });
     // after the trip is created, grab the id of newly-created trip (you'll need this
