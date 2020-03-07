@@ -11,17 +11,17 @@ var isAuthenticated = require("../config/middleware/isAuthenticated");
 module.exports = function(app) {
   app.get("/", function(req, res) {
     console.log("HEREEEEEEE");
-    if (req.user) {
-      res.redirect("/itinerary");
-    }
+    // if (req.user) {
+    //   res.redirect("/itinerary");
+    // }
     res.sendFile(path.join(__dirname, "../public/sign-up.html"));
   });
 
   app.get("/login", function(req, res) {
     // If the user already has an account send them to the members page
-    if (req.user) {
-      res.redirect("/itinerary");
-    }
+    // if (req.user) {
+    //   res.redirect("/itinerary");
+    // }
     res.sendFile(path.join(__dirname, "../public/login.html"));
   });
 
@@ -65,22 +65,22 @@ module.exports = function(app) {
   //   });
   // });
 
-  app.get("/citySearch", isAuthenticated, function(req, res) {
-    //get all info in db where id
-    //or just get the id from the front end to pu in the object to post to the backend
-    db.User.findAll({
-      where: {
-        id: req.user.id
-      },
-      include: [
-        {
-          model: db.Trip,
-          include: [{ model: db.Flight }, { model: db.Event }]
-        }
-      ]
-    });
-    console.log(id);
-  });
+  // app.get("/citySearch", isAuthenticated, function(req, res) {
+  //   //get all info in db where id
+  //   //or just get the id from the front end to pu in the object to post to the backend
+  //   db.User.findAll({
+  //     where: {
+  //       id: req.user.id
+  //     },
+  //     include: [
+  //       {
+  //         model: db.Trip,
+  //         include: [{ model: db.Flight }, { model: db.Event }]
+  //       }
+  //     ]
+  //   });
+  //   console.log(id);
+  // });
 
   // app.get("/citySearch/flight/:qId/:name", function(req, res) {
   //   // get db info about query
