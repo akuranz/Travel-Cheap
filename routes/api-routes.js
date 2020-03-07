@@ -3,7 +3,7 @@ var db = require("../models");
 var axios = require("axios");
 var moment = require("moment");
 var passport = require("../config/passport");
-var isAuthenticated = require("../config/middleware/isAuthenticated");
+// var isAuthenticated = require("../config/middleware/isAuthenticated");
 var env = require("dotenv").config();
 
 let flights = [];
@@ -35,7 +35,7 @@ module.exports = function(app) {
     res.redirect("/");
   });
 
-  app.get("/api/user_data", isAuthenticated, function(req, res) {
+  app.get("/api/user_data", function(req, res) {
     res.json({
       email: req.user.email,
       id: req.user.id
@@ -131,7 +131,7 @@ module.exports = function(app) {
     });
   });
 
-  app.post("/api/trips", isAuthenticated, (req, res) => {
+  app.post("/api/trips", (req, res) => {
     console.log("req", req.body);
     console.log("Trip", req.body.trip);
     // console.log("Events", req.body.events);
@@ -142,35 +142,34 @@ module.exports = function(app) {
       cityName: req.body.trip.cityName,
       departureDate: req.body.trip.departureDate,
       arrivalDate: req.body.trip.arrivalDate
-    })
-      .then(async ({ id }) => {
-        console.log("hi");
+    }).then(async ({ id }) => {
+      console.log("hi");
 
-        const flights = req.body.flights.map(flight => {
-          flight.TripId = id;
-          return flight;
-        });
-
-        // ^^^ see above comment ^^^
-        const events = req.body.events.map(event => {
-          event.TripId = id;
-          return event;
-        });
-
-        // then bulk creating multiple flights/events at once; thanks to the code above,
-        // each flight/event object should have a TripId that associates it with the
-        // current trip, which is in turn associated with the currently logged-in user
-        await db.Flight.bulkCreate(flights);
-        await db.Event.bulkCreate(events);
-
-        // send a response to the the client terminating the req/res cycle
-        res.end();
-      })
-      .catch(err => {
-        if (err) {
-          res.status(500).send(err);
-        }
+      const flights = req.body.flights.map(flight => {
+        flight.TripId = id;
+        return flight;
       });
+
+      // ^^^ see above comment ^^^
+      const events = req.body.events.map(event => {
+        event.TripId = id;
+        return event;
+      });
+
+      // then bulk creating multiple flights/events at once; thanks to the code above,
+      // each flight/event object should have a TripId that associates it with the
+      // current trip, which is in turn associated with the currently logged-in user
+      await db.Flight.bulkCreate(flights);
+      await db.Event.bulkCreate(events);
+
+      // send a response to the the client terminating the req/res cycle
+      res.end();
+    });
+    // .catch(err => {
+    //   if (err) {
+    //     res.status(500).send(err);
+    //   }
+
     // after the trip is created, grab the id of newly-created trip (you'll need this
     // in order to add new flight and event records that are associated with the
     // correct trip!)
