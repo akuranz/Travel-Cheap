@@ -11,17 +11,17 @@ var isAuthenticated = require("../config/middleware/isAuthenticated");
 module.exports = function(app) {
   app.get("/", function(req, res) {
     console.log("HEREEEEEEE");
-    // if (req.user) {
-    //   res.redirect("/itinerary");
-    // }
+    if (req.user) {
+      res.redirect("/itinerary");
+    }
     res.sendFile(path.join(__dirname, "../public/sign-up.html"));
   });
 
   app.get("/login", function(req, res) {
     // If the user already has an account send them to the members page
-    // if (req.user) {
-    //   res.redirect("/itinerary");
-    // }
+    if (req.user) {
+      res.redirect("/itinerary");
+    }
     res.sendFile(path.join(__dirname, "../public/login.html"));
   });
 
@@ -33,7 +33,6 @@ module.exports = function(app) {
     let user = await db.User.findAll({
       where: {
         id: req.user.id
-        // id: 1
       },
       include: [
         {

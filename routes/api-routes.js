@@ -9,7 +9,7 @@ var env = require("dotenv").config();
 let flights = [];
 let events = [];
 
-let UserId;
+// let UserId;
 
 module.exports = function(app) {
   app.post("/api/login", passport.authenticate("local"), function(req, res) {
@@ -17,7 +17,7 @@ module.exports = function(app) {
   });
 
   app.post("/api/signup", function(req, res) {
-    console.log(req.body);
+    // console.log(req.body);
     db.User.create({
       email: req.body.email,
       password: req.body.password
