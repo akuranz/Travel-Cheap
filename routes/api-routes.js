@@ -65,8 +65,6 @@ module.exports = function(app) {
               .format("MM/DD/YYYY h:mm a"),
             ArrivalTime: moment.unix(flight.aTime).format("MM/DD/YYYY h:mm a")
           };
-          // console.log(flight);
-          // flights.splice(0, flights.length);
           flights.push(flightDetails);
         }); // end dataArr.forEach
 
@@ -93,7 +91,6 @@ module.exports = function(app) {
             eventUrl: event.url
             // "Event Price:": event.priceRanges[2].min,
           };
-          // events.splice(0, events.length);
           console.log(event);
           events.push(eventDetails);
         });
