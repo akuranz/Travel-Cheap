@@ -27,9 +27,7 @@ module.exports = function(app) {
 
   //Real handlebars route:
   app.get("/itinerary", isAuthenticated, async function(req, res) {
-    //res.sendFile(path.join(__dirname, "../public/itinerary.html"));
     console.log("inside itinerary get route");
-
     let user = await db.User.findAll({
       where: {
         id: req.user.id
@@ -43,9 +41,6 @@ module.exports = function(app) {
     });
 
     let info = user[0].dataValues.Trips;
-    // console.log(info[0].dataValues);
-    // console.log("INFO", info);
-
     res.render("itinerary", {
       info
     });
@@ -55,43 +50,4 @@ module.exports = function(app) {
   app.get("/citySearch", function(req, res) {
     res.render("index");
   });
-  // app.get("/citySearch/:qId", function(req, res) {
-  //   // get db info about query
-  //   // query your API
-  //   res.render("index", {
-  //     //flights,
-  //     //events,
-  //   });
-  // });
-
-  // app.get("/citySearch", isAuthenticated, function(req, res) {
-  //   //get all info in db where id
-  //   //or just get the id from the front end to pu in the object to post to the backend
-  //   db.User.findAll({
-  //     where: {
-  //       id: req.user.id
-  //     },
-  //     include: [
-  //       {
-  //         model: db.Trip,
-  //         include: [{ model: db.Flight }, { model: db.Event }]
-  //       }
-  //     ]
-  //   });
-  //   console.log(id);
-  // });
-
-  // app.get("/citySearch/flight/:qId/:name", function(req, res) {
-  //   // get db info about query
-  //   // query your API
-
-  //   res.render("index", {
-  //     //flights,
-  //     //events,
-  //     dispFlight: true,
-  //     flight: {
-  //       eventName: "Some Flight"
-  //     }
-  //   });
-  // });
 };
