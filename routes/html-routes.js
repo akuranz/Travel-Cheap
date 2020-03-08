@@ -28,9 +28,11 @@ module.exports = function(app) {
   //Real handlebars route:
   app.get("/itinerary", isAuthenticated, async function(req, res) {
     console.log("inside itinerary get route");
+    console.log("id?", req.user.id);
     let user = await db.User.findAll({
       where: {
-        id: req.user.id
+        // id: req.user.id
+        id: 1
       },
       include: [
         {
@@ -38,6 +40,10 @@ module.exports = function(app) {
           include: [{ model: db.Flight }, { model: db.Event }]
         }
       ]
+    }).catch(err => {
+      if (err) {
+        console.log(err);
+      }
     });
 
     let info = user[0].dataValues.Trips;

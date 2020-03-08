@@ -4,7 +4,7 @@ var axios = require("axios");
 var moment = require("moment");
 var passport = require("../config/passport");
 // var isAuthenticated = require("../config/middleware/isAuthenticated");
-var env = require("dotenv").config();
+// var env = require("dotenv").config();
 
 let flights = [];
 let events = [];
@@ -129,6 +129,7 @@ module.exports = function(app) {
   app.post("/api/trips", (req, res) => {
     console.log("req", req.body);
     console.log("Trip", req.body.trip);
+    console.log("ID", req.user.id);
     // console.log("Events", req.body.events);
     // console.log("Flights", req.body.flights);
     // console.log("WONDERFUL", req.body.trip.UserId);
