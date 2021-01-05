@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/akuranz/project-2#readme",
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
     "compression": "^1.7.4",
     "dotenv": "^8.2.0",
